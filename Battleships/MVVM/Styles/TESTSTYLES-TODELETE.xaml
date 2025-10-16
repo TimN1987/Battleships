@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+<!--
+    <ControlTemplate.Triggers>
+        <Trigger Property="IsSelected" Value="True">
+            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource ListItemSelected}"/>
+        </Trigger>
+        <Trigger Property="IsMouseOver" Value="True">
+            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource ListItemMouseOver}"/>
+        </Trigger>
+        <MultiTrigger>
+            <MultiTrigger.Conditions>
+                <Condition Property="IsSelected" Value="True"/>
+                <Condition Property="IsMouseOver" Value="True"/>
+            </MultiTrigger.Conditions>
+            <Setter TargetName="Bd" Property="Background" Value="{DynamicResource ListItemSelectedMouseOver}"/>
+            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource ListItemSelectedMouseOverBorder}"/>
+        </MultiTrigger>
+    </ControlTemplate.Triggers> -->
+
+</ResourceDictionary>

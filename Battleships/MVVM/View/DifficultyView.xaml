@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="Battleships.MVVM.View.DifficultyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Battleships.MVVM.View"
+             xmlns:enums="clr-namespace:Battleships.MVVM.Enums"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Viewbox Grid.Row="1" 
+         Grid.Column="1" Grid.ColumnSpan="3">
+            <TextBlock Text="Select difficulty level"
+               Style="{DynamicResource TitleText}"/>
+        </Viewbox>
+        <Button Grid.Row="3" Grid.Column="2"
+                Style="{DynamicResource StandardButtonStyle}"
+                Content="Easy"
+                Command="{Binding SelectDifficultyCommand}"
+                CommandParameter="{x:Static enums:GameDifficulty.Easy}"
+                AutomationProperties.Name="Select easy difficulty."/>
+        <Button Grid.Row="5" Grid.Column="2"
+                Style="{DynamicResource StandardButtonStyle}"
+                Content="Medium"
+                Command="{Binding SelectDifficultyCommand}"
+                CommandParameter="{x:Static enums:GameDifficulty.Medium}"
+                AutomationProperties.Name="Select medium difficulty."/>
+        <Button Grid.Row="7" Grid.Column="2"
+                Style="{DynamicResource StandardButtonStyle}"
+                Content="Hard"
+                Command="{Binding SelectDifficultyCommand}"
+                CommandParameter="{x:Static enums:GameDifficulty.Hard}"
+                AutomationProperties.Name="Select hard difficulty."/>
+        <Button Grid.Row="9" Grid.Column="2"
+                Style="{DynamicResource StandardButtonStyle}"
+                Content="AI Player"
+                Command="{Binding SelectDifficultyCommand}"
+                CommandParameter="{x:Static enums:GameDifficulty.AI}"
+                AutomationProperties.Name="Select AI opponent."/>
+    </Grid>
+</UserControl>

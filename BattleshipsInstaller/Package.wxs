@@ -1,0 +1,17 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+	<Package Name="Battleships" Manufacturer="Tim Naish" Version="1.0.0.0" UpgradeCode="7513392d-9b38-4cd9-98ea-6429b32ce8e0" >
+		<MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+
+		<Feature Id="Main">
+			<ComponentGroupRef Id="ExampleComponents" />
+		</Feature>
+	</Package>
+
+	<Fragment>
+		<Binary Id="CustomActionsDLL" SourceFile="$(var.InstallCustomActions.TargetPath)" />
+		<CustomAction Id="RunInstallCustomActions" BinaryRef="CustomActionsDLL" DllEntry="InstallSetUp" Execute="immediate" Impersonate="no" Return="check" />
+		<InstallExecuteSequence>
+			<Custom Action="RunInstallCustomActions" After="InstallFiles" Condition="NOT Installed" />
+		</InstallExecuteSequence>
+	</Fragment>
+</Wix>

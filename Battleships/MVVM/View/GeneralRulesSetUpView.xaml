@@ -1,0 +1,78 @@
+﻿<UserControl x:Class="Battleships.MVVM.View.GeneralRulesSetUpView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Battleships.MVVM.View"
+             xmlns:viewmodel="clr-namespace:Battleships.MVVM.ViewModel"
+             d:DataContext="{d:DesignInstance viewmodel:GeneralRulesSetUpViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Viewbox Grid.Row="1" 
+             Grid.Column="1" Grid.ColumnSpan="5">
+            <TextBlock Text="Select General Game rules"
+                   Style="{DynamicResource TitleText}"/>
+        </Viewbox>
+        <Viewbox Grid.Row="3"
+                 Grid.Column="1" Grid.ColumnSpan="2"
+                 HorizontalAlignment="Right">
+            <TextBlock Text="Airstrike allowed"
+                       Style="{DynamicResource StandardText}"
+                       ToolTip="{Binding AirstrikeExplanation, Mode=OneWay}"/>
+        </Viewbox>
+        <CheckBox Grid.Row="3"
+                  Grid.Column="4"
+                  IsChecked="{Binding AirstrikeAllowed, Mode=TwoWay}"
+                  Style="{DynamicResource ToggleSwitchCheckBox}"/>
+        <Viewbox Grid.Row="5"
+                 Grid.Column="1" Grid.ColumnSpan="2"
+                 HorizontalAlignment="Right">
+            <TextBlock Text="Bombardment allowed"
+                       Style="{DynamicResource StandardText}"
+                       ToolTip="{Binding BombardmentExplanation, Mode=OneWay}"/>
+        </Viewbox>
+        <CheckBox Grid.Row="5"
+                  Grid.Column="4"
+                  IsChecked="{Binding BombardmentAllowed, Mode=TwoWay}"
+                  Style="{DynamicResource ToggleSwitchCheckBox}"/>
+        <Viewbox Grid.Row="7"
+                 Grid.Column="1" Grid.ColumnSpan="2"
+                 HorizontalAlignment="Right">
+            <TextBlock Text="Ships can touch"
+                       Style="{DynamicResource StandardText}"
+                       ToolTip="{Binding ShipsCanTouchExplanation, Mode=OneWay}"/>
+        </Viewbox>
+        <CheckBox Grid.Row="7"
+                  Grid.Column="4"
+                  IsChecked="{Binding ShipsCanTouch, Mode=TwoWay}"
+                  Style="{DynamicResource ToggleSwitchCheckBox}"/>
+        <Button Grid.Row="9"
+                Grid.Column="2" Grid.ColumnSpan="2"
+                Content="Continue"
+                Command="{Binding SetRulesCommand}"
+                Style="{DynamicResource StandardButtonStyle}"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,191 @@
+﻿<UserControl x:Class="Battleships.MVVM.View.PlayGameView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:Battleships.MVVM.View"
+             xmlns:viewmodel="clr-namespace:Battleships.MVVM.ViewModel"
+             xmlns:converters="clr-namespace:Battleships.MVVM.Converters"
+             xmlns:enums="clr-namespace:Battleships.MVVM.Enums"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             d:DataContext="{d:DesignInstance Type=viewmodel:PlayGameViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:ShotTypeToBooleanConverter x:Key="ShotTypeToBooleanConverter"/>
+        <Storyboard x:Key="BomberAnimation"
+                    Completed="Storyboard_Completed">
+            <DoubleAnimation Storyboard.TargetName="BomberImage"
+                             Storyboard.TargetProperty="(Canvas.Top)"
+                             From="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                             To="-100"
+                             Duration="0:0:2"/>
+            <DoubleAnimation Storyboard.TargetName="BomberImage"
+                             Storyboard.TargetProperty="(Canvas.Left)"
+                             From="200"
+                             To="500"
+                             Duration="0:0:2"/>
+        </Storyboard>
+    </UserControl.Resources>
+    <UserControl.InputBindings>
+        <KeyBinding Key="Up"
+                    Command="{Binding MoveFocusCommand}"
+                    CommandParameter="{x:Static enums:KeyboardDirection.Up}"/>
+        <KeyBinding Key="Down"
+                    Command="{Binding MoveFocusCommand}"
+                    CommandParameter="{x:Static enums:KeyboardDirection.Down}"/>
+        <KeyBinding Key="Left"
+                    Command="{Binding MoveFocusCommand}"
+                    CommandParameter="{x:Static enums:KeyboardDirection.Left}"/>
+        <KeyBinding Key="Right"
+                    Command="{Binding MoveFocusCommand}"
+                    CommandParameter="{x:Static enums:KeyboardDirection.Right}"/>
+    </UserControl.InputBindings>
+    <Grid>
+        <Canvas Panel.ZIndex="1">
+            <Image x:Name="BomberImage"
+                   Width="50"
+                   Height="50"
+                   Source="{Binding BomberImage, NotifyOnTargetUpdated=True, TargetNullValue={x:Null}}"
+                   Canvas.Left="200"
+                   Canvas.Top="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}">
+                <Image.Triggers>
+                    <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                        <BeginStoryboard Storyboard="{StaticResource BomberAnimation}"/>
+                    </EventTrigger>
+                </Image.Triggers>
+            </Image>
+        </Canvas>
+        <Viewbox Stretch="Uniform"
+                 Panel.ZIndex="0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="450"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="450"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Viewbox Grid.Row="1"
+                         Grid.Column="1" Grid.ColumnSpan="3">
+                    <TextBlock Text="Battleships"
+                               Style="{DynamicResource TitleText}"/>
+                </Viewbox>
+                <ItemsControl Grid.Row="3" Grid.Column="1"
+                              ItemsSource="{Binding ComputerGrid}"
+                              x:Name="ComputerGrid">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Rows="10" Columns="10"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Style="{DynamicResource PlayGameGridButton}">
+                                <Image Source="{Binding DisplayImage, TargetNullValue={x:Null}}"/>
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseEnter">
+                                        <i:InvokeCommandAction Command="{Binding DataContext.MouseEnterCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                               CommandParameter="{Binding Index}"/>
+                                    </i:EventTrigger>
+                                    <i:EventTrigger EventName="MouseMove">
+                                        <i:InvokeCommandAction Command="{Binding DataContext.MouseMoveCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                               CommandParameter="{Binding Index}"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <StackPanel Grid.Row="3"
+                            Grid.Column="3"
+                            Orientation="Vertical">
+                    <TextBlock Text="Airstrike"/>
+                    <ToggleButton Content="AUR"
+                                  IsChecked="{Binding SelectedShotType,
+                                      Converter={StaticResource ShotTypeToBooleanConverter}, 
+                                      ConverterParameter={x:Static enums:ShotType.AirstrikeUpRight}, 
+                                      Mode=TwoWay}"
+                                  IsEnabled="True">
+                        <ToggleButton.LayoutTransform>
+                            <ScaleTransform ScaleX="5" ScaleY="5"/>
+                        </ToggleButton.LayoutTransform>
+                    </ToggleButton>
+                    <ToggleButton Content="ADR"
+                              IsChecked="{Binding SelectedShotType,
+                                  Converter={StaticResource ShotTypeToBooleanConverter}, 
+                                  ConverterParameter={x:Static enums:ShotType.AirstrikeDownRight}, 
+                                  Mode=TwoWay}"
+                              IsEnabled="True">
+                        <ToggleButton.LayoutTransform>
+                            <ScaleTransform ScaleX="5" ScaleY="5"/>
+                        </ToggleButton.LayoutTransform>
+                    </ToggleButton>
+                    <ToggleButton Content="B"
+                              IsChecked="{Binding SelectedShotType,
+                                  Converter={StaticResource ShotTypeToBooleanConverter}, 
+                                  ConverterParameter={x:Static enums:ShotType.Bombardment}, 
+                                  Mode=TwoWay}"
+                              IsEnabled="True">
+                        <ToggleButton.LayoutTransform>
+                            <ScaleTransform ScaleX="5" ScaleY="5"/>
+                        </ToggleButton.LayoutTransform>
+                    </ToggleButton>
+                    <TextBlock Text="{Binding SelectedShotType}"
+                               Style="{DynamicResource TitleText}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="5"
+                            Grid.Column="1"
+                            Orientation="Horizontal">
+                    <Image Source="{Binding CaptainImage}"
+                           Width="100"
+                           Height="200"/>
+                    <Canvas Grid.Row="5"
+                            Grid.Column="1"
+                            Width="350"
+                            Height="200">
+                        <Path Stroke="Black"
+                              StrokeThickness="3"
+                              Fill="White"
+                              Data="M 0,130 H 30 V 30 A 30,30 90 0,1 60,0 H 320 A 30,30 90 0,1 350,30 V 170 A 30,30 90 0,1 320,200 H 60 A 30,30 90 0,1 30,170 V 160 Z"/>
+                        <TextBlock Canvas.Top="0"
+                                   Canvas.Left="30"
+                                   Width="320"
+                                   Height="200"
+                                   Padding="15"
+                                   TextWrapping="Wrap"
+                                   Text="{Binding GameStatusMessage}"
+                                   FontSize="30"
+                                   Foreground="Black"/>
+                    </Canvas>
+                </StackPanel>
+                <ItemsControl Grid.Row="5"
+                              Grid.Column="3"
+                              ItemsSource="{Binding PlayerGrid}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Rows="10" Columns="10"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="{DynamicResource ShipDisplayGridBorder}">
+                                <Image Source="{Binding DisplayImage, TargetNullValue={x:Null}}"/>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Viewbox>
+    </Grid>
+</UserControl>

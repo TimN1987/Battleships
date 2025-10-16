@@ -1,0 +1,1121 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!-- Defines general styles to be used throughout the application regardless of theme. -->
+    <!-- Text styles -->
+    <!-- TextBlock styles-->
+    <!-- TextBlock styles for main titles -->
+    <Style x:Key="TitleText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource MainText}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource TitleTextFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource TitleTextFontSize}"/>
+        <Setter Property="FontWeight" Value="{DynamicResource TitleTextFontWeight}"/>
+        <Setter Property="FontStyle" Value="{DynamicResource TitleTextFontStyle}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- TextBlock styles for subtitles -->
+    <Style x:Key="SubtitleText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource MainText}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource SubtitleTextFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource SubtitleTextFontSize}"/>
+        <Setter Property="FontWeight" Value="{DynamicResource SubtitleTextFontWeight}"/>
+        <Setter Property="FontStyle" Value="{DynamicResource SubtitleTextFontStyle}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- TextBlock styles for main text -->
+    <Style x:Key="StandardText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource MainText}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource StandardTextFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource StandardTextFontSize}"/>
+        <Setter Property="FontWeight" Value="{DynamicResource StandardTextFontWeight}"/>
+        <Setter Property="FontStyle" Value="{DynamicResource StandardTextFontStyle}"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- TextBlock styles for save status text -->
+    <Style x:Key="SaveStatusText" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource SaveStatusText}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource SaveStatusTextFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource SaveStatusTextFontSize}"/>
+        <Setter Property="FontWeight" Value="{DynamicResource SaveStatusTextFontWeight}"/>
+        <Setter Property="FontStyle" Value="{DynamicResource SaveStatusTextFontStyle}"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="10, 0, 0, 0"/>
+    </Style>
+    
+    <!-- TextBlock style for SaveGame ListView SaveSlot -->
+    <Style x:Key="SaveGameListViewSaveSlotStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource SaveGameListText}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource StandardTextFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource TitleTextFontSize}"/>
+        <Setter Property="FontWeight" Value="{DynamicResource StandardTextFontWeight}"/>
+        <Setter Property="FontStyle" Value="{DynamicResource StandardTextFontStyle}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- TextBlock style for SaveGame ListView GameName -->
+    <Style x:Key="SaveGameListViewGameNameStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource SaveGameListText}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource StandardTextFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource TitleTextFontSize}"/>
+        <Setter Property="FontWeight" Value="{DynamicResource StandardTextFontWeight}"/>
+        <Setter Property="FontStyle" Value="{DynamicResource StandardTextFontStyle}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- TextBlock style for SaveGame ListView DateTime -->
+    <Style x:Key="SaveGameListViewDateTimeStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource SaveGameListText}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource StandardTextFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource StandardTextFontSize}"/>
+        <Setter Property="FontWeight" Value="{DynamicResource StandardTextFontWeight}"/>
+        <Setter Property="FontStyle" Value="{DynamicResource StandardTextFontStyle}"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- TextBlock style for bullet decorator child -->
+    <Style x:Key="BulletDecoratorChildTextBlockStylw" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource MainText}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource StandardTextFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource StandardTextFontSize}"/>
+        <Setter Property="FontWeight" Value="{DynamicResource StandardTextFontWeight}"/>
+        <Setter Property="FontStyle" Value="{DynamicResource StandardTextFontStyle}"/>
+        <Setter Property="Margin" Value="10, 0, 0, 0"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+
+    <!-- Ellipse style for bullet decorator bullet -->
+    <Style x:Key="BulletDecoratorBulletEllipse" TargetType="Ellipse">
+        <Setter Property="Height" Value="5"/>
+        <Setter Property="Width" Value="5"/>
+        <Setter Property="Fill" Value="{DynamicResource MainText}"/>
+    </Style>
+    
+    <!-- TextBox styles-->
+    <!-- Save TextBox style for entering save name -->
+    <ContextMenu x:Key="TextBoxContextMenu" Visibility="Collapsed"/>
+
+    <Style x:Key="SaveNameTextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="Background" Value="{DynamicResource SaveGameTextBoxBackground}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource SaveGameTextBoxBorder}"/>
+        <Setter Property="Foreground" Value="{DynamicResource SaveGameListText}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource SaveGameTextFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource SaveGameTextFontSize}"/>
+        <Setter Property="FontWeight" Value="{DynamicResource SaveGameTextFontWeight}"/>
+        <Setter Property="FontStyle" Value="{DynamicResource SaveGameTextFontStyle}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="10, 5"/>
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="AllowDrop" Value="false"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="ContextMenu" Value="{StaticResource TextBoxContextMenu}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="10"
+                            UseLayoutRounding="True">
+                        <ScrollViewer x:Name="PART_ContentHost"
+                                      Focusable="false"
+                                      HorizontalScrollBarVisibility="Disabled"
+                                      VerticalScrollBarVisibility="Disabled"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource SaveGameTextBoxFocusBorder}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Grid styles -->
+    <!-- Standard grid with colored background -->
+    <Style TargetType="Grid">
+        <Setter Property="Background" Value="{DynamicResource MainBackground}"/>
+    </Style>
+    
+    <!-- Grid with transparent background for use in templates -->
+    <Style x:Key="TemplateGrid" TargetType="Grid">
+        <Setter Property="Background" Value="Transparent"/>
+    </Style>
+
+    <!-- Menu styles -->
+    <!-- Menu style for general styling -->
+    <Style TargetType="{x:Type Menu}">
+        <Setter Property="Background" Value="{DynamicResource MenuBackground}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource MenuTextFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource MenuTextFontSize}"/>
+        <Setter Property="FontStyle" Value="{DynamicResource {x:Static SystemFonts.MenuFontStyleKey}}"/>
+        <Setter Property="FontWeight" Value="{DynamicResource {x:Static SystemFonts.MenuFontWeightKey}}"/>
+        <Setter Property="Foreground" Value="{DynamicResource MainText}"/>
+        <Setter Property="UseLayoutRounding" Value="True"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Menu}">
+                    <Border Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}"
+                        UseLayoutRounding="True"
+                            HorizontalAlignment="Stretch">
+                        <ItemsPresenter UseLayoutRounding="{TemplateBinding UseLayoutRounding}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Control template for Menu headers on the Menu bar and the associated Popup -->
+    <ControlTemplate x:Key="{ComponentResourceKey ResourceId=TopLevelHeaderTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
+        <Border x:Name="templateRoot"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                UseLayoutRounding="True">
+            <Grid VerticalAlignment="Center"
+                  Background="Transparent">
+                <ContentPresenter ContentSource="Header"
+                              Margin="{TemplateBinding Padding}"
+                                  HorizontalAlignment="Center"
+                              RecognizesAccessKey="True"
+                              UseLayoutRounding="{TemplateBinding UseLayoutRounding}"/>
+                <Popup x:Name="PART_Popup"
+                       AllowsTransparency="True"
+                       Focusable="False"
+                       IsOpen="{Binding IsSubmenuOpen, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                       Placement="Bottom"
+                       PopupAnimation="{DynamicResource {x:Static SystemParameters.MenuPopupAnimationKey}}"
+                       PlacementTarget="{Binding ElementName=templateRoot}">
+                    <Border x:Name="SubMenuBorder"
+                            Background="{DynamicResource MenuBackground}"
+                            BorderBrush="{DynamicResource MenuBorder}"
+                            BorderThickness="1"
+                            Padding="3, 2"
+                            CornerRadius="5">
+                        <ScrollViewer x:Name="SubMenuScrollViewer" Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}">
+                            <Grid RenderOptions.ClearTypeHint="Enabled">
+                                <ItemsPresenter x:Name="ItemsPresenter"
+                                            KeyboardNavigation.DirectionalNavigation="Cycle"
+                                            Grid.IsSharedSizeScope="true"
+                                            UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
+                                            KeyboardNavigation.TabNavigation="Cycle"/>
+                            </Grid>
+                        </ScrollViewer>
+                    </Border>
+                </Popup>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsSuspendingPopupAnimation" Value="true">
+                <Setter Property="PopupAnimation" TargetName="PART_Popup" Value="None"/>
+            </Trigger>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter Property="Background"
+                    TargetName="templateRoot"
+                    Value="{DynamicResource MenuHeaderHighlight}"/>
+                <Setter Property="BorderBrush"
+                    TargetName="templateRoot"
+                    Value="{DynamicResource MenuHeaderBorderHighlight}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="TextElement.Foreground"
+                    TargetName="templateRoot"
+                    Value="{DynamicResource DisabledMainText}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!-- Control Template and Style for MenuItems on the Game Submenu -->
+    <ControlTemplate x:Key="{ComponentResourceKey ResourceId=GameSubmenuItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
+        <Border x:Name="templateRoot"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            Height="25"
+            UseLayoutRounding="true">
+            <Grid Margin="-1"
+                  Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition MinWidth="22" SharedSizeGroup="MenuItemIconColumnGroup" Width="Auto"/>
+                    <ColumnDefinition Width="13"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition SharedSizeGroup="MenuItemIGTColumnGroup" Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <ContentPresenter x:Name="Icon" ContentSource="Icon"
+                              Grid.Column="0"
+                              HorizontalAlignment="Center"
+                              Height="20"
+                              Width="20"
+                              Margin="3"
+                              UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
+                              VerticalAlignment="Center"/>
+                <ContentPresenter x:Name="menuHeaderContainer" ContentSource="Header"
+                              Grid.Column="2"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center"
+                              Margin="{TemplateBinding Padding}"
+                              RecognizesAccessKey="True"
+                              UseLayoutRounding="{TemplateBinding UseLayoutRounding}"/>
+                <TextBlock x:Name="menuGestureText"
+                       Grid.Column="4"
+                       Margin="{TemplateBinding Padding}"
+                       Opacity="0.7" Text="{TemplateBinding InputGestureText}"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="Icon" Value="{x:Null}">
+                <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
+            </Trigger>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter Property="Background"
+                    TargetName="templateRoot"
+                    Value="{DynamicResource SubmenuItemHighlight}"/>
+                <Setter Property="BorderBrush"
+                    TargetName="templateRoot"
+                    Value="{DynamicResource SubmenuItemBorderHighlight}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="TextElement.Foreground"
+                    TargetName="templateRoot"
+                    Value="{DynamicResource DisabledMainText}"/>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsHighlighted" Value="True"/>
+                    <Condition Property="IsEnabled" Value="False"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Background"
+                    TargetName="templateRoot"
+                    Value="{DynamicResource MenuBackground}"/>
+                <Setter Property="BorderBrush"
+                    TargetName="templateRoot"
+                    Value="{DynamicResource MenuBorder}"/>
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="GameMenuItem" TargetType="{x:Type MenuItem}">
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="MinWidth" Value="70"/>
+        <Setter Property="Padding" Value="10, 0"/>
+        <Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=GameSubmenuItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}"/>
+        <Style.Triggers>
+            <Trigger Property="Role" Value="TopLevelHeader">
+                <Setter Property="Background" Value="{DynamicResource MenuBackground}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource MenuBorder}"/>
+                <Setter Property="Foreground" Value="{DynamicResource MainText}"/>
+                <Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=TopLevelHeaderTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}"/>
+                <Setter Property="Padding" Value="6,0"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  Control Template and Style for MenuItems on the Theme Submenu-->
+    <ControlTemplate x:Key="{ComponentResourceKey ResourceId=ThemeSubmenuItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
+        <Border x:Name="templateRoot"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Height="45"
+                UseLayoutRounding="true">
+            <Grid Margin="0,10"
+                  Background="Transparent">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition MinWidth="40" SharedSizeGroup="MenuItemThemeNameColumnGroup" Width="Auto"/>
+                    <ColumnDefinition Width="30"/>
+                    <ColumnDefinition SharedSizeGroup="MenuItemThemeColorsColumnGroup" Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <ContentPresenter x:Name="menuHeaderContainer" ContentSource="Header"
+                                  Grid.Column="1"
+                                  HorizontalAlignment="Left"
+                                  VerticalAlignment="Center"
+                                  Margin="{TemplateBinding Padding}"
+                                  RecognizesAccessKey="True"
+                                  UseLayoutRounding="{TemplateBinding UseLayoutRounding}"/>
+                <ContentPresenter x:Name="ColorPalette" ContentSource="Icon"
+                                  Grid.Column="3"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Height="20"
+                                  MinWidth="30"
+                                  Margin="3"
+                                  UseLayoutRounding="{TemplateBinding UseLayoutRounding}"/>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="Icon" Value="{x:Null}">
+                <Setter Property="Visibility" TargetName="ColorPalette" Value="Collapsed"/>
+            </Trigger>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter Property="Background"
+                TargetName="templateRoot"
+                Value="{DynamicResource SubmenuItemHighlight}"/>
+                <Setter Property="BorderBrush"
+                TargetName="templateRoot"
+                Value="{DynamicResource SubmenuItemBorderHighlight}"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="TextElement.Foreground"
+                TargetName="templateRoot"
+                Value="{DynamicResource DisabledMainText}"/>
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsHighlighted" Value="True"/>
+                    <Condition Property="IsEnabled" Value="False"/>
+                </MultiTrigger.Conditions>
+                <Setter Property="Background"
+                TargetName="templateRoot"
+                Value="{DynamicResource MenuBackground}"/>
+                <Setter Property="BorderBrush"
+                TargetName="templateRoot"
+                Value="{DynamicResource MenuBorder}"/>
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="ThemeMenuItem" TargetType="{x:Type MenuItem}">
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="MinWidth" Value="70"/>
+        <Setter Property="Padding" Value="10, 0"/>
+        <Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=ThemeSubmenuItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}"/>
+        <Style.Triggers>
+            <Trigger Property="Role" Value="TopLevelHeader">
+                <Setter Property="Background" Value="{DynamicResource MenuBackground}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource MenuBorder}"/>
+                <Setter Property="Foreground" Value="{DynamicResource MainText}"/>
+                <Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=TopLevelHeaderTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}"/>
+                <Setter Property="Padding" Value="6,0"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--  Control Template and Style for MenuItems on the Sound Submenu-->
+    <ControlTemplate x:Key="{ComponentResourceKey ResourceId=SoundSubmenuItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
+        <Border x:Name="templateRoot"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Height="90"
+                UseLayoutRounding="true">
+            <Grid Margin="-1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition MinWidth="40" SharedSizeGroup="MenuItemSliderColumnGroup" Width="Auto"/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="15"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="15"/>
+                    </Grid.RowDefinitions>
+                    <ContentPresenter x:Name="menuHeaderContainer" ContentSource="Header"
+                                      Grid.Row="1"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Margin="{TemplateBinding Padding}"
+                                      RecognizesAccessKey="True"
+                                      UseLayoutRounding="{TemplateBinding UseLayoutRounding}"/>
+                    <Slider Grid.Row="3" Style="{DynamicResource VolumeSliderStyle}"
+                            Value="{Binding RelativeSource={RelativeSource AncestorType=MenuItem}, Path=Tag, Mode=TwoWay}"
+                            Minimum="0" Maximum="1"/>
+                </Grid>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <Style x:Key="SoundMenuItem" TargetType="{x:Type MenuItem}">
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="MinWidth" Value="70"/>
+        <Setter Property="Padding" Value="10, 0"/>
+        <Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=SoundSubmenuItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}"/>
+        <Style.Triggers>
+            <Trigger Property="Role" Value="TopLevelHeader">
+                <Setter Property="Background" Value="{DynamicResource MenuBackground}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource MenuBorder}"/>
+                <Setter Property="Foreground" Value="{DynamicResource MainText}"/>
+                <Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=TopLevelHeaderTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}"/>
+                <Setter Property="Padding" Value="6,0"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Control Template and Styles for MenuItem with just an Icon -->
+    <ControlTemplate x:Key="{ComponentResourceKey ResourceId=IconTopLevelItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
+        <Border x:Name="templateRoot"
+                Background="{TemplateBinding Background}"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                UseLayoutRounding="true">
+            <Grid VerticalAlignment="Center"
+                  Background="Transparent">
+                <ContentPresenter x:Name="Icon" ContentSource="Icon"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Height="25" 
+                                  Width="25"
+                                  Margin="3"
+                                  UseLayoutRounding="{TemplateBinding UseLayoutRounding}"/>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="Icon" Value="{x:Null}">
+                <Setter Property="Visibility" TargetName="Icon" Value="Collapsed"/>
+            </Trigger>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter Property="Background"
+                        TargetName="templateRoot"
+                        Value="{DynamicResource MenuHeaderHighlight}"/>
+                <Setter Property="BorderBrush"
+                        TargetName="templateRoot"
+                        Value="{DynamicResource MenuHeaderBorderHighlight}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="IconMenuItem" TargetType="{x:Type MenuItem}">
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="MinWidth" Value="45"/>
+        <Setter Property="Padding" Value="10, 0"/>
+        <Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=SubmenuItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}"/>
+        <Style.Triggers>
+            <Trigger Property="Role" Value="TopLevelItem">
+                <Setter Property="Background" Value="{DynamicResource MenuBackground}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource MenuBorder}"/>
+                <Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=IconTopLevelItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}"/>
+                <Setter Property="Padding" Value="3"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- ControlTemplate and Styles for MenuItem with just a TextBlock -->
+    <ControlTemplate x:Key="{ComponentResourceKey ResourceId=TextBlockTopLevelItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}" TargetType="{x:Type MenuItem}">
+        <Border x:Name="templateRoot"
+        Background="{TemplateBinding Background}"
+        BorderBrush="{TemplateBinding BorderBrush}"
+        BorderThickness="{TemplateBinding BorderThickness}"
+        UseLayoutRounding="true">
+            <Grid VerticalAlignment="Center"
+                  Background="Transparent">
+                <TextBlock x:Name="menuHeader" Text="{Binding Header, RelativeSource={RelativeSource TemplatedParent}}"
+                           Style="{StaticResource SaveStatusText}"
+                           UseLayoutRounding="{TemplateBinding UseLayoutRounding}"/>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    <Style x:Key="TextBlockMenuItem" TargetType="{x:Type MenuItem}">
+        <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="MinWidth" Value="150"/>
+        <Setter Property="Padding" Value="10, 0"/>
+        <Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=SubMenuItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}"/>
+        <Style.Triggers>
+            <Trigger Property="Role" Value="TopLevelItem">
+                <Setter Property="Background" Value="{DynamicResource MenuBackground}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource MenuBorder}"/>
+                <Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=TextBlockTopLevelItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}"/>
+                <Setter Property="Padding" Value="3"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Slider styles -->
+    <!-- Volume adjustment slider Control Templates and Styles -->
+    <Style x:Key="RepeatButtonTransparent" TargetType="{x:Type RepeatButton}">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="IsTabStop" Value="false"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Rectangle Fill="{TemplateBinding Background}" 
+                               Height="{TemplateBinding Height}" 
+                               Width="{TemplateBinding Width}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <ControlTemplate x:Key="SliderThumbHorizontalDefault" TargetType="{x:Type Thumb}">
+        <Grid HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          UseLayoutRounding="True"
+              Background="Transparent">
+            <Ellipse x:Name="grip"
+                 Fill="{DynamicResource SliderThumb}"
+                 Stroke="{DynamicResource SliderBorder}"
+                 StrokeThickness="1"
+                 Width="12"
+                 Height="12"
+                 UseLayoutRounding="True"/>
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Fill" TargetName="grip" Value="{DynamicResource SliderThumbHighlight}"/>
+            </Trigger>
+            <Trigger Property="IsDragging" Value="true">
+                <Setter Property="Fill" TargetName="grip" Value="{DynamicResource SliderThumbPressed}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SliderHorizontal" TargetType="{x:Type Slider}">
+        <Border x:Name="border"
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            UseLayoutRounding="True">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}"/>
+                </Grid.RowDefinitions>
+                <TickBar x:Name="TopTick" Fill="{DynamicResource SliderTick}"
+                         Height="4"
+                         Margin="0,0,0,2"
+                         Placement="Top"
+                         Grid.Row="0"
+                         Visibility="Visible"/>
+                <Border x:Name="TrackBackground"
+                    Background="{DynamicResource SliderTrackBackground}"
+                    BorderBrush="{DynamicResource SliderBorder}"
+                    BorderThickness="1"
+                    CornerRadius="6"
+                    Height="12"
+                    Margin="5,0"
+                    Grid.Row="1"
+                    VerticalAlignment="Center">
+                </Border>
+                <Track x:Name="PART_Track" Grid.Row="1">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Command="{x:Static Slider.DecreaseSmall}" Style="{StaticResource RepeatButtonTransparent}"/>
+                    </Track.DecreaseRepeatButton>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Command="{x:Static Slider.IncreaseSmall}" Style="{StaticResource RepeatButtonTransparent}"/>
+                    </Track.IncreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb x:Name="Thumb"
+                               Focusable="True"
+                               IsTabStop="True"
+                               Height="20"
+                               OverridesDefaultStyle="True"
+                               Template="{StaticResource SliderThumbHorizontalDefault}"
+                               VerticalAlignment="Center" Width="20"/>
+                    </Track.Thumb>
+                </Track>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="TickPlacement" Value="TopLeft">
+                <Setter Property="Visibility" TargetName="TopTick" Value="Visible"/>
+                <Setter Property="Margin" TargetName="TrackBackground" Value="5,2,5,0"/>
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="true">
+                <Setter Property="Foreground" TargetName="Thumb" Value="{DynamicResource SliderThumbHighlight}"/>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <Style x:Key="VolumeSliderStyle" TargetType="{x:Type Slider}">
+        <Setter Property="Stylus.IsPressAndHoldEnabled" Value="True"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Foreground" Value="{DynamicResource SliderThumb}"/>
+        <Setter Property="Template" Value="{StaticResource SliderHorizontal}"/>
+        <Setter Property="TickFrequency" Value="0.5"/>
+        <Setter Property="IsSnapToTickEnabled" Value="False"/>
+    </Style>
+    
+    <!-- CheckBox styles -->
+    <!-- ToggleSwitch style checkbox control template and styles -->
+    <Style x:Key="ToggleSwitchCheckBox" TargetType="{x:Type CheckBox}">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0"
+                              Width="50"
+                              Height="25">
+                            <Rectangle Fill="Transparent"/>
+                            <Border x:Name="ToggleBorder"
+                                    Background="{DynamicResource CheckBoxBackgroundFalse}"
+                                    BorderBrush="{DynamicResource CheckBoxBorder}"
+                                    BorderThickness="3"
+                                    CornerRadius="13">
+                                <Ellipse x:Name="ToggleThumb"
+                                         Stroke="{DynamicResource CheckBoxThumbBorder}"
+                                         StrokeThickness="2"
+                                         Fill="{DynamicResource CheckBoxThumbFill}"
+                                         Height="21"
+                                         Width="21"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                        <ContentPresenter Grid.Column="1"
+                                          HorizontalAlignment="Left"
+                                          VerticalAlignment="Center"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="ToggleBorder"
+                                    Property="Background"
+                                    Value="{DynamicResource CheckBoxBackgroundTrue}"/>
+                            <Setter TargetName="ToggleThumb"
+                                    Property="HorizontalAlignment"
+                                    Value="Right"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ToggleThumb"
+                                    Property="Fill"
+                                    Value="{DynamicResource CheckBoxThumbHighlight}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Button styles -->
+    <!-- Standard button style -->
+    <Style x:Key="FocusVisual">
+        <Setter Property="Control.Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Rectangle Margin="2"
+                           StrokeDashArray="1 2"
+                           Stroke="{DynamicResource StandardButtonFocusBorder}"
+                           UseLayoutRounding="true"
+                           StrokeThickness="1"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="StandardButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="Background" Value="{DynamicResource StandardButtonBackground}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource StandardButtonBorder}"/>
+        <Setter Property="Foreground" Value="{DynamicResource StandardButtonForeground}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource ButtonTextFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource ButtonTextFontSize}"/>
+        <Setter Property="FontWeight" Value="{DynamicResource ButtonTextFontWeight}"/>
+        <Setter Property="FontStyle" Value="{DynamicResource ButtonTextFontStyle}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5"
+                        UseLayoutRounding="true">
+                        <ContentPresenter x:Name="contentPresenter"
+                                      Focusable="False"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      Margin="{TemplateBinding Padding}"
+                                      RecognizesAccessKey="True"
+                                      UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush"
+                                TargetName="border"
+                                Value="{DynamicResource StandardButtonDefaultedBorder}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background"
+                                TargetName="border"
+                                Value="{DynamicResource StandardButtonMouseOverBackground}"/>
+                            <Setter Property="BorderBrush"
+                                TargetName="border"
+                                Value="{DynamicResource StandardButtonMouseOverBorder}"/>
+                            <Setter Property="TextElement.Foreground"
+                                TargetName="contentPresenter"
+                                Value="{DynamicResource StandardButtonMouseOverForeground}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Background"
+                                TargetName="border"
+                                Value="{DynamicResource StandardButtonPressedBackground}"/>
+                            <Setter Property="BorderBrush"
+                                TargetName="border"
+                                Value="{DynamicResource StandardButtonPressedBorder}"/>
+                            <Setter Property="TextElement.Foreground"
+                                TargetName="contentPresenter"
+                                Value="{DynamicResource StandardButtonPressedForeground}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background"
+                                TargetName="border"
+                                Value="{DynamicResource StandardButtonDisabledBackground}"/>
+                            <Setter Property="BorderBrush"
+                                TargetName="border"
+                                Value="{DynamicResource StandardButtonDisabledBorder}"/>
+                            <Setter Property="TextElement.Foreground"
+                                TargetName="contentPresenter"
+                                Value="{DynamicResource StandardButtonDisabledForeground}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Picture button style -->
+    <Style x:Key="PictureButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="Background" Value="{DynamicResource StandardButtonBackground}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource StandardButtonBorder}"/>
+        <Setter Property="Foreground" Value="{DynamicResource StandardButtonForeground}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource ButtonTextFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource ButtonTextFontSize}"/>
+        <Setter Property="FontWeight" Value="{DynamicResource ButtonTextFontWeight}"/>
+        <Setter Property="FontStyle" Value="{DynamicResource ButtonTextFontStyle}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="MinHeight" Value="60"/>
+        <Setter Property="MinWidth" Value="60"/>
+        <Setter Property="MaxHeight" Value="80"/>
+        <Setter Property="MaxWidth" Value="80"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" 
+                    BorderBrush="{TemplateBinding BorderBrush}" 
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="5"
+                    UseLayoutRounding="true">
+                        <ContentPresenter x:Name="contentPresenter"
+                                  Focusable="False"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  Margin="{TemplateBinding Padding}"
+                                  RecognizesAccessKey="True"
+                                  UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsDefaulted" Value="true">
+                            <Setter Property="BorderBrush"
+                            TargetName="border"
+                            Value="{DynamicResource StandardButtonDefaultedBorder}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background"
+                            TargetName="border"
+                            Value="{DynamicResource StandardButtonMouseOverBackground}"/>
+                            <Setter Property="BorderBrush"
+                            TargetName="border"
+                            Value="{DynamicResource StandardButtonMouseOverBorder}"/>
+                            <Setter Property="TextElement.Foreground"
+                            TargetName="contentPresenter"
+                            Value="{DynamicResource StandardButtonMouseOverForeground}"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Background"
+                            TargetName="border"
+                            Value="{DynamicResource StandardButtonPressedBackground}"/>
+                            <Setter Property="BorderBrush"
+                            TargetName="border"
+                            Value="{DynamicResource StandardButtonPressedBorder}"/>
+                            <Setter Property="TextElement.Foreground"
+                            TargetName="contentPresenter"
+                            Value="{DynamicResource StandardButtonPressedForeground}"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background"
+                            TargetName="border"
+                            Value="{DynamicResource StandardButtonDisabledBackground}"/>
+                            <Setter Property="BorderBrush"
+                            TargetName="border"
+                            Value="{DynamicResource StandardButtonDisabledBorder}"/>
+                            <Setter Property="TextElement.Foreground"
+                            TargetName="contentPresenter"
+                            Value="{DynamicResource StandardButtonDisabledForeground}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Ship display grid button style -->
+    <Style x:Key="ShipDisplayGridButton" TargetType="{x:Type Button}">
+        <Setter Property="Command"
+                Value="{Binding DataContext.PlaceShipCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+        <Setter Property="CommandParameter" Value="{Binding Index}"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Background" Value="{DynamicResource IsDefaultBackground}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ShipDisplayGridBorder}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            UseLayoutRounding="true"
+                            MinHeight="30"
+                            MinWidth="30">
+                        <ContentPresenter x:Name="contentPresenter"
+                                          Focusable="False"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"
+                                          RecognizesAccessKey="True"
+                                          UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsHighlighted}" Value="True">
+                <Setter Property="Background" Value="{DynamicResource IsHighlightedBackground}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsOccupied}" Value="True">
+                <Setter Property="Background" Value="{DynamicResource IsOccupiedBackground}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsTouching}" Value="True">
+                <Setter Property="Background" Value="{DynamicResource IsTouchingBackground}"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHighlighted}" Value="True"/>
+                    <Condition Binding="{Binding IsOccupied}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Background" Value="{DynamicResource IsHighlightOccupiedBackground}"/>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHighlighted}" Value="True"/>
+                    <Condition Binding="{Binding IsTouching}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Background" Value="{DynamicResource IsHighlightedTouchingBackground}"/>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- Ship display grid button style -->
+    <Style x:Key="PlayGameGridButton" TargetType="{x:Type Button}">
+        <Setter Property="Command"
+            Value="{Binding DataContext.SelectGridCellCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+        <Setter Property="CommandParameter" Value="{Binding Index}"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Background" Value="{DynamicResource IsDefaultBackground}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ShipDisplayGridBorder}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        UseLayoutRounding="true"
+                        MinHeight="30"
+                        MinWidth="30">
+                        <ContentPresenter x:Name="contentPresenter"
+                                      Focusable="False"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      Margin="{TemplateBinding Padding}"
+                                      RecognizesAccessKey="True"
+                                      UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsHighlighted}" Value="True">
+                <Setter Property="Background" Value="{DynamicResource IsHighlightedBackground}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsTouching}" Value="True">
+                <Setter Property="Background" Value="{DynamicResource IsTouchingBackground}"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsHighlighted}" Value="True"/>
+                    <Condition Binding="{Binding IsTouching}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Background" Value="{DynamicResource IsHighlightedTouchingBackground}"/>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- ListViewItem style for highlighting and selection -->
+    <Style x:Key="ListViewItemHighlightingStyle" TargetType="{x:Type ListViewItem}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                    <Border x:Name="Bd"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    SnapsToDevicePixels="true"
+                    CornerRadius="5"
+                    Margin="2">
+                        <ContentPresenter/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ListItemSelected}"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True">
+                <Setter Property="Background" Value="{DynamicResource ListItemMouseOver}"/>
+            </DataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}" Value="True"/>
+                    <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Background" Value="{DynamicResource ListItemSelectedMouseOver}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource ListItemSelectedMouseOverBorder}"/>
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- ListView styles -->
+    <Style x:Key="SaveGameListView" TargetType="{x:Type ListView}">
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource ListViewItemHighlightingStyle}"/>
+        <Setter Property="Background" Value="{DynamicResource ListViewBackground}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource ListViewBorder}"/>
+        <Setter Property="BorderThickness" Value="5"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+        <Setter Property="ScrollViewer.PanningMode" Value="None"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Height" Value="auto"/>
+        <Setter Property="Width" Value="420"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListView}">
+                    <Border x:Name="Bd"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="10"
+                            Padding="1"
+                            UseLayoutRounding="true">
+                        <ItemsPresenter/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Border Background="Transparent"
+                            BorderBrush="{DynamicResource ListItemBorder}"
+                            BorderThickness="1"
+                            CornerRadius="5">
+                        <Grid Style="{StaticResource TemplateGrid}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="20"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       Grid.Row="0" Grid.RowSpan="2"
+                                       Text="{Binding SaveSlot}"
+                                       Style="{StaticResource SaveGameListViewSaveSlotStyle}"/>
+                            <TextBlock Grid.Column="1"
+                                       Grid.Row="0" Grid.RowSpan="2"
+                                       Text="{Binding GameName}"
+                                       Style="{StaticResource SaveGameListViewGameNameStyle}"/>
+                            <TextBlock Grid.Column="2"
+                                       Grid.Row="0"
+                                       Text="{Binding SaveDate}"
+                                       Style="{StaticResource SaveGameListViewDateTimeStyle}"/>
+                            <TextBlock Grid.Column="2"
+                                       Grid.Row="1"
+                                       Text="{Binding SaveTime}"
+                                       Style="{StaticResource SaveGameListViewDateTimeStyle}"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

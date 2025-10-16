@@ -1,0 +1,139 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>battleshipsIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="MVVM\Resources\BackgroundMusic\backingone.wav" />
+    <None Remove="MVVM\Resources\BackgroundMusic\backingthree.wav" />
+    <None Remove="MVVM\Resources\BackgroundMusic\backingtwo.wav" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\classicicon.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\darkicon.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\lighticon.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\loadicon.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\loadwhite.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\maximiseblack.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\maximisewhite.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\minimiseblack.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\minimisewhite.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\muteblack.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\mutewhite.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\neonicon.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\neutralicon.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\returnicon.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\returnwhite.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\saveasicon.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\saveaswhite.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\saveicon.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\savewhite.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\unmuteblack.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\unmutewhite.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\bomberone.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\bombertwo.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\captain.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\classiclightmiss.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\darkmiss.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\explosion.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\explosiondark.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\explosionneon.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\neonmiss.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\neutralmiss.png" />
+    <None Remove="MVVM\Resources\Images\ShipPlacementView\battleship.png" />
+    <None Remove="MVVM\Resources\Images\ShipPlacementView\battleshipwhite.png" />
+    <None Remove="MVVM\Resources\Images\ShipPlacementView\rotationimage.png" />
+    <None Remove="MVVM\Resources\Images\ShipPlacementView\rotationimagerotated.png" />
+    <None Remove="MVVM\Resources\Images\ShipPlacementView\rotationimagewhite.png" />
+    <None Remove="MVVM\Resources\Images\ShipPlacementView\rotationimagewhiterotated.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="MVVM\Styles\ClassicTheme.xaml" />
+    <Page Remove="MVVM\Styles\DarkTheme.xaml" />
+    <Page Remove="MVVM\Styles\LightTheme.xaml" />
+    <Page Remove="MVVM\Styles\Styles.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="battleshipsIcon.ico" />
+    <Content Include="MVVM\Resources\BackgroundMusic\backingthree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.4" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Prism.Core" Version="9.0.537" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.119" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.4" />
+    <PackageReference Include="WpfAnimatedGif" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="MVVM\Resources\BackgroundMusic\backingone.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\BackgroundMusic\backingtwo.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="MVVM\Resources\backgroundWaves.jpg" />
+    <Resource Include="MVVM\Resources\battleshipsIcon.ico" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\classicicon.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\darkicon.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\lighticon.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\loadicon.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\loadwhite.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\maximiseblack.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\maximisewhite.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\minimiseblack.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\minimisewhite.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\muteblack.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\mutewhite.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\neonicon.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\neutralicon.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\returnicon.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\returnwhite.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\saveasicon.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\saveaswhite.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\saveicon.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\savewhite.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\unmuteblack.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\unmutewhite.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\bomberone.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\bombertwo.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\captain.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\classiclightmiss.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\darkmiss.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\explosion.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\explosiondark.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\explosionneon.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\neonmiss.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\neutralmiss.png" />
+    <Resource Include="MVVM\Resources\Images\ShipPlacementView\battleship.png" />
+    <Resource Include="MVVM\Resources\Images\ShipPlacementView\battleshipwhite.png" />
+    <Resource Include="MVVM\Resources\Images\ShipPlacementView\rotationimage.png" />
+    <Resource Include="MVVM\Resources\Images\ShipPlacementView\rotationimagerotated.png" />
+    <Resource Include="MVVM\Resources\Images\ShipPlacementView\rotationimagewhite.png" />
+    <Resource Include="MVVM\Resources\Images\ShipPlacementView\rotationimagewhiterotated.png" />
+    <Resource Include="MVVM\Resources\loadingGIF.gif" />
+    <Resource Include="MVVM\Resources\loadingImage.jpg" />
+    <Resource Include="MVVM\Resources\victoryImage.jpg" />
+    <Resource Include="MVVM\Styles\ClassicTheme.xaml" />
+    <Resource Include="MVVM\Styles\DarkTheme.xaml" />
+    <Resource Include="MVVM\Styles\Styles.xaml" />
+    <Resource Include="MVVM\Styles\LightTheme.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="MVVM\Resources\ForegroundSounds\" />
+    <Folder Include="MVVM\Resources\Images\HomeView\" />
+  </ItemGroup>
+
+</Project>
