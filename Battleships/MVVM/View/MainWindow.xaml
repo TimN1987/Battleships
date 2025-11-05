@@ -77,6 +77,14 @@
                         <Image Source="{Binding ReturnIcon}"/>
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Style="{DynamicResource GameMenuItem}" Header="Return _home" InputGestureText="Ctril + H"
+                          Command="{Binding ReturnHomeCommand}"
+                          Visibility="{Binding ReturnHomeAvailable, Mode=OneWay}"
+                          AutomationProperties.Name="Return to the home page.">
+                    <MenuItem.Icon>
+                        <Image Source="{Binding HomeIcon}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Style="{DynamicResource GameMenuItem}" Header="E_xit Game" InputGestureText="Ctrl + X"
                           Command="{Binding CloseApplicationCommand}"
                           AutomationProperties.Name="Exit the game and close the window."/>

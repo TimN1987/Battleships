@@ -32,6 +32,7 @@ namespace Battleships.MVVM.ViewModel
         private bool _gameInProgress;
         private bool _moveInProgress;
         private Visibility _returnToGameAvailable;
+        private Visibility _returnHomeAvailable;
         private bool _isFullScreen;
         private bool _volumeMuted;
 
@@ -48,6 +49,7 @@ namespace Battleships.MVVM.ViewModel
         private Uri _saveIcon;
         private Uri _saveAsIcon;
         private Uri _returnIcon;
+        private Uri _homeIcon;
 
         private string _saveStatusMessage;
         private ThemeNames _currentTheme;
@@ -61,6 +63,7 @@ namespace Battleships.MVVM.ViewModel
         private ICommand? _saveAsCommand;
         private ICommand? _loadCommand;
         private ICommand? _returnToGameCommand;
+        private ICommand? _returnHomeCommand;
         private ICommand? _changeThemeCommand;
         private ICommand? _closeApplicationCommand;
         #endregion //Fields
@@ -111,6 +114,8 @@ namespace Battleships.MVVM.ViewModel
         private static readonly Uri SaveAsIconBlack = new(@"pack://application:,,,/MVVM/Resources/Images/MainWindow/Menu/saveasicon.png");
         private static readonly Uri ReturnIconWhite = new(@"pack://application:,,,/MVVM/Resources/Images/MainWindow/Menu/returnwhite.png");
         private static readonly Uri ReturnIconBlack = new(@"pack://application:,,,/MVVM/Resources/Images/MainWindow/Menu/returnicon.png");
+        private static readonly Uri HomeIconWhite = new(@"pack://application:,,,/MVVM/Resources/Images/MainWindow/Menu/homewhite.png");
+        private static readonly Uri HomeIconBlack = new(@"pack://application:,,,/MVVM/Resources/Images/MainWindow/Menu/homeicon.png");
         #endregion //Image Uris
 
         #region Automation Resources
@@ -130,6 +135,7 @@ namespace Battleships.MVVM.ViewModel
                     SetProperty(ref _currentView, value);
                 ReturnToGameAvailable = _gameInProgress && _currentView is not PlayGameView
                     ? Visibility.Visible : Visibility.Collapsed;
+                ReturnHomeAvailable = _currentView is not HomeView ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
@@ -148,6 +154,12 @@ namespace Battleships.MVVM.ViewModel
         {
             get => _returnToGameAvailable;
             set => SetProperty(ref _returnToGameAvailable, value);
+        }
+
+        public Visibility ReturnHomeAvailable
+        {
+            get => _returnHomeAvailable;
+            set => SetProperty(ref _returnHomeAvailable, value);
         }
 
         public bool IsFullScreen
@@ -261,6 +273,12 @@ namespace Battleships.MVVM.ViewModel
             set => SetProperty(ref _returnIcon, value);
         }
 
+        public Uri HomeIcon
+        {
+            get => _homeIcon;
+            set => SetProperty(ref _homeIcon, value);
+        }
+
         public string SaveStatusMessage
         {
             get => _saveStatusMessage;
@@ -334,6 +352,15 @@ namespace Battleships.MVVM.ViewModel
                 return _returnToGameCommand;
             }
         }
+
+        public ICommand ReturnHomeCommand
+        {
+            get
+            {
+                _returnHomeCommand ??= new RelayCommand(param => NavigateTo(typeof(HomeView)));
+                return _returnHomeCommand;
+            }
+        }
         public ICommand ChangeThemeCommand
         {
             get
@@ -394,6 +421,8 @@ namespace Battleships.MVVM.ViewModel
 
             _gameInProgress = false;
             _moveInProgress = false;
+            _returnToGameAvailable = Visibility.Collapsed;
+            _returnHomeAvailable = Visibility.Collapsed;
 
             _isFullScreen = true;
             _volumeMuted = false;
@@ -409,6 +438,7 @@ namespace Battleships.MVVM.ViewModel
             _saveIcon = SaveIconWhite;
             _saveAsIcon = SaveAsIconWhite;
             _returnIcon = ReturnIconWhite;
+            _homeIcon = HomeIconWhite;
 
             _currentTheme = ThemeNames.Classic;
             _themePaths.Add(ThemeNames.Classic, _classicThemeResourceDictionary);
@@ -470,6 +500,7 @@ namespace Battleships.MVVM.ViewModel
                 SaveIcon = SaveIconWhite;
                 SaveAsIcon = SaveAsIconWhite;
                 ReturnIcon = ReturnIconWhite;
+                HomeIcon = HomeIconWhite;
             }
             else
             {
@@ -479,6 +510,7 @@ namespace Battleships.MVVM.ViewModel
                 SaveIcon = SaveIconBlack;
                 SaveAsIcon = SaveAsIconBlack;
                 ReturnIcon = ReturnIconBlack;
+                HomeIcon = HomeIconBlack;
             }
 
             ShareUpdatedTheme();

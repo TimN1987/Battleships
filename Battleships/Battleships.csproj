@@ -15,6 +15,8 @@
     <None Remove="MVVM\Resources\BackgroundMusic\backingtwo.wav" />
     <None Remove="MVVM\Resources\Images\MainWindow\Menu\classicicon.png" />
     <None Remove="MVVM\Resources\Images\MainWindow\Menu\darkicon.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\homeicon.png" />
+    <None Remove="MVVM\Resources\Images\MainWindow\Menu\homewhite.png" />
     <None Remove="MVVM\Resources\Images\MainWindow\Menu\lighticon.png" />
     <None Remove="MVVM\Resources\Images\MainWindow\Menu\loadicon.png" />
     <None Remove="MVVM\Resources\Images\MainWindow\Menu\loadwhite.png" />
@@ -87,6 +89,8 @@
     <Resource Include="MVVM\Resources\battleshipsIcon.ico" />
     <Resource Include="MVVM\Resources\Images\MainWindow\Menu\classicicon.png" />
     <Resource Include="MVVM\Resources\Images\MainWindow\Menu\darkicon.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\homeicon.png" />
+    <Resource Include="MVVM\Resources\Images\MainWindow\Menu\homewhite.png" />
     <Resource Include="MVVM\Resources\Images\MainWindow\Menu\lighticon.png" />
     <Resource Include="MVVM\Resources\Images\MainWindow\Menu\loadicon.png" />
     <Resource Include="MVVM\Resources\Images\MainWindow\Menu\loadwhite.png" />

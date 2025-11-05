@@ -329,6 +329,15 @@ namespace Battleships.MVVM.ViewModel
             _bombardmentAllowed = gameDTO.BombardmentAllowed;
             _hideSunkShips = gameDTO.HideSunkShips;
 
+            // Update the UI with the loaded game state
+            for (int i = 0; i < 100; i++)
+            {
+                GridCellState playerState = gameDTO.PlayerBoardDTO.Grid[i];
+                GridCellState computerState = gameDTO.ComputerBoardDTO.Grid[i];
+                PlayerGrid[i].UpdateCellState(playerState);
+                ComputerGrid[i].UpdateCellState(computerState);
+            }
+
             PlayerCanClick = true;
 
             _saveService.CurrentGame = _currentGame;
