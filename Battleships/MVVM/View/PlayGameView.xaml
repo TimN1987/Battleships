@@ -18,13 +18,13 @@
                     Completed="Storyboard_Completed">
             <DoubleAnimation Storyboard.TargetName="BomberImage"
                              Storyboard.TargetProperty="(Canvas.Top)"
-                             From="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                             From="550"
                              To="-100"
                              Duration="0:0:2"/>
             <DoubleAnimation Storyboard.TargetName="BomberImage"
                              Storyboard.TargetProperty="(Canvas.Left)"
                              From="200"
-                             To="500"
+                             To="400"
                              Duration="0:0:2"/>
         </Storyboard>
     </UserControl.Resources>
@@ -43,20 +43,22 @@
                     CommandParameter="{x:Static enums:KeyboardDirection.Right}"/>
     </UserControl.InputBindings>
     <Grid>
-        <Canvas Panel.ZIndex="1">
-            <Image x:Name="BomberImage"
+        <Viewbox Panel.ZIndex="1">
+            <Canvas Width="800" Height="450">
+                <Image x:Name="BomberImage"
                    Width="50"
                    Height="50"
                    Source="{Binding BomberImage, NotifyOnTargetUpdated=True, TargetNullValue={x:Null}}"
                    Canvas.Left="200"
-                   Canvas.Top="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}">
-                <Image.Triggers>
-                    <EventTrigger RoutedEvent="Binding.TargetUpdated">
-                        <BeginStoryboard Storyboard="{StaticResource BomberAnimation}"/>
-                    </EventTrigger>
-                </Image.Triggers>
-            </Image>
-        </Canvas>
+                   Canvas.Top="550">
+                    <Image.Triggers>
+                        <EventTrigger RoutedEvent="Binding.TargetUpdated">
+                            <BeginStoryboard Storyboard="{StaticResource BomberAnimation}"/>
+                        </EventTrigger>
+                    </Image.Triggers>
+                </Image>
+            </Canvas>
+        </Viewbox>
         <Viewbox Stretch="Uniform"
                  Panel.ZIndex="0">
             <Grid>

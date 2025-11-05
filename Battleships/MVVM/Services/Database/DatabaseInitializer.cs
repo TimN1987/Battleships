@@ -41,7 +41,7 @@ namespace Battleships.MVVM.Services.Database
                         Name TEXT NOT NULL PRIMARY KEY,
                         SaveTime DATETIME NOT NULL,
                         GameData TEXT NOT NULL,
-                        SaveSlot INTEGER NOT NULL
+                        SaveSlot INTEGER NOT NULL UNIQUE
                     );";
 
         private const string CreateSaveGamesTable = @"
@@ -50,7 +50,7 @@ namespace Battleships.MVVM.Services.Database
                         Name TEXT NOT NULL,
                         SaveTime DATETIME NOT NULL,
                         GameData TEXT NOT NULL,
-                        SaveSlot INTEGER NOT NULL
+                        SaveSlot INTEGER NOT NULL UNIQUE
                     );";
         #endregion //Fields
 

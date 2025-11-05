@@ -875,14 +875,11 @@ namespace Battleships.MVVM.Model
         /// last computer move, an updated player grid and a list of the remaining ship sizes. Ensures that the 
         /// probability density map is kept up to date.
         /// </summary>
-        /// <param name="playerGrid"></param>
-        /// <param name="remainingShipSizes"></param>
-        /// <param name="lastMoveReport"></param>
         private void ProcessAttackOutcomes(List<int> remainingShipSizes, SingleTurnReport lastMoveReport)
         {
             _maximumShipSize = remainingShipSizes.Max();
-            _airstrikeHitCount += lastMoveReport.PositionsHit.Count;
-            _bombardmentHitCount += lastMoveReport.PositionsHit.Count;
+            _airstrikeHitCount += lastMoveReport.PositionsHit?.Count ?? 0;
+            _bombardmentHitCount += lastMoveReport.PositionsHit?.Count ?? 0;
             UpdateProbabilityDensityMap(lastMoveReport);
         }
         
@@ -914,21 +911,25 @@ namespace Battleships.MVVM.Model
         /// from the last computer shot.</param>
         internal void UpdateProbabilityDensityMap(SingleTurnReport lastMoveReport)
         {
-            foreach (var position in lastMoveReport.PositionsHit)
+            List<int> hits = lastMoveReport.PositionsHit?.ToList() ?? [];
+            List<int> misses = lastMoveReport.PositionsMissed?.ToList() ?? [];
+            List<(int, bool, ShipType)> sinkings = lastMoveReport.ShipsSunk?.ToList() ?? [];
+
+            foreach (var position in hits)
                 AdjustMapOnHit(position);
 
-            foreach (var position in lastMoveReport.PositionsMissed)
+            foreach (var position in misses)
                 AdjustMapOnMiss(position);
 
-            foreach (var ship in lastMoveReport.ShipsSunk)
+            foreach (var ship in sinkings)
                 AdjustMapOnSinking(ship);
 
             //Ensure that hit and miss positions are set to 0 probability
             //Sunk positions are set in AdjustMapOnSinking
-            foreach (var position in lastMoveReport.PositionsHit)
+            foreach (var position in hits)
                 _probabilityDensityMap[position] = 0;
 
-            foreach (var position in lastMoveReport.PositionsMissed)
+            foreach (var position in misses)
                 _probabilityDensityMap[position] = 0;
         }
 
