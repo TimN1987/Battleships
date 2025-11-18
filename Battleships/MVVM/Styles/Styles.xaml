@@ -961,7 +961,7 @@
         </Style.Triggers>
     </Style>
 
-    <!-- Ship display grid button style -->
+    <!-- In game ship display grid button style -->
     <Style x:Key="PlayGameGridButton" TargetType="{x:Type Button}">
         <Setter Property="Command"
             Value="{Binding DataContext.SelectGridCellCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
@@ -1009,6 +1009,52 @@
                 <Setter Property="Background" Value="{DynamicResource IsHighlightedTouchingBackground}"/>
             </MultiDataTrigger>
         </Style.Triggers>
+    </Style>
+    
+    <!-- ShotSelectionButton style for PlayGameView -->
+    <Style x:Key="ShotSelectionButton" TargetType="{x:Type ToggleButton}">
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="Background" Value="{DynamicResource StandardButtonBackground}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource StandardButtonBorder}"/>
+        <Setter Property="Foreground" Value="{DynamicResource StandardButtonForeground}"/>
+        <Setter Property="FontFamily" Value="{DynamicResource ButtonTextFont}"/>
+        <Setter Property="FontSize" Value="{DynamicResource ButtonTextFontSize}"/>
+        <Setter Property="FontWeight" Value="{DynamicResource ButtonTextFontWeight}"/>
+        <Setter Property="FontStyle" Value="{DynamicResource ButtonTextFontStyle}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Padding" Value="1"/>
+        <Setter Property="MinHeight" Value="60"/>
+        <Setter Property="MinWidth" Value="60"/>
+        <Setter Property="MaxHeight" Value="80"/>
+        <Setter Property="MaxWidth" Value="80"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ToggleButton}">
+                    <Border x:Name="border" Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5"
+                            UseLayoutRounding="true">
+                        <ContentPresenter x:Name="contentPresenter"
+                                          Focusable="False"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          Margin="{TemplateBinding Padding}"
+                                          RecognizesAccessKey="True"
+                                          UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- PlayerGrid border to display computer moves. -->
+    <Style x:Key="PlayerGridBorder" TargetType="{x:Type Border}">
+        <Setter Property="BorderBrush" Value="{DynamicResource ShipDisplayGridBorder}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Background" Value="{DynamicResource IsDefaultBackground}"/>
     </Style>
 
     <!-- ListViewItem style for highlighting and selection -->

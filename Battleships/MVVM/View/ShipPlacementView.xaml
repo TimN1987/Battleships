@@ -90,17 +90,21 @@
                         <Image Source="{Binding BattleshipButtonImage}"/>
                     </Button>
                     <Button Grid.Row="3"
-                    Content="Carrier"
-                    Command="{Binding ChooseShipToPlaceCommand}"
-                    CommandParameter="{x:Static enums:ShipType.Carrier}"
-                    Click="Button_Click"
-                    ToolTip="{Binding CarrierTooltip}"/>
+                            Style="{DynamicResource PictureButtonStyle}"
+                            Command="{Binding ChooseShipToPlaceCommand}"
+                            CommandParameter="{x:Static enums:ShipType.Carrier}"
+                            Click="Button_Click"
+                            ToolTip="{Binding CarrierTooltip}">
+                        <Image Source="{Binding CarrierButtonImage}"/>
+                    </Button>
                     <Button Grid.Row="5"
-                    Content="Crusier"
-                    Command="{Binding ChooseShipToPlaceCommand}"
-                    CommandParameter="{x:Static enums:ShipType.Cruiser}"
-                    Click="Button_Click"
-                    ToolTip="{Binding CruiserTooltip}"/>
+                            Style="{DynamicResource PictureButtonStyle}"
+                            Command="{Binding ChooseShipToPlaceCommand}"
+                            CommandParameter="{x:Static enums:ShipType.Cruiser}"
+                            Click="Button_Click"
+                            ToolTip="{Binding CruiserTooltip}">
+                        <Image Source="{Binding CruiserButtonImage}"/>
+                    </Button>
                 </Grid>
                 <ItemsControl Grid.Row="3" Grid.Column="3"
                       ItemsSource="{Binding GridCells}">
@@ -138,21 +142,26 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Button Grid.Row="1"
-                    Content="Destroyer"
-                    Command="{Binding ChooseShipToPlaceCommand}"
-                    CommandParameter="{x:Static enums:ShipType.Destroyer}"
-                    Click="Button_Click"
-                    ToolTip="{Binding DestroyerTooltip}"/>
+                            Style="{DynamicResource PictureButtonStyle}"
+                            Command="{Binding ChooseShipToPlaceCommand}"
+                            CommandParameter="{x:Static enums:ShipType.Destroyer}"
+                            Click="Button_Click"
+                            ToolTip="{Binding DestroyerTooltip}">
+                        <Image Source="{Binding DestroyerButtonImage}"/>
+                    </Button>
                     <Button Grid.Row="3"
-                    Content="Submarine"
-                    Command="{Binding ChooseShipToPlaceCommand}"
-                    CommandParameter="{x:Static enums:ShipType.Submarine}"
-                    Click="Button_Click"
-                    ToolTip="{Binding SubmarineTooltip}"/>
+                            Style="{DynamicResource PictureButtonStyle}"
+                            Command="{Binding ChooseShipToPlaceCommand}"
+                            CommandParameter="{x:Static enums:ShipType.Submarine}"
+                            Click="Button_Click"
+                            ToolTip="{Binding SubmarineTooltip}">
+                        <Image Source="{Binding SubmarineButtonImage}"/>
+                    </Button>
                     <Button Grid.Row="5"
-                    Command="{Binding ChangeShipAlignmentCommand}"
-                    Click="Button_Click"
-                    Style="{DynamicResource PictureButtonStyle}">
+                            Command="{Binding ChangeShipAlignmentCommand}"
+                            Click="Button_Click"
+                            Style="{DynamicResource PictureButtonStyle}"
+                            ToolTip="{Binding RotateShipTooltip}">
                         <Image Source="{Binding RotationButtonImage}"/>
                     </Button>
                 </Grid>

@@ -27,6 +27,7 @@ namespace Battleships.MVVM.Services
         public void SetGeneralRules(bool airstrikeAllowed, bool bombardmentAllowed, bool shipsCanTouch);
         public void SetClassicRules(bool fireUntilMiss, bool bonusShotOnHit, bool hideSunkShips);
         public void SetSalvoRules(SalvoShots salvoShotsType);
+        public void SetPlayerStarts(bool playerStarts);
         public bool GetShipsCanTouchValue();
         public void SetShipPlacements(Dictionary<ShipType, (int, bool)> shipPositions);
         public void ProvideGameSetUpInformation();
@@ -103,7 +104,7 @@ namespace Battleships.MVVM.Services
 
             _airstrikeAllowed = false;
             _bombardmentAllowed = false;
-            _playerShipPositions = null;
+            _playerShipPositions = [];
         }
 
         /// <summary>
@@ -176,6 +177,16 @@ namespace Battleships.MVVM.Services
         }
 
         /// <summary>
+        /// Sets whether the player takes the first turn in the game. Used to set the value for 
+        /// whether the player starts during the game set up process.
+        /// </summary>
+        /// <param name="playerStarts">true to indicate that the player starts the game; otherwise, false.</param>
+        public void SetPlayerStarts(bool playerStarts)
+        {
+            _playerStarts = playerStarts;
+        }
+
+        /// <summary>
         /// Returns the value of the ships can touch field. Used to retrieve the value for the <see 
         /// cref="ShipPlacementView"/>.
         /// </summary>
@@ -217,10 +228,7 @@ namespace Battleships.MVVM.Services
                 _playerShipPositions.ToDictionary());
 
             _eventAggregator.GetEvent<NavigationEvent>().Publish(typeof(PlayGameView));
-
-            Debug.WriteLine("Publish game information");
             _eventAggregator.GetEvent<CreateGameEvent>().Publish(newGameInformation);
-            Debug.WriteLine($"Information published: {newGameInformation.Difficulty}");
 
         }
     }

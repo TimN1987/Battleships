@@ -113,7 +113,7 @@
                             Grid.Column="3"
                             Orientation="Vertical">
                     <TextBlock Text="Airstrike"/>
-                    <ToggleButton Content="AUR"
+                    <ToggleButton Style="{DynamicResource ShotSelectionButton}"
                                   IsChecked="{Binding SelectedShotType,
                                       Converter={StaticResource ShotTypeToBooleanConverter}, 
                                       ConverterParameter={x:Static enums:ShotType.AirstrikeUpRight}, 
@@ -122,9 +122,10 @@
                         <ToggleButton.LayoutTransform>
                             <ScaleTransform ScaleX="5" ScaleY="5"/>
                         </ToggleButton.LayoutTransform>
+                        <Image Source="{Binding AirstrikeUpRightButtonImage}"/>
                     </ToggleButton>
-                    <ToggleButton Content="ADR"
-                              IsChecked="{Binding SelectedShotType,
+                    <ToggleButton Style="{DynamicResource ShotSelectionButton}"
+                                  IsChecked="{Binding SelectedShotType,
                                   Converter={StaticResource ShotTypeToBooleanConverter}, 
                                   ConverterParameter={x:Static enums:ShotType.AirstrikeDownRight}, 
                                   Mode=TwoWay}"
@@ -132,9 +133,10 @@
                         <ToggleButton.LayoutTransform>
                             <ScaleTransform ScaleX="5" ScaleY="5"/>
                         </ToggleButton.LayoutTransform>
+                        <Image Source="{Binding AirstrikeDownRightButtonImage}"/>
                     </ToggleButton>
-                    <ToggleButton Content="B"
-                              IsChecked="{Binding SelectedShotType,
+                    <ToggleButton Style="{DynamicResource ShotSelectionButton}"
+                                  IsChecked="{Binding SelectedShotType,
                                   Converter={StaticResource ShotTypeToBooleanConverter}, 
                                   ConverterParameter={x:Static enums:ShotType.Bombardment}, 
                                   Mode=TwoWay}"
@@ -142,6 +144,7 @@
                         <ToggleButton.LayoutTransform>
                             <ScaleTransform ScaleX="5" ScaleY="5"/>
                         </ToggleButton.LayoutTransform>
+                        <Image Source="{Binding BombardmentButtonImage}"/>
                     </ToggleButton>
                     <TextBlock Text="{Binding SelectedShotType}"
                                Style="{DynamicResource TitleText}"/>
@@ -181,7 +184,7 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="{DynamicResource ShipDisplayGridBorder}">
+                            <Border Style="{DynamicResource PlayerGridBorder}">
                                 <Image Source="{Binding DisplayImage, TargetNullValue={x:Null}}"/>
                             </Border>
                         </DataTemplate>

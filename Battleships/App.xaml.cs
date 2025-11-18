@@ -125,6 +125,7 @@ namespace Battleships
             services.AddTransient<GeneralRulesSetUpView>();
             services.AddTransient<ClassicRulesSetUpView>();
             services.AddTransient<SalvoRulesSetUpView>();
+            services.AddTransient<PlayerStartsView>();
             services.AddTransient<ShipPlacementView>();
 
             //ViewModels - singletons
@@ -140,6 +141,7 @@ namespace Battleships
             services.AddTransient<GeneralRulesSetUpViewModel>();
             services.AddTransient<ClassicRulesSetUpViewModel>();
             services.AddTransient<SalvoRulesSetUpViewModel>();
+            services.AddTransient<PlayerStartsViewModel>();
             services.AddTransient<ShipPlacementViewModel>();
 
             //Services

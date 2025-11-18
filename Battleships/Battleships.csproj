@@ -36,6 +36,12 @@
     <None Remove="MVVM\Resources\Images\MainWindow\Menu\savewhite.png" />
     <None Remove="MVVM\Resources\Images\MainWindow\Menu\unmuteblack.png" />
     <None Remove="MVVM\Resources\Images\MainWindow\Menu\unmutewhite.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\airstrikedownright.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\airstrikedownrightwhite.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\airstrikeupright.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\airstrikeuprightwhite.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\bombardment.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\bombardmentwhite.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\bomberone.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\bombertwo.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\captain.png" />
@@ -48,10 +54,18 @@
     <None Remove="MVVM\Resources\Images\PlayGameView\neutralmiss.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\battleship.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\battleshipwhite.png" />
+    <None Remove="MVVM\Resources\Images\ShipPlacementView\carrier.png" />
+    <None Remove="MVVM\Resources\Images\ShipPlacementView\carrierwhite.png" />
+    <None Remove="MVVM\Resources\Images\ShipPlacementView\cruiser.png" />
+    <None Remove="MVVM\Resources\Images\ShipPlacementView\cruiserwhite.png" />
+    <None Remove="MVVM\Resources\Images\ShipPlacementView\destroyer.png" />
+    <None Remove="MVVM\Resources\Images\ShipPlacementView\destroyerwhite.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\rotationimage.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\rotationimagerotated.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\rotationimagewhite.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\rotationimagewhiterotated.png" />
+    <None Remove="MVVM\Resources\Images\ShipPlacementView\submarine.png" />
+    <None Remove="MVVM\Resources\Images\ShipPlacementView\submarinewhite.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -110,6 +124,12 @@
     <Resource Include="MVVM\Resources\Images\MainWindow\Menu\savewhite.png" />
     <Resource Include="MVVM\Resources\Images\MainWindow\Menu\unmuteblack.png" />
     <Resource Include="MVVM\Resources\Images\MainWindow\Menu\unmutewhite.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\airstrikedownright.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\airstrikedownrightwhite.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\airstrikeupright.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\airstrikeuprightwhite.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\bombardment.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\bombardmentwhite.png" />
     <Resource Include="MVVM\Resources\Images\PlayGameView\bomberone.png" />
     <Resource Include="MVVM\Resources\Images\PlayGameView\bombertwo.png" />
     <Resource Include="MVVM\Resources\Images\PlayGameView\captain.png" />
@@ -122,10 +142,18 @@
     <Resource Include="MVVM\Resources\Images\PlayGameView\neutralmiss.png" />
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\battleship.png" />
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\battleshipwhite.png" />
+    <Resource Include="MVVM\Resources\Images\ShipPlacementView\carrier.png" />
+    <Resource Include="MVVM\Resources\Images\ShipPlacementView\carrierwhite.png" />
+    <Resource Include="MVVM\Resources\Images\ShipPlacementView\cruiser.png" />
+    <Resource Include="MVVM\Resources\Images\ShipPlacementView\cruiserwhite.png" />
+    <Resource Include="MVVM\Resources\Images\ShipPlacementView\destroyer.png" />
+    <Resource Include="MVVM\Resources\Images\ShipPlacementView\destroyerwhite.png" />
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\rotationimage.png" />
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\rotationimagerotated.png" />
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\rotationimagewhite.png" />
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\rotationimagewhiterotated.png" />
+    <Resource Include="MVVM\Resources\Images\ShipPlacementView\submarine.png" />
+    <Resource Include="MVVM\Resources\Images\ShipPlacementView\submarinewhite.png" />
     <Resource Include="MVVM\Resources\loadingGIF.gif" />
     <Resource Include="MVVM\Resources\loadingImage.jpg" />
     <Resource Include="MVVM\Resources\victoryImage.jpg" />

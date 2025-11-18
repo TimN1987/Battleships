@@ -33,6 +33,7 @@ namespace Battleships.MVVM.ViewModel
         public string CruiserTooltip => "Cruiser - size 3";
         public string DestroyerTooltip => "Destroyer - size 2.";
         public string SubmarineTooltip => "Submarine - size 3";
+        public string RotateShipTooltip => "Rotate the ship before placing.";
         #endregion //Tooltip Messages
 
         #region Theme Resource
@@ -56,6 +57,14 @@ namespace Battleships.MVVM.ViewModel
 
         private static readonly Uri _battleshipImage = new(@"pack://application:,,,/MVVM/Resources/Images/ShipPlacementView/battleship.png", UriKind.Absolute);
         private static readonly Uri _battleshipImageWhite = new(@"pack://application:,,,/MVVM/Resources/Images/ShipPlacementView/battleshipwhite.png", UriKind.Absolute);
+        private static readonly Uri _carrierImage = new(@"pack://application:,,,/MVVM/Resources/Images/ShipPlacementView/carrier.png", UriKind.Absolute);
+        private static readonly Uri _carrierImageWhite = new(@"pack://application:,,,/MVVM/Resources/Images/ShipPlacementView/carrierwhite.png", UriKind.Absolute);
+        private static readonly Uri _cruiserImage = new(@"pack://application:,,,/MVVM/Resources/Images/ShipPlacementView/cruiser.png", UriKind.Absolute);
+        private static readonly Uri _cruiserImageWhite = new(@"pack://application:,,,/MVVM/Resources/Images/ShipPlacementView/cruiserwhite.png", UriKind.Absolute);
+        private static readonly Uri _destroyerImage = new(@"pack://application:,,,/MVVM/Resources/Images/ShipPlacementView/destroyer.png", UriKind.Absolute);
+        private static readonly Uri _destroyerImageWhite = new(@"pack://application:,,,/MVVM/Resources/Images/ShipPlacementView/destroyerwhite.png", UriKind.Absolute);
+        private static readonly Uri _submarineImage = new(@"pack://application:,,,/MVVM/Resources/Images/ShipPlacementView/submarine.png", UriKind.Absolute);
+        private static readonly Uri _submarineImageWhite = new(@"pack://application:,,,/MVVM/Resources/Images/ShipPlacementView/submarinewhite.png", UriKind.Absolute);
         #endregion //Theme Resources
 
         #region Fields
@@ -79,6 +88,10 @@ namespace Battleships.MVVM.ViewModel
         private ThemeNames _theme;
         private Uri _rotationButtonImage;
         private Uri _battleshipButtonImage;
+        private Uri _carrierButtonImage;
+        private Uri _cruiserButtonImage;
+        private Uri _destroyerButtonImage;
+        private Uri _submarineButtonImage;
 
         private ICommand? _moveFocusCommand;
         private ICommand? _changeShipAlignmentCommand;
@@ -141,6 +154,26 @@ namespace Battleships.MVVM.ViewModel
         {
             get => _battleshipButtonImage;
             set => SetProperty(ref _battleshipButtonImage, value);
+        }
+        public Uri CarrierButtonImage
+        {
+            get => _carrierButtonImage;
+            set => SetProperty(ref _carrierButtonImage, value);
+        }
+        public Uri CruiserButtonImage
+        {
+            get => _cruiserButtonImage;
+            set => SetProperty(ref _cruiserButtonImage, value);
+        }
+        public Uri DestroyerButtonImage
+        {
+            get => _destroyerButtonImage;
+            set => SetProperty(ref _destroyerButtonImage, value);
+        }
+        public Uri SubmarineButtonImage
+        {
+            get => _submarineButtonImage;
+            set => SetProperty(ref _submarineButtonImage, value);
         }
         #endregion //Properties
 
@@ -270,6 +303,10 @@ namespace Battleships.MVVM.ViewModel
             _theme = ThemeNames.Classic;
             _rotationButtonImage = _rotationImage;
             _battleshipButtonImage = _battleshipImage;
+            _carrierButtonImage = _carrierImage;
+            _cruiserButtonImage = _cruiserImage;
+            _destroyerButtonImage = _destroyerImage;
+            _submarineButtonImage = _submarineImage;
 
             _eventAggregator.GetEvent<ThemeRequestEvent>().Publish();
 
@@ -320,11 +357,19 @@ namespace Battleships.MVVM.ViewModel
                 {
                     RotationButtonImage = IsShipHorizontal ? _rotationImage : _rotationImageRotated;
                     BattleshipButtonImage = _battleshipImage;
+                    CarrierButtonImage = _carrierImage;
+                    CruiserButtonImage = _cruiserImage;
+                    DestroyerButtonImage = _destroyerImage;
+                    SubmarineButtonImage = _submarineImage;
                 }
                 else if (DarkBackgroundThemes.Contains(newTheme))
                 {
                     RotationButtonImage = IsShipHorizontal ? _rotationImageWhite : _rotationImageWhiteRotated;
                     BattleshipButtonImage = _battleshipImageWhite;
+                    CarrierButtonImage = _carrierImageWhite;
+                    CruiserButtonImage = _cruiserImageWhite;
+                    DestroyerButtonImage = _destroyerImageWhite;
+                    SubmarineButtonImage = _submarineImageWhite;
                 }
             }
         }

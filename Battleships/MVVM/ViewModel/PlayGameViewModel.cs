@@ -23,7 +23,7 @@ using Battleships.MVVM.Utilities;
 
 namespace Battleships.MVVM.ViewModel
 {
-    public class PlayGameViewModel : ViewModelBase //add an information popup to show instructions on how to play and annotated buttons
+    public class PlayGameViewModel : ViewModelBase
     {
         #region Constants
         private const int RequiredHitsForAirstrike = 5;
@@ -77,6 +77,16 @@ namespace Battleships.MVVM.ViewModel
         private Uri? _bomberImage;
         private Uri[] _bomberImageArray;
         private int _bomberIndex;
+        private readonly Uri _airstrikeUpRightImage;
+        private readonly Uri _airstrikeUpRightWhiteImage;
+        private readonly Uri _airstrikeDownRightImage;
+        private readonly Uri _airstrikeDownRightWhiteImage;
+        private readonly Uri _bombardmentImage;
+        private readonly Uri _bomardmentWhiteImage;
+
+        private Uri _airstrikeUpRightButtonImage;
+        private Uri _airstrikeDownRightButtonImage;
+        private Uri _bombardmentButtonImage;
         #endregion //Image Fields
 
         #region Fields
@@ -120,6 +130,22 @@ namespace Battleships.MVVM.ViewModel
             get => _bomberImage;
             set => SetProperty(ref _bomberImage, value);
         }
+        public Uri AirstrikeUpRightButtonImage
+        {
+            get => _airstrikeUpRightButtonImage;
+            set => SetProperty(ref _airstrikeUpRightButtonImage, value);
+        }
+        public Uri AirstrikeDownRightButtonImage
+        {
+            get => _airstrikeDownRightButtonImage;
+            set => SetProperty(ref _airstrikeDownRightButtonImage, value);
+        }
+        public Uri BombardmentButtonImage
+        {
+            get => _bombardmentButtonImage;
+            set => SetProperty(ref _bombardmentButtonImage, value);
+        }
+
         public bool PlayerCanClick { get; set; }
         public string GameStatusMessage { get; set; }
 
@@ -251,6 +277,16 @@ namespace Battleships.MVVM.ViewModel
                 new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bomberone.png", UriKind.Absolute),
                 new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bombertwo.png", UriKind.Absolute)
                 ];
+            _airstrikeUpRightImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/airstrikeupright.png", UriKind.Absolute);
+            _airstrikeUpRightWhiteImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/airstrikeuprightwhite.png", UriKind.Absolute);
+            _airstrikeDownRightImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/airstrikedownright.png", UriKind.Absolute);
+            _airstrikeDownRightWhiteImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/airstrikedownrightwhite.png", UriKind.Absolute);
+            _bombardmentImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bombardment.png", UriKind.Absolute);
+            _bomardmentWhiteImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bombardmentwhite.png", UriKind.Absolute);
+
+            _airstrikeUpRightButtonImage = _airstrikeUpRightImage;
+            _airstrikeDownRightButtonImage = _airstrikeDownRightImage;
+            _bombardmentButtonImage = _bombardmentImage;
 
             _computerGrid = [];
             _playerGrid = [];
@@ -411,6 +447,19 @@ namespace Battleships.MVVM.ViewModel
                     cell.UpdateTheme(newTheme);
                 foreach (var cell in PlayerGrid)
                     cell.UpdateTheme(newTheme);
+            }
+
+            if (LightBackgroundThemes.Contains(theme))
+            {
+                AirstrikeUpRightButtonImage = _airstrikeUpRightImage;
+                AirstrikeDownRightButtonImage = _airstrikeDownRightImage;
+                BombardmentButtonImage = _bombardmentImage;
+            }
+            else
+            {
+                AirstrikeUpRightButtonImage = _airstrikeUpRightWhiteImage;
+                AirstrikeDownRightButtonImage = _airstrikeDownRightWhiteImage;
+                BombardmentButtonImage = _bomardmentWhiteImage;
             }
         }
         #endregion //Methods
