@@ -43,6 +43,7 @@
     <None Remove="MVVM\Resources\Images\PlayGameView\bombardment.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\bombardmentwhite.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\bomberone.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\bomberthree.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\bombertwo.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\captain.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\classiclightmiss.png" />
@@ -131,6 +132,7 @@
     <Resource Include="MVVM\Resources\Images\PlayGameView\bombardment.png" />
     <Resource Include="MVVM\Resources\Images\PlayGameView\bombardmentwhite.png" />
     <Resource Include="MVVM\Resources\Images\PlayGameView\bomberone.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\bomberthree.png" />
     <Resource Include="MVVM\Resources\Images\PlayGameView\bombertwo.png" />
     <Resource Include="MVVM\Resources\Images\PlayGameView\captain.png" />
     <Resource Include="MVVM\Resources\Images\PlayGameView\classiclightmiss.png" />

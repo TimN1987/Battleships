@@ -61,8 +61,6 @@ namespace Battleships.MVVM.Model
 
         #region Events
         public event EventHandler<AttackStatusReport>? ComputerOpeningMoveCompleted;
-        public event EventHandler<int>? AirstrikeHitCountUpdated;
-        public event EventHandler<int>? BombardmentHitCountUpdated;
         #endregion //Events
 
         #region Properties
@@ -74,7 +72,6 @@ namespace Battleships.MVVM.Model
                 if (value != _airstrikeHitCount)
                 {
                     _airstrikeHitCount = value;
-                    AirstrikeHitCountUpdated?.Invoke(this, value);
                 }
             }
         }
@@ -86,7 +83,6 @@ namespace Battleships.MVVM.Model
                 if (value != _bombardmentHitCount)
                 {
                     _bombardmentHitCount = value;
-                    BombardmentHitCountUpdated?.Invoke(this, value);
                 }
             }
         }
@@ -120,7 +116,7 @@ namespace Battleships.MVVM.Model
 
             _lastComputerMove = new SingleTurnReport();
 
-            PlayComputerOpeningMoveIfNeeded();
+            // Opening computer move will be called from PlayGameViewModel if required.
         }
 
         /// <summary>
@@ -242,16 +238,12 @@ namespace Battleships.MVVM.Model
         /// Runs a computer move on start up if the player does not start the game. Invokes an action to allow 
         /// the calling class to access the <see cref="AttackStatusReport"/>.
         /// </summary>
-        protected void PlayComputerOpeningMoveIfNeeded()
+        public void PlayComputerOpeningMove()
         {
+            var turnReports = RunComputerMove(out bool gameOver);
+            var attackReport = new AttackStatusReport(gameOver, turnReports);
 
-            if (!_isPlayerTurn)
-            {
-                var turnReports = RunComputerMove(out bool gameOver);
-                var attackReport = new AttackStatusReport(gameOver, turnReports);
-
-                ComputerOpeningMoveCompleted?.Invoke(this, attackReport);
-            }
+            ComputerOpeningMoveCompleted?.Invoke(this, attackReport);
         }
 
         /// <summary>

@@ -63,7 +63,7 @@ namespace Battleships.MVVM.ViewModel
         public void SetRules()
         {
             _gameSetUpService.SetClassicRules(FireUntilMiss, BonusShotOnHit, HideSunkShips);
-            _eventAggregator.GetEvent<NavigationEvent>().Publish(typeof(ShipPlacementView));
+            _eventAggregator.GetEvent<NavigationEvent>().Publish(typeof(PlayerStartsView));
         }
     }
 }

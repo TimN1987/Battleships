@@ -147,7 +147,7 @@ namespace Battleships.MVVM.ViewModel
         public void SetRules()
         {
             _gameSetUpService.SetSalvoRules(_selectedSalvoShotType);
-            _eventAggregator.GetEvent<NavigationEvent>().Publish(typeof(ShipPlacementView));
+            _eventAggregator.GetEvent<NavigationEvent>().Publish(typeof(PlayerStartsView));
         }
     }
 }

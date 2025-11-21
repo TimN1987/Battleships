@@ -9,22 +9,35 @@
              xmlns:converters="clr-namespace:Battleships.MVVM.Converters"
              xmlns:enums="clr-namespace:Battleships.MVVM.Enums"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:controls="clr-namespace:Battleships.MVVM.View.CustomControls"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com"
              d:DataContext="{d:DesignInstance Type=viewmodel:PlayGameViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <converters:ShotTypeToBooleanConverter x:Key="ShotTypeToBooleanConverter"/>
+        <converters:StandardBooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <Storyboard x:Key="BomberAnimation"
                     Completed="Storyboard_Completed">
             <DoubleAnimation Storyboard.TargetName="BomberImage"
                              Storyboard.TargetProperty="(Canvas.Top)"
                              From="550"
-                             To="-100"
+                             To="-400"
                              Duration="0:0:2"/>
             <DoubleAnimation Storyboard.TargetName="BomberImage"
                              Storyboard.TargetProperty="(Canvas.Left)"
-                             From="200"
+                             From="50"
                              To="400"
+                             Duration="0:0:2"/>
+            <DoubleAnimation Storyboard.TargetName="BomberImage"
+                             Storyboard.TargetProperty="(Image.Effect).(DropShadowEffect.ShadowDepth)"
+                             From="60"
+                             To="40"
+                             Duration="0:0:2"/>
+            <DoubleAnimation Storyboard.TargetName="BomberImage"
+                             Storyboard.TargetProperty="(Image.Effect).(DropShadowEffect.Opacity)"
+                             From="0.3"
+                             To="0.5"
                              Duration="0:0:2"/>
         </Storyboard>
     </UserControl.Resources>
@@ -43,14 +56,29 @@
                     CommandParameter="{x:Static enums:KeyboardDirection.Right}"/>
     </UserControl.InputBindings>
     <Grid>
+        <!-- Game Over animation canvas -->
+        <Viewbox Panel.ZIndex="2">
+            <Canvas Width="800" Height="450">
+                
+            </Canvas>
+        </Viewbox>
+        
+        <!-- Bomber animation canvas -->
         <Viewbox Panel.ZIndex="1">
             <Canvas Width="800" Height="450">
                 <Image x:Name="BomberImage"
-                   Width="50"
-                   Height="50"
+                   Width="200"
+                   Height="200"
                    Source="{Binding BomberImage, NotifyOnTargetUpdated=True, TargetNullValue={x:Null}}"
-                   Canvas.Left="200"
+                   Canvas.Left="50"
                    Canvas.Top="550">
+                    <Image.Effect>
+                        <DropShadowEffect Color="Black"
+                                          Direction="320"
+                                          ShadowDepth="60"
+                                          Opacity="0.3"
+                                          BlurRadius="30"/>
+                    </Image.Effect>
                     <Image.Triggers>
                         <EventTrigger RoutedEvent="Binding.TargetUpdated">
                             <BeginStoryboard Storyboard="{StaticResource BomberAnimation}"/>
@@ -59,6 +87,8 @@
                 </Image>
             </Canvas>
         </Viewbox>
+        
+        <!-- Main game grid -->
         <Viewbox Stretch="Uniform"
                  Panel.ZIndex="0">
             <Grid>
@@ -79,8 +109,10 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Viewbox Grid.Row="1"
-                         Grid.Column="1" Grid.ColumnSpan="3">
-                    <TextBlock Text="Battleships"
+                         Grid.Column="1" Grid.ColumnSpan="2">
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1" Grid.ColumnSpan="2"
+                               Text="Battleships"
                                Style="{DynamicResource TitleText}"/>
                 </Viewbox>
                 <ItemsControl Grid.Row="3" Grid.Column="1"
@@ -112,16 +144,24 @@
                 <StackPanel Grid.Row="3"
                             Grid.Column="3"
                             Orientation="Vertical">
-                    <TextBlock Text="Airstrike"/>
+                    <TextBlock Text="Special shots"
+                               Style="{DynamicResource SubtitleText}"
+                               Margin="0,0,0,20"/>
+                    <controls:SpecialShotBar SpecialShotName="Airstrike"
+                                             HitCount="{Binding AirstrikeHitCount}"
+                                             HitTarget="{Binding AirstrikeHitTarget}"
+                                             Visibility="{Binding AirstrikeAllowed, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    <controls:SpecialShotBar SpecialShotName="Bombardment"
+                                             HitCount="{Binding BombardmentHitCount}"
+                                             HitTarget="{Binding BombardmentHitTarget}"
+                                             Visibility="{Binding BombardmentAllowed, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     <ToggleButton Style="{DynamicResource ShotSelectionButton}"
                                   IsChecked="{Binding SelectedShotType,
                                       Converter={StaticResource ShotTypeToBooleanConverter}, 
                                       ConverterParameter={x:Static enums:ShotType.AirstrikeUpRight}, 
                                       Mode=TwoWay}"
-                                  IsEnabled="True">
-                        <ToggleButton.LayoutTransform>
-                            <ScaleTransform ScaleX="5" ScaleY="5"/>
-                        </ToggleButton.LayoutTransform>
+                                  IsEnabled="{Binding AirstrikeAvailable}"
+                                  Visibility="{Binding AirstrikeAllowed, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Image Source="{Binding AirstrikeUpRightButtonImage}"/>
                     </ToggleButton>
                     <ToggleButton Style="{DynamicResource ShotSelectionButton}"
@@ -129,10 +169,8 @@
                                   Converter={StaticResource ShotTypeToBooleanConverter}, 
                                   ConverterParameter={x:Static enums:ShotType.AirstrikeDownRight}, 
                                   Mode=TwoWay}"
-                              IsEnabled="True">
-                        <ToggleButton.LayoutTransform>
-                            <ScaleTransform ScaleX="5" ScaleY="5"/>
-                        </ToggleButton.LayoutTransform>
+                                  IsEnabled="{Binding AirstrikeAvailable}"
+                                  Visibility="{Binding AirstrikeAllowed, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Image Source="{Binding AirstrikeDownRightButtonImage}"/>
                     </ToggleButton>
                     <ToggleButton Style="{DynamicResource ShotSelectionButton}"
@@ -140,21 +178,18 @@
                                   Converter={StaticResource ShotTypeToBooleanConverter}, 
                                   ConverterParameter={x:Static enums:ShotType.Bombardment}, 
                                   Mode=TwoWay}"
-                              IsEnabled="True">
-                        <ToggleButton.LayoutTransform>
-                            <ScaleTransform ScaleX="5" ScaleY="5"/>
-                        </ToggleButton.LayoutTransform>
+                                  IsEnabled="{Binding BombardmentAvailable}"
+                                  Visibility="{Binding BombardmentAllowed, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Image Source="{Binding BombardmentButtonImage}"/>
                     </ToggleButton>
-                    <TextBlock Text="{Binding SelectedShotType}"
-                               Style="{DynamicResource TitleText}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="5"
                             Grid.Column="1"
                             Orientation="Horizontal">
-                    <Image Source="{Binding CaptainImage}"
-                           Width="100"
-                           Height="200"/>
+                    <Image gif:ImageBehavior.AnimatedSource="{Binding CaptainImage}"
+                           gif:ImageBehavior.AutoStart="True"
+                           gif:ImageBehavior.RepeatBehavior="3x"
+                           gif:ImageBehavior.AnimationSpeedRatio="0.5"/>
                     <Canvas Grid.Row="5"
                             Grid.Column="1"
                             Width="350"

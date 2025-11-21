@@ -20,6 +20,7 @@ using System.Collections.ObjectModel;
 using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using Newtonsoft.Json.Bson;
 using Battleships.MVVM.Utilities;
+using Microsoft.VisualBasic;
 
 namespace Battleships.MVVM.ViewModel
 {
@@ -73,16 +74,19 @@ namespace Battleships.MVVM.ViewModel
         #endregion //Theme Resources
 
         #region Image Fields
-        private readonly Uri _captainImage;
-        private Uri? _bomberImage;
+        private Uri _captainImage;
+        private Uri[] _captainImageArray;
+        private Uri _bomberImage;
         private Uri[] _bomberImageArray;
+        private Uri? _gameOverImage;
+        private Uri[] _gameOverImageArray;
         private int _bomberIndex;
         private readonly Uri _airstrikeUpRightImage;
         private readonly Uri _airstrikeUpRightWhiteImage;
         private readonly Uri _airstrikeDownRightImage;
         private readonly Uri _airstrikeDownRightWhiteImage;
         private readonly Uri _bombardmentImage;
-        private readonly Uri _bomardmentWhiteImage;
+        private readonly Uri _bombardmentWhiteImage;
 
         private Uri _airstrikeUpRightButtonImage;
         private Uri _airstrikeDownRightButtonImage;
@@ -96,15 +100,20 @@ namespace Battleships.MVVM.ViewModel
         private readonly ILoggerFactory _loggerFactory;
         private readonly IEventLogger _eventLogger;
         private GameSetUpInformation _gameSetUpInformation;
-        private Game _currentGame;
+        private Game? _currentGame;
+        private string _gameStatusMessage;
+        private CancellationTokenSource? _statusMessageCts;
+
 
         private bool _airstrikeAllowed;
+        private bool _airstrikeAvailable;
         private int _airstrikeHitCount;
         private bool _bombardmentAllowed;
+        private bool _bombardmentAvailable;
         private int _bombardmentHitCount;
 
-        private bool _shipsCanTouch;
-        private bool _hideSunkShips; //consider visual impact
+        private bool _shipsCanTouch; //if true set adjacent cells on sinking
+        private bool _hideSunkShips; //if true, don't set any cells on sinking
 
         private ObservableCollection<PlayGameGridCell> _computerGrid;
         private ObservableCollection<PlayerBoardGridCell> _playerGrid;
@@ -124,8 +133,12 @@ namespace Battleships.MVVM.ViewModel
         #endregion //Fields
 
         #region Properties
-        public Uri CaptainImage => _captainImage;
-        public Uri? BomberImage
+        public Uri CaptainImage
+        {
+            get => _captainImage;
+            set => SetProperty(ref _captainImage, value);
+        }
+        public Uri BomberImage
         {
             get => _bomberImage;
             set => SetProperty(ref _bomberImage, value);
@@ -147,22 +160,60 @@ namespace Battleships.MVVM.ViewModel
         }
 
         public bool PlayerCanClick { get; set; }
-        public string GameStatusMessage { get; set; }
+        public string GameStatusMessage
+        { 
+            get => _gameStatusMessage; 
+            set => SetProperty(ref _gameStatusMessage, value); 
+        }
 
-        public bool AirstrikeAvailable => _airstrikeAllowed 
-            && AirstrikeHitCount >= RequiredHitsForAirstrike; //data binding to button enabled
-        public bool BombardmentAvailable => _bombardmentAllowed 
-            && BombardmentHitCount >= RequiredHitsForBombardment; //binding to button enabled
+        public bool AirstrikeAllowed
+        {
+            get => _airstrikeAllowed;
+            set => SetProperty(ref _airstrikeAllowed, value);
+        }
+        public bool AirstrikeAvailable
+        {
+            get => _airstrikeAvailable;
+            set
+            {
+                if (_airstrikeAllowed)
+                    SetProperty(ref _airstrikeAvailable, value);
+            }
+        }
+        public bool BombardmentAvailable
+        {
+            get => _bombardmentAvailable;
+            set
+            {
+                if (_bombardmentAllowed)
+                    SetProperty(ref _bombardmentAvailable, value);
+            }
+        }
         public int AirstrikeHitCount
         {
             get => _airstrikeHitCount;
-            set => SetProperty(ref _airstrikeHitCount, value);
+            set
+            {
+                SetProperty(ref _airstrikeHitCount, value);
+                AirstrikeAvailable = _airstrikeHitCount >= RequiredHitsForAirstrike;
+            }
+        }
+        public static int AirstrikeHitTarget => RequiredHitsForAirstrike;
+        public bool BombardmentAllowed
+        {
+            get => _bombardmentAllowed;
+            set => SetProperty(ref _bombardmentAllowed, value);
         }
         public int BombardmentHitCount
         {
             get => _bombardmentHitCount ;
-            set => SetProperty(ref _bombardmentHitCount, value);
+            set
+            {
+                SetProperty(ref _bombardmentHitCount, value);
+                BombardmentAvailable = _bombardmentHitCount >= RequiredHitsForBombardment;
+            }
         }
+        public static int BombardmentHitTarget => RequiredHitsForBombardment;
         public ObservableCollection<PlayGameGridCell> ComputerGrid
         {
             get => _computerGrid;
@@ -173,7 +224,7 @@ namespace Battleships.MVVM.ViewModel
             get => _playerGrid;
             set => SetProperty(ref _playerGrid, value);
         }
-        public (int row, int column) FocusedCell //handle cell highlighting etc in set accessor
+        public (int row, int column) FocusedCell
         {
             get => _focusedCell;
             set => SetProperty(ref _focusedCell, value);
@@ -196,7 +247,7 @@ namespace Battleships.MVVM.ViewModel
         {
             get
             {
-                _selectGridCellCommand ??= new RelayCommand(async param => await OnGridCellClick((int)param), param => CanClick());
+                _selectGridCellCommand ??= new RelayCommand(async param => await OnGridCellClick((int)param), param => CanExecuteGridCellClick((int)param));
                 return _selectGridCellCommand;
             }
         }
@@ -272,17 +323,23 @@ namespace Battleships.MVVM.ViewModel
             _eventAggregator.GetEvent<GameLoadedEvent>().Subscribe(async param => await InitializeLoadedGame(param));
             _eventAggregator.GetEvent<ThemeUpdateEvent>().Subscribe(theme => UpdateTheme(theme));
 
+            _gameStatusMessage = string.Empty;
             _captainImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/captain.png", UriKind.Absolute);
+            _captainImageArray = [];
+            _bomberImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bomberone.png", UriKind.Absolute);
             _bomberImageArray = [
                 new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bomberone.png", UriKind.Absolute),
-                new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bombertwo.png", UriKind.Absolute)
+                new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bombertwo.png", UriKind.Absolute), 
+                new(@"pack://application:,,,/MVVM/Resources/Images/PlayerGameView/bomberthree.png", UriKind.Absolute)
                 ];
+            _gameOverImageArray = [];
+
             _airstrikeUpRightImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/airstrikeupright.png", UriKind.Absolute);
             _airstrikeUpRightWhiteImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/airstrikeuprightwhite.png", UriKind.Absolute);
             _airstrikeDownRightImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/airstrikedownright.png", UriKind.Absolute);
             _airstrikeDownRightWhiteImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/airstrikedownrightwhite.png", UriKind.Absolute);
             _bombardmentImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bombardment.png", UriKind.Absolute);
-            _bomardmentWhiteImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bombardmentwhite.png", UriKind.Absolute);
+            _bombardmentWhiteImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bombardmentwhite.png", UriKind.Absolute);
 
             _airstrikeUpRightButtonImage = _airstrikeUpRightImage;
             _airstrikeDownRightButtonImage = _airstrikeDownRightImage;
@@ -308,7 +365,7 @@ namespace Battleships.MVVM.ViewModel
             _eventAggregator.GetEvent<ThemeRequestEvent>().Publish();
         }
 
-        #region Methods
+        #region Game Data Methods
         private void SetUpNewGame(GameSetUpInformation gameSetUpInformation)
         {
             _gameSetUpInformation = gameSetUpInformation;
@@ -318,25 +375,41 @@ namespace Battleships.MVVM.ViewModel
 
         private async Task InitializeGame(GameSetUpInformation gameSetUpInformation)
         {
-            _currentGame = (_gameSetUpInformation.Type == GameType.Classic)
-                ? new ClassicGame(_loggerFactory, _gameSetUpInformation)
-                : new SalvoGame(_loggerFactory, _gameSetUpInformation);
+            // Ensure game grids and settings are reset for all new games
 
-            _currentGame.ComputerOpeningMoveCompleted += OnComputerOpeningMoveCompleted;
-            _currentGame.AirstrikeHitCountUpdated += OnAirstrikeHitCountUpdated;
-            _currentGame.BombardmentHitCountUpdated += OnBombardmentHitCountUpdated;
-
-            _airstrikeAllowed = _gameSetUpInformation.AirstrikeAllowed;
-            _bombardmentAllowed = _gameSetUpInformation.BombardmentAllowed;
+            AirstrikeAllowed = _gameSetUpInformation.AirstrikeAllowed;
+            BombardmentAllowed = _gameSetUpInformation.BombardmentAllowed;
             _shipsCanTouch = _gameSetUpInformation.ShipsCanTouch;
             _hideSunkShips = _gameSetUpInformation.HideSunkShips;
 
             PlayerCanClick = _gameSetUpInformation.PlayerStarts;
 
+            ComputerGrid = [];
+            PlayerGrid = [];
+            InitializeGrids();
+
+            FocusedCell = (0, 0);
+            _setFocusedCellOnMouseMove = false;
+
+            SelectedShotType = ShotType.Single;
+            AirstrikeHitCount = 0;
+            BombardmentHitCount = 0;
+
+            // Set up the new game once grid and settings initialized
+
+            _currentGame = (_gameSetUpInformation.Type == GameType.Classic)
+                ? new ClassicGame(_loggerFactory, _gameSetUpInformation)
+                : new SalvoGame(_loggerFactory, _gameSetUpInformation);
+
+            _currentGame.ComputerOpeningMoveCompleted += OnComputerOpeningMoveCompleted;
+
             _saveService.CurrentGame = _currentGame;
             _eventAggregator.GetEvent<StartGameEvent>().Publish();
 
             await Autosave();
+
+            if (!gameSetUpInformation.PlayerStarts)
+                _currentGame.PlayComputerOpeningMove();
         }
 
         private void InitializeGrids()
@@ -358,11 +431,11 @@ namespace Battleships.MVVM.ViewModel
                 new SalvoGame(_loggerFactory, gameDTO);
 
             _currentGame.ComputerOpeningMoveCompleted += OnComputerOpeningMoveCompleted;
-            _currentGame.AirstrikeHitCountUpdated += OnAirstrikeHitCountUpdated;
-            _currentGame.BombardmentHitCountUpdated += OnBombardmentHitCountUpdated;
 
             _airstrikeAllowed = gameDTO.AirstrikeAllowed;
+            _airstrikeHitCount = gameDTO.AirstrikeHitCount;
             _bombardmentAllowed = gameDTO.BombardmentAllowed;
+            _bombardmentHitCount = gameDTO.BombardmentHitCount;
             _hideSunkShips = gameDTO.HideSunkShips;
 
             // Update the UI with the loaded game state
@@ -459,10 +532,10 @@ namespace Battleships.MVVM.ViewModel
             {
                 AirstrikeUpRightButtonImage = _airstrikeUpRightWhiteImage;
                 AirstrikeDownRightButtonImage = _airstrikeDownRightWhiteImage;
-                BombardmentButtonImage = _bomardmentWhiteImage;
+                BombardmentButtonImage = _bombardmentWhiteImage;
             }
         }
-        #endregion //Methods
+        #endregion // Game Data Methods
 
         #region Grid Navigation Methods
         /// <summary>
@@ -556,15 +629,12 @@ namespace Battleships.MVVM.ViewModel
         {
             if (_setFocusedCellOnMouseMove)
             {
+                var (row, column) = (gridPosition / 10, gridPosition % 10);
                 UpdateCellHighlighting(false);
-                FocusedCell = (gridPosition / 10, gridPosition % 10);
+                FocusedCell = AdjustFocusedCellToInbounds((row, column));
                 UpdateCellHighlighting(true);
+                _setFocusedCellOnMouseMove = false;
             }
-        }
-
-        private bool CanClick()
-        {
-            return PlayerCanClick;
         }
 
         /// <summary>
@@ -617,7 +687,8 @@ namespace Battleships.MVVM.ViewModel
             (row, column) = AdjustFocusedCellToInbounds((row, column));
             gridPosition = 10 * row + column;
 
-            var newReport = _currentGame.ProcessPlayerShotSelection(gridPosition, SelectedShotType);
+            AttackStatusReport newReport = _currentGame?.ProcessPlayerShotSelection(gridPosition, SelectedShotType) 
+                    ?? new();
             await ProcessAttackStatusReport(newReport);
 
             _saveService.CurrentGame = _currentGame;
@@ -632,17 +703,20 @@ namespace Battleships.MVVM.ViewModel
             SetBomberImage();
             await Task.Delay(AnimationRunTimeDelay);
 
+            // Update computer grid (first report is always player shot)
             UpdateCellState(attackStatusReport.Reports[0].PositionsHit.ToList(), GridCellState.Hit);
             UpdateCellState(attackStatusReport.Reports[0].PositionsMissed.ToList(), GridCellState.Miss);
 
             _setFocusedCellOnMouseMove = true;
 
+            // Add the player hits to the appropriate special attack hit count if active
             int totalHits = attackStatusReport.Reports[0].PositionsHit.Count;
             if (_airstrikeAllowed)
                 AirstrikeHitCount += totalHits;
             if (_bombardmentAllowed)
                 BombardmentHitCount += totalHits;
 
+            // Update player grid (subsequent reports are always computer shots)
             for (int i = 1; i < listLength; i++)
             {
                 UpdateCellState(attackStatusReport.Reports[i].PositionsHit.ToList(), GridCellState.Hit, true);
@@ -652,7 +726,7 @@ namespace Battleships.MVVM.ViewModel
             if (attackStatusReport.IsGameOver)
             {
                 PlayerCanClick = false;
-                Debug.WriteLine("GAME OVER!");
+                OnGameOver();
             }
             else
                 PlayerCanClick = true;
@@ -667,16 +741,52 @@ namespace Battleships.MVVM.ViewModel
                 else
                     _computerGrid[index].UpdateCellState(state);
             }
-
         }
-
 
         private bool CanExecuteGridCellClick(int gridPosition)
         {
             if (!PlayerCanClick)
                 return false;
 
-            return PlayerCanClick; //will also need validation for if shot is in range
+            int rowMax = SelectedShotType switch
+            {
+                ShotType.AirstrikeUpRight => AirstrikeUpRightBottomLimit,
+                ShotType.AirstrikeDownRight => AirstrikeDownRightBottomLimit,
+                ShotType.Bombardment => BombardmentBottomLimit,
+                _ => SingleShotBottomLimit
+            };
+
+            int rowMin = SelectedShotType switch
+            {
+                ShotType.AirstrikeUpRight => AirstrikeUpRightTopLimit,
+                ShotType.AirstrikeDownRight => AirstrikeDownRightTopLimit,
+                ShotType.Bombardment => BombardmentTopLimit,
+                _ => SingleShotTopLimit
+            };
+
+            int colMax = SelectedShotType switch
+            {
+                ShotType.AirstrikeUpRight => AirstrikeUpRightRightLimit,
+                ShotType.AirstrikeDownRight => AirstrikeDownRightRightLimit,
+                ShotType.Bombardment => BombardmentRightLimit,
+                _ => SingleShotRightLimit
+            };
+
+            int colMin = SelectedShotType switch
+            {
+                ShotType.AirstrikeUpRight => AirstrikeUpRightLeftLimit,
+                ShotType.AirstrikeDownRight => AirstrikeDownRightLeftLimit,
+                ShotType.Bombardment => BombardmentLeftLimit,
+                _ => SingleShotLeftLimit
+            };
+
+            if (FocusedCell.row < rowMin
+                || FocusedCell.row > rowMax
+                || FocusedCell.column < colMin
+                || FocusedCell.column > colMax)
+                return false;
+
+            return PlayerCanClick;
         }
         #endregion //Shot Selection Methods
 
@@ -685,6 +795,9 @@ namespace Battleships.MVVM.ViewModel
         private void SetBomberImage()
         {
             int length = _bomberImageArray.Length;
+            if (length <= 1)
+                return; 
+            
             int newIndex;
 
             do
@@ -697,28 +810,55 @@ namespace Battleships.MVVM.ViewModel
             BomberImage = _bomberImageArray[_bomberIndex];
         }
 
+        /// <summary>
+        /// Updates the <see cref="GameStatusMessage"/> and clears it after a delay to inform the player 
+        /// what is happening. Uses CancellationTokens to manage multiple messages before previous message 
+        /// is cleared.
+        /// </summary>
         private async Task UpdateStatusMessage(string message)
         {
+            // Cancel any previous message update
+            _statusMessageCts?.Cancel();
+            _statusMessageCts = new CancellationTokenSource();
+
+            var token = _statusMessageCts.Token;
             GameStatusMessage = message;
-            await Task.Delay(MessageDisplayTime);
-            GameStatusMessage = string.Empty;
+
+            try
+            {
+                await Task.Delay(MessageDisplayTime, token);
+                GameStatusMessage = string.Empty;
+            }
+            catch (TaskCanceledException)
+            {
+                // Task cancellation expected
+            }
         }
+        private void OnGameOver()
+        {
+
+        }
+        
         #endregion //Message and Animation Methods
 
         #region Event Handler Methods
+        /// <summary>
+        /// Processes the computer opening move if required and updates the grid.
+        /// </summary>
         private void OnComputerOpeningMoveCompleted(object? sender, AttackStatusReport e)
         {
-            Task.Run(async () => await ProcessAttackStatusReport(e, true));
+            AttackStatusReport attackStatusReport = e;
+            int listLength = attackStatusReport.Reports.Count;
+            
+            for (int i = 0; i < listLength; i++)
+            {
+                UpdateCellState(attackStatusReport.Reports[i].PositionsHit.ToList(), GridCellState.Hit, true);
+                UpdateCellState(attackStatusReport.Reports[i].PositionsMissed.ToList(), GridCellState.Miss, true);
+            }
+
+            PlayerCanClick = true;
         }
 
-        private void OnAirstrikeHitCountUpdated(object? sender, int e)
-        {
-            AirstrikeHitCount = e;
-        }
-        private void OnBombardmentHitCountUpdated(object? sender, int e)
-        {
-            BombardmentHitCount = e;
-        }
         #endregion //Event Handler Methods
 
         #region Display Methods
