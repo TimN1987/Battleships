@@ -59,7 +59,10 @@
         <!-- Game Over animation canvas -->
         <Viewbox Panel.ZIndex="2">
             <Canvas Width="800" Height="450">
-                
+                <Image gif:ImageBehavior.AnimatedSource="{Binding GameOverImage}"
+                       gif:ImageBehavior.AutoStart="True"
+                       gif:ImageBehavior.RepeatBehavior="3x"
+                       gif:ImageBehavior.AnimationSpeedRatio="0.5"/>
             </Canvas>
         </Viewbox>
         

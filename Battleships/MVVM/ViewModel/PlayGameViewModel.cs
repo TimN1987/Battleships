@@ -76,7 +76,7 @@ namespace Battleships.MVVM.ViewModel
         #region Image Fields
         private Uri _captainImage;
         private Uri[] _captainImageArray;
-        private Uri _bomberImage;
+        private Uri? _bomberImage;
         private Uri[] _bomberImageArray;
         private Uri? _gameOverImage;
         private Uri[] _gameOverImageArray;
@@ -138,10 +138,15 @@ namespace Battleships.MVVM.ViewModel
             get => _captainImage;
             set => SetProperty(ref _captainImage, value);
         }
-        public Uri BomberImage
+        public Uri? BomberImage
         {
             get => _bomberImage;
             set => SetProperty(ref _bomberImage, value);
+        }
+        public Uri? GameOverImage
+        {
+            get => _gameOverImage;
+            set => SetProperty(ref _gameOverImage, value);
         }
         public Uri AirstrikeUpRightButtonImage
         {
@@ -326,13 +331,17 @@ namespace Battleships.MVVM.ViewModel
             _gameStatusMessage = string.Empty;
             _captainImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/captain.png", UriKind.Absolute);
             _captainImageArray = [];
-            _bomberImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bomberone.png", UriKind.Absolute);
             _bomberImageArray = [
                 new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bomberone.png", UriKind.Absolute),
                 new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bombertwo.png", UriKind.Absolute), 
-                new(@"pack://application:,,,/MVVM/Resources/Images/PlayerGameView/bomberthree.png", UriKind.Absolute)
+                new(@"pack://application:,,,/MVVM/Resources/Images/PlayerGameView/bomberthree.png", UriKind.Absolute),
+                new(@"pack://application:,,,/MVVM/Resources/Images/PlayerGameView/bomberfour.png", UriKind.Absolute),
+                new(@"pack://application:,,,/MVVM/Resources/Images/PlayerGameView/bomberfive.png", UriKind.Absolute),
+                new(@"pack://application:,,,/MVVM/Resources/Images/PlayerGameView/bombersix.png", UriKind.Absolute)
                 ];
-            _gameOverImageArray = [];
+            _gameOverImageArray = [
+                new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/neonmiss.png", UriKind.Absolute)
+                ];
 
             _airstrikeUpRightImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/airstrikeupright.png", UriKind.Absolute);
             _airstrikeUpRightWhiteImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/airstrikeuprightwhite.png", UriKind.Absolute);
@@ -389,11 +398,15 @@ namespace Battleships.MVVM.ViewModel
             InitializeGrids();
 
             FocusedCell = (0, 0);
-            _setFocusedCellOnMouseMove = false;
+            _setFocusedCellOnMouseMove = true;
 
             SelectedShotType = ShotType.Single;
             AirstrikeHitCount = 0;
             BombardmentHitCount = 0;
+
+            // Ensure default image settings
+            CaptainImage = _captainImageArray[0];
+            _gameOverImage = null;
 
             // Set up the new game once grid and settings initialized
 
@@ -430,13 +443,12 @@ namespace Battleships.MVVM.ViewModel
                 new ClassicGame(_loggerFactory, gameDTO) : 
                 new SalvoGame(_loggerFactory, gameDTO);
 
-            _currentGame.ComputerOpeningMoveCompleted += OnComputerOpeningMoveCompleted;
-
-            _airstrikeAllowed = gameDTO.AirstrikeAllowed;
-            _airstrikeHitCount = gameDTO.AirstrikeHitCount;
-            _bombardmentAllowed = gameDTO.BombardmentAllowed;
-            _bombardmentHitCount = gameDTO.BombardmentHitCount;
+            AirstrikeAllowed = gameDTO.AirstrikeAllowed;
+            AirstrikeHitCount = gameDTO.AirstrikeHitCount;
+            BombardmentAllowed = gameDTO.BombardmentAllowed;
+            BombardmentHitCount = gameDTO.BombardmentHitCount;
             _hideSunkShips = gameDTO.HideSunkShips;
+            _shipsCanTouch = gameDTO.ShipsCanTouch;
 
             // Update the UI with the loaded game state
             for (int i = 0; i < 100; i++)

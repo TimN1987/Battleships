@@ -50,6 +50,7 @@ namespace Battleships.MVVM.Model
         protected readonly bool _airstrikeAllowed;
         protected readonly bool _bombardmentAllowed;
         private readonly bool _hideSunkShips;
+        private readonly bool _shipsCanTouch;
 
         protected int _shotsRemaining;
         protected bool _isPlayerTurn;
@@ -102,6 +103,7 @@ namespace Battleships.MVVM.Model
             _airstrikeAllowed = information.AirstrikeAllowed;
             _bombardmentAllowed = information.BombardmentAllowed;
             _hideSunkShips = information.HideSunkShips;
+            _shipsCanTouch = information.ShipsCanTouch;
 
             _playerBoard = new Board(information, true);
             _computerBoard = new Board(information, false);
@@ -296,6 +298,7 @@ namespace Battleships.MVVM.Model
                 AirstrikeAllowed = _airstrikeAllowed,
                 BombardmentAllowed = _bombardmentAllowed,
                 HideSunkShips = _hideSunkShips,
+                ShipsCanTouch = _shipsCanTouch,
                 ShotsRemaining = _shotsRemaining,
                 IsPlayerTurn = _isPlayerTurn,
                 AirstrikeHitCount = _airstrikeHitCount,

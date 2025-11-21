@@ -42,7 +42,10 @@
     <None Remove="MVVM\Resources\Images\PlayGameView\airstrikeuprightwhite.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\bombardment.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\bombardmentwhite.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\bomberfive.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\bomberfour.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\bomberone.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\bombersix.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\bomberthree.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\bombertwo.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\captain.png" />
@@ -131,7 +134,10 @@
     <Resource Include="MVVM\Resources\Images\PlayGameView\airstrikeuprightwhite.png" />
     <Resource Include="MVVM\Resources\Images\PlayGameView\bombardment.png" />
     <Resource Include="MVVM\Resources\Images\PlayGameView\bombardmentwhite.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\bomberfive.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\bomberfour.png" />
     <Resource Include="MVVM\Resources\Images\PlayGameView\bomberone.png" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\bombersix.png" />
     <Resource Include="MVVM\Resources\Images\PlayGameView\bomberthree.png" />
     <Resource Include="MVVM\Resources\Images\PlayGameView\bombertwo.png" />
     <Resource Include="MVVM\Resources\Images\PlayGameView\captain.png" />
@@ -158,7 +164,6 @@
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\submarinewhite.png" />
     <Resource Include="MVVM\Resources\loadingGIF.gif" />
     <Resource Include="MVVM\Resources\loadingImage.jpg" />
-    <Resource Include="MVVM\Resources\victoryImage.jpg" />
     <Resource Include="MVVM\Styles\ClassicTheme.xaml" />
     <Resource Include="MVVM\Styles\DarkTheme.xaml" />
     <Resource Include="MVVM\Styles\Styles.xaml" />

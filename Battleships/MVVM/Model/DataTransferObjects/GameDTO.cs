@@ -23,6 +23,7 @@ namespace Battleships.MVVM.Model.DataTransferObjects
         public bool AirstrikeAllowed { get; set; } = false;
         public bool BombardmentAllowed { get; set; } = false;
         public bool HideSunkShips { get; set; } = false;
+        public bool ShipsCanTouch { get; set; } = false;
         public int ShotsRemaining { get; set; } = 0;
         public bool IsPlayerTurn { get; set; } = false;
         public int AirstrikeHitCount { get; set; } = 0;
