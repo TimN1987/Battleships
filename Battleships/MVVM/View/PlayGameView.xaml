@@ -35,9 +35,14 @@
                              To="40"
                              Duration="0:0:2"/>
             <DoubleAnimation Storyboard.TargetName="BomberImage"
+                             Storyboard.TargetProperty="(Image.Effect).(DropShadowEffect.BlurRadius)"
+                             From="50"
+                             To="70"
+                             Duration="0:0:2"/>
+            <DoubleAnimation Storyboard.TargetName="BomberImage"
                              Storyboard.TargetProperty="(Image.Effect).(DropShadowEffect.Opacity)"
-                             From="0.3"
-                             To="0.5"
+                             From="0.4"
+                             To="0.6"
                              Duration="0:0:2"/>
         </Storyboard>
     </UserControl.Resources>
@@ -54,15 +59,49 @@
         <KeyBinding Key="Right"
                     Command="{Binding MoveFocusCommand}"
                     CommandParameter="{x:Static enums:KeyboardDirection.Right}"/>
+        <KeyBinding Key="Enter"
+                    Command="{Binding SelectGridCellCommand}"/>
     </UserControl.InputBindings>
     <Grid>
+        <!-- Loading screen -->
+        <Viewbox Panel.ZIndex="1000"
+                 Visibility="{Binding LoadingScreenVisible}">
+            <Grid Width="800" Height="450"
+                  Background="{DynamicResource MainBackground}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="1"
+                           Text="{Binding LoadingText}"
+                           Style="{DynamicResource StandardText}"
+                           HorizontalAlignment="Center"/>
+                <ProgressBar Grid.Row="2"
+                             Minimum="0"
+                             Maximum="4"
+                             Value="{Binding LoadingValue}"
+                             Background="{DynamicResource IsDefaultBackground}"
+                             Foreground="{DynamicResource IsHighlightedBackground}"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             Width="200"
+                             Height="50"/>
+            </Grid>
+        </Viewbox>
+        
+        
         <!-- Game Over animation canvas -->
         <Viewbox Panel.ZIndex="2">
             <Canvas Width="800" Height="450">
                 <Image gif:ImageBehavior.AnimatedSource="{Binding GameOverImage}"
                        gif:ImageBehavior.AutoStart="True"
                        gif:ImageBehavior.RepeatBehavior="3x"
-                       gif:ImageBehavior.AnimationSpeedRatio="0.5"/>
+                       gif:ImageBehavior.AnimationSpeedRatio="0.5"
+                       Visibility="{Binding GameOverVisible}"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
             </Canvas>
         </Viewbox>
         
@@ -70,17 +109,18 @@
         <Viewbox Panel.ZIndex="1">
             <Canvas Width="800" Height="450">
                 <Image x:Name="BomberImage"
-                   Width="200"
-                   Height="200"
-                   Source="{Binding BomberImage, NotifyOnTargetUpdated=True, TargetNullValue={x:Null}}"
-                   Canvas.Left="50"
-                   Canvas.Top="550">
+                       Width="200"
+                       Height="200"
+                       Source="{Binding BomberImage, NotifyOnTargetUpdated=True, TargetNullValue={x:Null}}"
+                       Canvas.Left="50"
+                       Canvas.Top="550"
+                       Visibility="{Binding BomberVisible}">
                     <Image.Effect>
                         <DropShadowEffect Color="Black"
                                           Direction="320"
                                           ShadowDepth="60"
-                                          Opacity="0.3"
-                                          BlurRadius="30"/>
+                                          Opacity="0.4"
+                                          BlurRadius="50"/>
                     </Image.Effect>
                     <Image.Triggers>
                         <EventTrigger RoutedEvent="Binding.TargetUpdated">
@@ -192,7 +232,8 @@
                     <Image gif:ImageBehavior.AnimatedSource="{Binding CaptainImage}"
                            gif:ImageBehavior.AutoStart="True"
                            gif:ImageBehavior.RepeatBehavior="3x"
-                           gif:ImageBehavior.AnimationSpeedRatio="0.5"/>
+                           gif:ImageBehavior.AnimationSpeedRatio="0.5"
+                           Width="100"/>
                     <Canvas Grid.Row="5"
                             Grid.Column="1"
                             Width="350"

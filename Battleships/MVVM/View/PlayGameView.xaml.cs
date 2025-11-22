@@ -16,36 +16,38 @@ using System.Windows.Shapes;
 using Battleships.MVVM.Services;
 using Battleships.MVVM.ViewModel;
 
-namespace Battleships.MVVM.View
+namespace Battleships.MVVM.View;
+
+/// <summary>
+/// Interaction logic for PlayGame.xaml
+/// </summary>
+public partial class PlayGameView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for PlayGame.xaml
-    /// </summary>
-    public partial class PlayGameView : UserControl
+    public PlayGameView(PlayGameViewModel viewModel)
     {
-        public PlayGameView(PlayGameViewModel viewModel)
-        {
-            InitializeComponent();
-            DataContext = viewModel;
+        InitializeComponent();
+        DataContext = viewModel;
 
-            Loaded += PlayGameView_Loaded;
-        }
+        Loaded += PlayGameView_Loaded;
+    }
 
-        private void PlayGameView_Loaded(object sender, RoutedEventArgs e)
-        {
-            Keyboard.Focus(this);
-        }
+    private void PlayGameView_Loaded(object sender, RoutedEventArgs e)
+    {
+        Keyboard.Focus(this);
+        Mouse.Capture(null);
+        var pos = Mouse.GetPosition(this);
+        VisualTreeHelper.HitTest(this, pos);
+    }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Keyboard.Focus(this);
-        }
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        Keyboard.Focus(this);
+    }
 
-        private void Storyboard_Completed(object sender, EventArgs e)
-        {
-            Keyboard.Focus(this);
-            this.Focusable = true;
-            this.Focus();
-        }
+    private void Storyboard_Completed(object sender, EventArgs e)
+    {
+        Keyboard.Focus(this);
+        this.Focusable = true;
+        this.Focus();
     }
 }
