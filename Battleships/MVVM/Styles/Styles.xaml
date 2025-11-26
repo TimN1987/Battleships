@@ -1045,6 +1045,13 @@
                                           UseLayoutRounding="{TemplateBinding UseLayoutRounding}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="{DynamicResource IsHighlightedBackground}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -1057,6 +1064,7 @@
         <Setter Property="Background" Value="{DynamicResource IsDefaultBackground}"/>
     </Style>
 
+    <!-- ListView styles -->
     <!-- ListViewItem style for highlighting and selection -->
     <Style x:Key="ListViewItemHighlightingStyle" TargetType="{x:Type ListViewItem}">
         <Setter Property="Background" Value="Transparent"/>
@@ -1095,7 +1103,7 @@
         </Style.Triggers>
     </Style>
 
-    <!-- ListView styles -->
+    <!--  SaveGame ListView style -->
     <Style x:Key="SaveGameListView" TargetType="{x:Type ListView}">
         <Setter Property="SelectionMode" Value="Single"/>
         <Setter Property="ItemContainerStyle" Value="{StaticResource ListViewItemHighlightingStyle}"/>

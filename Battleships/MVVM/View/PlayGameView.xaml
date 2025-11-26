@@ -44,6 +44,36 @@
                              From="0.4"
                              To="0.6"
                              Duration="0:0:2"/>
+            <DoubleAnimation Storyboard.TargetName="explosion"
+                             Storyboard.TargetProperty="Height"
+                             From="0"
+                             To="300"
+                             BeginTime="0:0:1"
+                             Duration="0:0:1"/>
+            <DoubleAnimation Storyboard.TargetName="explosion"
+                             Storyboard.TargetProperty="Width"
+                             From="0"
+                             To="300"
+                             BeginTime="0:0:1"
+                             Duration="0:0:1"/>
+            <DoubleAnimation Storyboard.TargetName="explosion"
+                             Storyboard.TargetProperty="(Canvas.Left)"
+                             From="350"
+                             To="200"
+                             BeginTime="0:0:1"
+                             Duration="0:0:1"/>
+            <DoubleAnimation Storyboard.TargetName="explosion"
+                             Storyboard.TargetProperty="(Canvas.Top)"
+                             From="200"
+                             To="50"
+                             BeginTime="0:0:1"
+                             Duration="0:0:1"/>
+            <DoubleAnimation Storyboard.TargetName="explosion"
+                             Storyboard.TargetProperty="Opacity"
+                             From="1"
+                             To="0"
+                             BeginTime="0:0:1"
+                             Duration="0:0:1"/>
         </Storyboard>
     </UserControl.Resources>
     <UserControl.InputBindings>
@@ -128,6 +158,13 @@
                         </EventTrigger>
                     </Image.Triggers>
                 </Image>
+                <Image x:Name="explosion"
+                       Width="0" Height="0"
+                       Source="{Binding ExplosionImage}"
+                       Opacity="0"
+                       Visibility="{Binding BomberVisible}"
+                       Canvas.Left="350"
+                       Canvas.Top="200"/>
             </Canvas>
         </Viewbox>
         
@@ -194,10 +231,6 @@
                                              HitCount="{Binding AirstrikeHitCount}"
                                              HitTarget="{Binding AirstrikeHitTarget}"
                                              Visibility="{Binding AirstrikeAllowed, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                    <controls:SpecialShotBar SpecialShotName="Bombardment"
-                                             HitCount="{Binding BombardmentHitCount}"
-                                             HitTarget="{Binding BombardmentHitTarget}"
-                                             Visibility="{Binding BombardmentAllowed, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     <ToggleButton Style="{DynamicResource ShotSelectionButton}"
                                   IsChecked="{Binding SelectedShotType,
                                       Converter={StaticResource ShotTypeToBooleanConverter}, 
@@ -216,6 +249,10 @@
                                   Visibility="{Binding AirstrikeAllowed, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Image Source="{Binding AirstrikeDownRightButtonImage}"/>
                     </ToggleButton>
+                    <controls:SpecialShotBar SpecialShotName="Bombardment"
+                                             HitCount="{Binding BombardmentHitCount}"
+                                             HitTarget="{Binding BombardmentHitTarget}"
+                                             Visibility="{Binding BombardmentAllowed, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     <ToggleButton Style="{DynamicResource ShotSelectionButton}"
                                   IsChecked="{Binding SelectedShotType,
                                   Converter={StaticResource ShotTypeToBooleanConverter}, 

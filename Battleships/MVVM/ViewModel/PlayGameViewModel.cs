@@ -90,6 +90,7 @@ namespace Battleships.MVVM.ViewModel
         private Uri _gameOverImage;
         private Uri[] _gameOverImageArray;
         private int _bomberIndex;
+        private Uri _explosionImage;
 
         private Visibility _bomberVisible;
         private Visibility _gameOverVisible;
@@ -164,6 +165,11 @@ namespace Battleships.MVVM.ViewModel
         {
             get => _gameOverImage;
             set => SetProperty(ref _gameOverImage, value);
+        }
+        public Uri ExplosionImage
+        {
+            get => _explosionImage;
+            set => SetProperty(ref _explosionImage, value);
         }
         public Visibility BomberVisible
         {
@@ -395,6 +401,7 @@ namespace Battleships.MVVM.ViewModel
             _gameOverImageArray = [
                 new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/neonmiss.png", UriKind.Absolute)
                 ];
+            _explosionImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/explosion.png", UriKind.Absolute);
             _bomberVisible = Visibility.Collapsed;
             _gameOverVisible = Visibility.Collapsed;
             _loadingScreenVisible = Visibility.Visible;
@@ -641,13 +648,18 @@ namespace Battleships.MVVM.ViewModel
                 AirstrikeUpRightButtonImage = _airstrikeUpRightImage;
                 AirstrikeDownRightButtonImage = _airstrikeDownRightImage;
                 BombardmentButtonImage = _bombardmentImage;
+                ExplosionImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/explosion.png", UriKind.Absolute);
             }
             else
             {
                 AirstrikeUpRightButtonImage = _airstrikeUpRightWhiteImage;
                 AirstrikeDownRightButtonImage = _airstrikeDownRightWhiteImage;
                 BombardmentButtonImage = _bombardmentWhiteImage;
+                ExplosionImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/explosiondark.png", UriKind.Absolute);
             }
+
+            if (theme == ThemeNames.Neon)
+                ExplosionImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/explosionneon.png", UriKind.Absolute);
         }
         #endregion // Game Data Methods
 
