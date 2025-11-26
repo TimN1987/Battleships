@@ -64,6 +64,7 @@
     <None Remove="MVVM\Resources\Images\ShipPlacementView\cruiserwhite.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\destroyer.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\destroyerwhite.png" />
+    <None Remove="MVVM\Resources\Images\ShipPlacementView\placeshipshelp.jpg" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\rotationimage.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\rotationimagerotated.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\rotationimagewhite.png" />
@@ -156,6 +157,7 @@
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\cruiserwhite.png" />
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\destroyer.png" />
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\destroyerwhite.png" />
+    <Resource Include="MVVM\Resources\Images\ShipPlacementView\placeshipshelp.jpg" />
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\rotationimage.png" />
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\rotationimagerotated.png" />
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\rotationimagewhite.png" />

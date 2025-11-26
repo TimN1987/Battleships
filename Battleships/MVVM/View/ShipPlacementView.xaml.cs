@@ -15,29 +15,28 @@ using System.Windows.Shapes;
 using Battleships.MVVM.Services;
 using Battleships.MVVM.ViewModel;
 
-namespace Battleships.MVVM.View
+namespace Battleships.MVVM.View;
+
+/// <summary>
+/// Interaction logic for ShipPlacementView.xaml
+/// </summary>
+public partial class ShipPlacementView : UserControl
 {
-    /// <summary>
-    /// Interaction logic for ShipPlacementView.xaml
-    /// </summary>
-    public partial class ShipPlacementView : UserControl
+    public ShipPlacementView(ShipPlacementViewModel shipPlacementViewModel)
     {
-        public ShipPlacementView(ShipPlacementViewModel shipPlacementViewModel)
-        {
-            InitializeComponent();
-            DataContext = shipPlacementViewModel;
+        InitializeComponent();
+        DataContext = shipPlacementViewModel;
 
-            Loaded += ShipPlacementView_Loaded;
-        }
+        Loaded += ShipPlacementView_Loaded;
+    }
 
-        private void ShipPlacementView_Loaded(object sender, RoutedEventArgs e)
-        {
-            Keyboard.Focus(this);
-        }
+    private void ShipPlacementView_Loaded(object sender, RoutedEventArgs e)
+    {
+        Keyboard.Focus(this);
+    }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Keyboard.Focus(this);
-        }
+    private void Button_Click(object sender, RoutedEventArgs e)
+    {
+        Keyboard.Focus(this);
     }
 }

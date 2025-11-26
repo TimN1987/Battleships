@@ -453,7 +453,7 @@ namespace Battleships.MVVM.ViewModel
             // Ensure player cannot click until game full initialized
             PlayerCanClick = false;
 
-            Task.Run(async () => await InitializeGame(gameSetUpInformation));
+            var _ = InitializeGame(gameSetUpInformation);
         }
 
         private async Task InitializeGame(GameSetUpInformation gameSetUpInformation)
