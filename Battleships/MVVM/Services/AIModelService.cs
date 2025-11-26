@@ -12,19 +12,14 @@ namespace Battleships.MVVM.Services
 {
     public interface IAIModelService
     {
-        int SelectNextSHot(in GameStateDTO gameStateDTO, out ShotType shotType);
+        int SelectNextSHot(GameStateDTO gameStateDTO, out ShotType shotType);
     }
     
     public class AIModelService : IAIModelService
     {
-        private readonly HttpClient _httpClient;
+        private readonly HttpClient _httpClient = new HttpClient();
 
-        public AIModelService()
-        {
-
-        }
-
-        public int SelectNextSHot(in GameStateDTO gameStateDTO, out ShotType shotType)
+        public int SelectNextSHot(GameStateDTO gameStateDTO, out ShotType shotType)
         {
             shotType = ShotType.Single;
             return 0;

@@ -258,7 +258,7 @@ namespace Battleships.MVVM.Model
                 BombardmentAvailable = BombardmentActivated
             };
 
-            return _aiModelService.SelectNextSHot(in gameStateDTO, out shotType);
+            return _aiModelService.SelectNextSHot(gameStateDTO, out shotType);
         }
 
         #endregion //Shot Selection Methods

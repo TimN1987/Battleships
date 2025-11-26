@@ -304,7 +304,7 @@ namespace Battleships.MVVM.ViewModel
         {
             get
             {
-                _selectGridCellCommand ??= new RelayCommand(async param => await SelectCell(), param => CanSelectCell());
+                _selectGridCellCommand ??= new RelayCommand(async param => await SelectCell());
                 return _selectGridCellCommand;
             }
         }
@@ -807,20 +807,20 @@ namespace Battleships.MVVM.ViewModel
         #region Shot Selection Methods
         private async Task OnGridCellClick(int gridPosition)
         {
+            if (!CanExecuteGridCellClick(gridPosition))
+                return;
+
             PlayerCanClick = false;
 
             (int row, int column) = (gridPosition / 10, gridPosition % 10);
             (row, column) = AdjustFocusedCellToInbounds((row, column));
             gridPosition = 10 * row + column;
 
-            if (SelectedShotType == ShotType.AirstrikeUpRight || SelectedShotType == ShotType.AirstrikeDownRight)
-                AirstrikeHitCount = 0;
-            if (SelectedShotType == ShotType.Bombardment)
-                BombardmentHitCount = 0;
-
             AttackStatusReport newReport = _currentGame?.ProcessPlayerShotSelection(gridPosition, SelectedShotType) 
                     ?? new();
             await ProcessAttackStatusReport(newReport);
+
+            _setFocusedCellOnMouseMove = true;
 
             _saveService.CurrentGame = _currentGame;
             await Autosave();
@@ -829,13 +829,9 @@ namespace Battleships.MVVM.ViewModel
         private async Task SelectCell()
         {
             int index = FocusedCell.row * 10 + FocusedCell.column;
+            if (!CanExecuteGridCellClick(index))
+                return;
             await OnGridCellClick(index);
-        }
-
-        private bool CanSelectCell()
-        {
-            int index = FocusedCell.row * 10 + FocusedCell.column;
-            return CanExecuteGridCellClick(index);
         }
 
         internal async Task ProcessAttackStatusReport(AttackStatusReport attackStatusReport, bool computerOpeningMove = false)
@@ -845,6 +841,19 @@ namespace Battleships.MVVM.ViewModel
 
             SetBomberImage();
             await Task.Delay(AnimationRunTimeDelay);
+
+            if (SelectedShotType == ShotType.AirstrikeUpRight || SelectedShotType == ShotType.AirstrikeDownRight)
+            {
+                AirstrikeHitCount = 0;
+                OnPropertyChanged(nameof(AirstrikeAvailable));
+                SelectedShotType = ShotType.Single; // Reset shot type as button will be disabled.
+            }
+            if (SelectedShotType == ShotType.Bombardment)
+            {
+                BombardmentHitCount = 0;
+                OnPropertyChanged(nameof(BombardmentAvailable));
+                SelectedShotType = ShotType.Single; // Reset shot type as button will be disabled.
+            }
 
             // Update computer grid (first report is always player shot)
             UpdateCellState(attackStatusReport.Reports[0].PositionsHit.ToList(), GridCellState.Hit);

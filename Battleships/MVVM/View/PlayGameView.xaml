@@ -95,9 +95,13 @@
     <Grid>
         <!-- Loading screen -->
         <Viewbox Panel.ZIndex="1000"
-                 Visibility="{Binding LoadingScreenVisible}">
+                 Visibility="{Binding LoadingScreenVisible}"
+                 IsHitTestVisible="False"
+                 Focusable="False">
             <Grid Width="800" Height="450"
-                  Background="{DynamicResource MainBackground}">
+                  Background="{DynamicResource MainBackground}"
+                  IsHitTestVisible="False"
+                  Focusable="False">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="100"/>
@@ -136,15 +140,21 @@
         </Viewbox>
         
         <!-- Bomber animation canvas -->
-        <Viewbox Panel.ZIndex="1">
-            <Canvas Width="800" Height="450">
+        <Viewbox Panel.ZIndex="1"
+                 IsHitTestVisible="False"
+                 Focusable="False">
+            <Canvas Width="800" Height="450"
+                    IsHitTestVisible="False"
+                    Focusable="False">
                 <Image x:Name="BomberImage"
                        Width="200"
                        Height="200"
                        Source="{Binding BomberImage, NotifyOnTargetUpdated=True, TargetNullValue={x:Null}}"
                        Canvas.Left="50"
                        Canvas.Top="550"
-                       Visibility="{Binding BomberVisible}">
+                       Visibility="{Binding BomberVisible}"
+                       IsHitTestVisible="False"
+                       Focusable="False">
                     <Image.Effect>
                         <DropShadowEffect Color="Black"
                                           Direction="320"
@@ -164,7 +174,9 @@
                        Opacity="0"
                        Visibility="{Binding BomberVisible}"
                        Canvas.Left="350"
-                       Canvas.Top="200"/>
+                       Canvas.Top="200"
+                       IsHitTestVisible="False"
+                       Focusable="False"/>
             </Canvas>
         </Viewbox>
         
@@ -226,11 +238,12 @@
                             Orientation="Vertical">
                     <TextBlock Text="Special shots"
                                Style="{DynamicResource SubtitleText}"
-                               Margin="0,0,0,20"/>
+                               Margin="0"/>
                     <controls:SpecialShotBar SpecialShotName="Airstrike"
                                              HitCount="{Binding AirstrikeHitCount}"
                                              HitTarget="{Binding AirstrikeHitTarget}"
-                                             Visibility="{Binding AirstrikeAllowed, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                             Visibility="{Binding AirstrikeAllowed, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                             Margin="0,10"/>
                     <ToggleButton Style="{DynamicResource ShotSelectionButton}"
                                   IsChecked="{Binding SelectedShotType,
                                       Converter={StaticResource ShotTypeToBooleanConverter}, 
