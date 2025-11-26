@@ -128,7 +128,11 @@
         
         <!-- Game Over animation canvas -->
         <Viewbox Panel.ZIndex="2">
-            <Canvas Width="800" Height="450">
+            <StackPanel Width="800" Height="450"
+                        Orientation="Vertical"
+                        Background="{DynamicResource MainBackground}"
+                        Visibility="{Binding GameOverVisible}">
+                <TextBlock Text="Game Over!"/>
                 <Image gif:ImageBehavior.AnimatedSource="{Binding GameOverImage}"
                        gif:ImageBehavior.AutoStart="True"
                        gif:ImageBehavior.RepeatBehavior="3x"
@@ -136,7 +140,11 @@
                        Visibility="{Binding GameOverVisible}"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"/>
-            </Canvas>
+                <StackPanel Orientation="Horizontal">
+                    <Button />
+                    <Button />
+                </StackPanel>
+            </StackPanel>
         </Viewbox>
         
         <!-- Bomber animation canvas -->

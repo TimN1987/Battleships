@@ -42,13 +42,18 @@
         </ToggleButton>
         <Popup x:Name="infopopup"
                IsOpen="{Binding IsChecked, ElementName=infotogglebutton}"
-               StaysOpen="False">
+               StaysOpen="False"
+               AllowsTransparency="True">
             <Viewbox Stretch="Uniform">
                 <Grid Height="450"
                       Width="800"
-                      Background="{DynamicResource MainBackground}">
-                    <Image Source="{Binding Image, RelativeSource={RelativeSource AncestorType=UserControl}, TargetNullValue={x:Null}}"
-                           Stretch="Uniform"/>
+                      Background="Transparent">
+                    <Rectangle RadiusX="50" RadiusY="50"
+                               Stroke="{DynamicResource StandardButtonBorder}">
+                        <Rectangle.Fill>
+                            <ImageBrush ImageSource="{Binding Image, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
                 </Grid>
             </Viewbox>
         </Popup>
