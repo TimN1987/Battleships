@@ -377,6 +377,7 @@ public class PlayGameViewModel : ViewModelBase
         _eventAggregator.GetEvent<GameLoadedEvent>().Subscribe(async param => await InitializeLoadedGame(param));
         _eventAggregator.GetEvent<ThemeUpdateEvent>().Subscribe(theme => UpdateTheme(theme));
         _eventAggregator.GetEvent<UserMessageEvent>().Subscribe(param => GameStatusMessage = param);
+        _eventAggregator.GetEvent<LoadCaptainEvent>().Subscribe(param => CaptainImage = param);
 
         // Ensure player cannot click until game full initialized
         PlayerCanClick = false;

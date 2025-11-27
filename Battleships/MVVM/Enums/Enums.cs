@@ -111,22 +111,6 @@ namespace Battleships.MVVM.Enums
     }
 
     /// <summary>
-    /// Defines the available sound types that can be played in the application related to in-game events.
-    /// </summary>
-    public enum ForegroundSoundType
-    {
-        MultipleHits,
-        Hit,
-        Miss,
-        Sunk,
-        BattleshipSunk,
-        CarrierSunk,
-        CruiserSunk,
-        DestroyerSunk,
-        SubmarineSunk
-    }
-
-    /// <summary>
     /// Defines the different methods for navigating grids and moving the highlighted cells. Used in the 
     /// <see cref="ShipPlacementViewModel"/> and <see cref="PlayGameViewModel"/>.
     /// </summary>
@@ -166,11 +150,18 @@ namespace Battleships.MVVM.Enums
     public enum GameEvent
     {
         GameStart,
-        Miss,
+        MultipleHits,
         Hit,
+        Miss,
         Sunk,
+        BattleshipSunk,
+        CarrierSunk,
+        CruiserSunk,
+        DestroyerSunk,
+        SubmarineSunk,
         PlayerTurn,
         ComputerTurn,
-        GameOver
+        GameOver,
+        EventFinished
     }
 }
