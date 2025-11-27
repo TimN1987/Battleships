@@ -20,7 +20,6 @@ public partial class App : Application
     #region Fields
     private IServiceCollection _serviceCollection;
     private IServiceProvider _serviceProvider;
-    private LoadingView _loadingView;
     private string _databaseFilePath;
     private string _connectionString;
     private string _fallbackLogFilePath;
@@ -28,17 +27,7 @@ public partial class App : Application
 
     public App()
     {
-        var loadingViewModel = new LoadingViewModel();
-        _loadingView = new LoadingView(loadingViewModel);
-        _loadingView.Show();
-
-        IProgress<int> progress = new Progress<int>(value =>
-        {
-            loadingViewModel.UpdateProgress(value);
-        });
-
-        progress.Report(0);
-
+        
         _databaseFilePath = GenerateDatabaseFilePath();
         _connectionString = $"Data Source=/{_databaseFilePath.Substring(3)}";
         _fallbackLogFilePath = GenerateFallbackLogFilePath();
@@ -47,15 +36,13 @@ public partial class App : Application
         _serviceCollection.ConfigureServices(_fallbackLogFilePath, _connectionString);
         _serviceProvider = _serviceCollection.BuildServiceProvider();
 
-        progress.Report(33);
+        var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
+        mainWindow.Show();
 
         var initializer = _serviceProvider.GetRequiredService<IDatabaseInitializer>();
-        initializer.DatabaseInitialized += OnDatabaseInitialized;
 
-        Task.Run(async () => await initializer.InitializeDatabaseWithRetries());
+        _ = initializer.InitializeDatabaseWithRetries();
         _serviceProvider.GetRequiredService<IMessageService>();
-
-        progress.Report(100);
     }
 
     private static string GenerateDatabaseFilePath()
@@ -86,20 +73,6 @@ public partial class App : Application
         }
 
         return fallbackLogFilePath;
-    }
-
-    private void OnDatabaseInitialized()
-    {
-        Debug.WriteLine("Subscription event running");
-        
-        Application.Current.Dispatcher.Invoke(() =>
-        {
-            var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
-            Debug.WriteLine($"Main Window: {mainWindow}");
-
-            mainWindow.Show();
-            _loadingView.Close();
-        });
     }
 }
 
