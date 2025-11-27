@@ -144,16 +144,16 @@ public class ClearDataEvent : PubSubEvent
 }
 
 /// <summary>
-/// Publishes the type of foreground sound that the <see cref="SoundService"/> should load.
+/// Publishes the Uri for the sound that the <see cref="MainViewModel"/> should load to the MediaElement.
 /// </summary>
-public class ForegroundSoundEvent : PubSubEvent<ForegroundSoundType>
+public class LoadSoundEvent : PubSubEvent<Uri>
 {
 }
 
 /// <summary>
-/// Publishes the Uri for the sound that the <see cref="MainViewModel"/> should load to the MediaElement.
+/// Publishes the Uri for the speech that the <see cref="MainViewModel"/> should load to the MediaElement.
 /// </summary>
-public class LoadSoundEvent : PubSubEvent<Uri>
+public class LoadSpeechEvent : PubSubEvent<Uri>
 {
 }
 
