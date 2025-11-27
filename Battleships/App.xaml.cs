@@ -43,6 +43,7 @@ public partial class App : Application
 
         _ = initializer.InitializeDatabaseWithRetries();
         _serviceProvider.GetRequiredService<IMessageService>();
+        _serviceProvider.GetRequiredService<ISoundService>();
     }
 
     private static string GenerateDatabaseFilePath()

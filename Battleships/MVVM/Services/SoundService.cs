@@ -89,8 +89,7 @@ public class SoundService : ISoundService
     }
 
     /// <summary>
-    /// Increments the background music index to the next song in the list. If the index is at the end of 
-    /// the list, it resets to 0. This is used when the background music ends to load the next song.
+    /// Publishes the Uri for the next background music to be played in the <see cref="MainWindow"/>.
     /// </summary>
     internal void PublishNextBackgroundMusic()
     {
@@ -103,7 +102,7 @@ public class SoundService : ISoundService
 
     /// <summary>
     /// Publishes a <see cref="LoadSoundEvent"/> with the Uri for a randomly selected sound effect for the 
-    /// given <see cref="GameEvent"/> to be played by a MediaElement in the <see cref="PlayGameView"/>.
+    /// given <see cref="GameEvent"/> to be played by a MediaElement in the <see cref="MainWindow"/>.
     /// </summary>
     internal void OnGameEventReceived(GameEvent gameEvent)
     {
