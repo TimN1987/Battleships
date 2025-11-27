@@ -107,6 +107,7 @@
     <Content Include="MVVM\Resources\BackgroundMusic\backingtwo.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="MVVM\Resources\Images\Captains\staticcaptainone.png" />
     <Resource Include="MVVM\Resources\Images\Loading\backgroundWaves.jpg" />
     <Resource Include="MVVM\Resources\battleshipsIcon.ico" />
     <Resource Include="MVVM\Resources\Images\ClassicRulesView\classicruleshelp.jpg" />

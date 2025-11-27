@@ -158,6 +158,14 @@ public class LoadSpeechEvent : PubSubEvent<Uri>
 }
 
 /// <summary>
+/// Publishes the Uri for the captain image to be displayed in the <see cref="PlayGameView"/> based on the 
+/// latest <see cref="GameEvent"/>.
+/// </summary>
+public class LoadCaptainEvent : PubSubEvent<Uri>
+{
+}
+
+/// <summary>
 /// Publishes when the background music has ended to inform the <see cref="SoundService"/> that it needs to 
 /// send the next background music to the <see cref="MainViewModel"/> to load.
 /// </summary>
