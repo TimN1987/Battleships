@@ -118,7 +118,9 @@ public class LoadGameViewModel : ViewModelBase
         SaveGames = updatedSaveGames.ToArray();
 
         if (_gameInProgress && _saveService.CurrentGame != null)
-            SelectedGame = SaveGames.Where(game => game.SaveSlot == _saveService.CurrentSaveSlot).First();
+            SelectedGame = SaveGames
+                .Where(game => game.SaveSlot == _saveService.CurrentSaveSlot)
+                .FirstOrDefault();
     }
 
     /// <summary>

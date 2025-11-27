@@ -81,10 +81,15 @@ public partial class SaveGameViewModel : ViewModelBase
             .Select(number => new SaveGame(number))];
         _saveName = string.Empty;
 
-        Task.Run(async () => await PopulateSaveGamesList());
+        SetUpSaveList();
     }
 
     #region Methods
+    private void SetUpSaveList()
+    {
+        _ = PopulateSaveGamesList();
+    }
+
     private static bool ValidateSaveName(string name)
     {
         return SaveNameRegex().IsMatch(name);
@@ -105,6 +110,11 @@ public partial class SaveGameViewModel : ViewModelBase
             updatedSaveGames[game.saveSlot - 1] = new SaveGame(game.gameName, game.saveTime, game.saveSlot);
 
         SaveGames = updatedSaveGames.ToArray();
+
+        if (_saveService.CurrentGame != null)
+            SelectedGame = SaveGames
+                .Where(game => game.SaveSlot == _saveService.CurrentSaveSlot)
+                .FirstOrDefault();
     }
 
     private void SaveGame()
@@ -113,9 +123,6 @@ public partial class SaveGameViewModel : ViewModelBase
             _eventAggregator.GetEvent<AutosaveEvent>().Publish();
         else
             _eventAggregator.GetEvent<SaveAsEvent>().Publish((SaveName, SelectedGame.SaveSlot));
-
-        Debug.WriteLine($"In SaveGame: {SelectedGame.GameName}");
-        Debug.WriteLine($"Shared data: {SaveName}, {SelectedGame.SaveSlot}");
 
         _eventAggregator.GetEvent<NavigationEvent>().Publish(typeof(PlayGameView));
     }
