@@ -44,6 +44,7 @@ public partial class App : Application
         _ = initializer.InitializeDatabaseWithRetries();
         _serviceProvider.GetRequiredService<IMessageService>();
         _serviceProvider.GetRequiredService<ISoundService>();
+        _serviceProvider.GetRequiredService<ICaptainService>();
     }
 
     private static string GenerateDatabaseFilePath()
@@ -127,6 +128,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IGameSetUpService, GameSetUpService>();
         services.AddSingleton<ISoundService, SoundService>();
         services.AddSingleton<IMessageService, MessageService>();
+        services.AddSingleton<ICaptainService, CaptainService>();
     }
 
 }
