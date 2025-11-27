@@ -16,7 +16,11 @@
     <Window.Resources>
         <converters:ViewToBooleanConverter x:Key="ViewToBooleanConverter"/>
         <Storyboard x:Key="LoadingScreenFade">
-            
+            <DoubleAnimation Storyboard.TargetName="LoadingScreen"
+                             Storyboard.TargetProperty="Opacity"
+                             From="6"
+                             To="0"
+                             Duration="0:0:6"/>
         </Storyboard>
     </Window.Resources>
     <Window.InputBindings>
@@ -32,7 +36,72 @@
                     Command="{Binding CloseApplicationCommand}"/>
     </Window.InputBindings>
     <Grid>
-        <DockPanel>
+        <Grid Panel.ZIndex="1"
+              x:Name="LoadingScreen"
+              VerticalAlignment="Stretch"
+              HorizontalAlignment="Stretch"
+              Opacity="1"
+              IsHitTestVisible="False"
+              Focusable="False">
+            <Grid.Background>
+                <ImageBrush ImageSource="/MVVM/Resources/Images/Loading/backgroundWaves.jpg"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="1" 
+                    Grid.Column="1" 
+                    CornerRadius="80" 
+                    BorderBrush="{DynamicResource MainBackground}"
+                    BorderThickness="1">
+                <Border.Background>
+                    <VisualBrush>
+                        <VisualBrush.Visual>
+                            <Image gif:ImageBehavior.AnimatedSource="/MVVM/Resources/Images/Loading/loadingGIF.gif"
+                                   gif:ImageBehavior.AutoStart="True"
+                                   gif:ImageBehavior.RepeatBehavior="Forever"
+                                   gif:ImageBehavior.AnimationSpeedRatio="0.5"/>
+                        </VisualBrush.Visual>
+                    </VisualBrush>
+                </Border.Background>
+            </Border>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Battleships" 
+                       Foreground="AntiqueWhite" FontSize="80" FontWeight="Bold" 
+                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Text="Command the fleet. Rule the seas."
+                       Foreground="AntiqueWhite" FontSize="30" FontStyle="Italic"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Border Grid.Row="3" Grid.Column="1" MaxHeight="25" MaxWidth="400"
+                    BorderBrush="{DynamicResource MainBackground}" 
+                    BorderThickness="1" 
+                    Background="PowderBlue">
+                <Rectangle Name="loadingRectangle" VerticalAlignment="Center" HorizontalAlignment="Left"
+                           MinHeight="25" Width="5" Fill="{DynamicResource MainBackground}">
+                    <Rectangle.Triggers>
+                        <EventTrigger RoutedEvent="Rectangle.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetName="loadingRectangle" Storyboard.TargetProperty="Width"
+                                             From="5" To="400" Duration="0:0:5">
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Rectangle.Triggers>
+                </Rectangle>
+            </Border>
+            <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+               Text="Loading..." Foreground="GhostWhite" FontSize="15" FontWeight="Thin"/>
+        </Grid>
+        <DockPanel Panel.ZIndex="0">
             <Menu DockPanel.Dock="Top" HorizontalAlignment="Stretch" MinHeight="30">
                 <Menu.ItemsPanel>
                     <ItemsPanelTemplate>

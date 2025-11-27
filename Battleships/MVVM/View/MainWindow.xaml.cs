@@ -6,6 +6,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -33,7 +34,14 @@ namespace Battleships
             WindowStyle = WindowStyle.None;
             WindowState = WindowState.Maximized;
 
+            Loaded += MainWindow_Loaded;
             KeyDown += KeyDown_Escape;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            var storyboard = (Storyboard)FindResource("LoadingScreenFade");
+            storyboard.Begin();
         }
 
         private void ChangeFullScreenSetting(bool isFullScreen)

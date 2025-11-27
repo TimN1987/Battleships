@@ -107,7 +107,7 @@
     <Content Include="MVVM\Resources\BackgroundMusic\backingtwo.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="MVVM\Resources\backgroundWaves.jpg" />
+    <Resource Include="MVVM\Resources\Images\Loading\backgroundWaves.jpg" />
     <Resource Include="MVVM\Resources\battleshipsIcon.ico" />
     <Resource Include="MVVM\Resources\Images\ClassicRulesView\classicruleshelp.jpg" />
     <Resource Include="MVVM\Resources\Images\GeneralRulesView\generalruleshelp.jpg" />
@@ -170,8 +170,8 @@
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\rotationimagewhiterotated.png" />
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\submarine.png" />
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\submarinewhite.png" />
-    <Resource Include="MVVM\Resources\loadingGIF.gif" />
-    <Resource Include="MVVM\Resources\loadingImage.jpg" />
+    <Resource Include="MVVM\Resources\Images\Loading\loadingGIF.gif" />
+    <Resource Include="MVVM\Resources\Images\Loading\loadingImage.jpg" />
     <Resource Include="MVVM\Styles\ClassicTheme.xaml" />
     <Resource Include="MVVM\Styles\DarkTheme.xaml" />
     <Resource Include="MVVM\Styles\Styles.xaml" />

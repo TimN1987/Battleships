@@ -32,7 +32,7 @@
             <Border.Background>
                 <VisualBrush>
                     <VisualBrush.Visual>
-                        <Image gif:ImageBehavior.AnimatedSource="/MVVM/Resources/loadingGIF.gif"
+                        <Image gif:ImageBehavior.AnimatedSource="/MVVM/Resources/Images/Loading/loadingGIF.gif"
                                gif:ImageBehavior.AutoStart="True"
                                gif:ImageBehavior.RepeatBehavior="Forever"
                                gif:ImageBehavior.AnimationSpeedRatio="0.5"/>
