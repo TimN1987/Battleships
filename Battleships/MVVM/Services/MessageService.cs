@@ -6,140 +6,176 @@ using System.Threading.Tasks;
 using Battleships.MVVM.Utilities;
 using Battleships.MVVM.Enums;
 
-namespace Battleships.MVVM.Services
+namespace Battleships.MVVM.Services;
+
+public interface IMessageService
 {
-    public interface IMessageService
+    void RequestMessage(GameEvent message);
+    void GetGameStartMessage();
+    void GetGameOverMessage();
+    void GetPlayerTurnMessage();
+    void GetComputerTurnMessage();
+    void GetShotMissedMessage();
+    void GetShotHitMessage();
+    void GetShipSunkMessage();
+}
+
+public class MessageService : IMessageService
+{
+    // Constant Messages
+    private const string GameStartMessageOne = "Welcome to the game, sailor.";
+    private const string GameStartMessageTwo = "Welcome aboard, sailor. You're just in time for the battle.";
+    private const string GameStartMessageThree = "All hands on deck. Enemy approaching. Do your best, sailor.";
+
+    // Audio Uris
+
+    // Message Arrays
+    private string[] _gameStartMessages;
+    private string[] _gameOverMessages;
+    private string[] _playerTurnMessages;
+    private string[] _computerTurnMessages;
+    private string[] _shotMissedMessages;
+    private string[] _shotHitMessages;
+    private string[] _shipSunkMessages;
+
+    // Audio Arrays
+    private Uri[] _gameStartAudio;
+    private Uri[] _gameOverAudio;
+    private Uri[] _playerTurnAudio;
+    private Uri[] _computerTurnAudio;
+    private Uri[] _shotMissedAudio;
+    private Uri[] _shotHitAudio;
+    private Uri[] _shipSunkAudio;
+
+
+    // Fields
+    private IEventAggregator _eventAggregator;
+
+    public MessageService(IEventAggregator eventAggregator)
     {
-        void RequestMessage(GameEvent message);
-        void GetGameStartMessage();
-        void GetGameOverMessage();
-        void GetPlayerTurnMessage();
-        void GetComputerTurnMessage();
-        void GetShotMissedMessage();
-        void GetShotHitMessage();
-        void GetShipSunkMessage();
+        _eventAggregator = eventAggregator
+            ?? throw new ArgumentNullException(nameof(eventAggregator));
+
+        _eventAggregator
+            .GetEvent<GameEventEvent>()
+            .Subscribe(param => RequestMessage(param));
+
+        _gameStartMessages = [
+            GameStartMessageOne,
+            GameStartMessageTwo,
+            GameStartMessageThree
+        ];
+        _gameOverMessages = [];
+        _playerTurnMessages = [];
+        _computerTurnMessages = [];
+        _shotMissedMessages = [];
+        _shotHitMessages = [];
+        _shipSunkMessages = [];
+
+        _gameStartAudio = [];
+        _gameOverAudio = [];
+        _playerTurnAudio = [];
+        _computerTurnAudio = [];
+        _shotMissedAudio = [];
+        _shotHitAudio = [];
+        _shipSunkAudio = [];
     }
-    
-    public class MessageService : IMessageService
+
+    // Get Message Methods
+    public void RequestMessage(GameEvent message)
     {
-        #region Constant Messages
-        private const string GameStartMessageOne = "Welcome to the game, sailor.";
-        private const string GameStartMessageTwo = "Welcome aboard, sailor. You're just in time for the battle.";
-        private const string GameStartMessageThree = "All hands on deck. Enemy approaching. Do your best, sailor.";
-        #endregion //Constant Messages
-
-        #region Message Arrays
-        private string[] _gameStartMessages;
-        private string[] _gameOverMessages;
-        private string[] _playerTurnMessages;
-        private string[] _computerTurnMessages;
-        private string[] _shotMissedMessages;
-        private string[] _shotHitMessages;
-        private string[] _shipSunkMessages;
-        #endregion //Message Arrays
-
-        // Fields
-        private IEventAggregator _eventAggregator;
-
-        public MessageService(IEventAggregator eventAggregator)
+        switch (message)
         {
-            _eventAggregator = eventAggregator
-                ?? throw new ArgumentNullException(nameof(eventAggregator));
-
-            _eventAggregator
-                .GetEvent<GameEventEvent>()
-                .Subscribe(param => RequestMessage(param));
-
-            _gameStartMessages = [
-                GameStartMessageOne,
-                GameStartMessageTwo,
-                GameStartMessageThree
-            ];
-            _gameOverMessages = [];
-            _playerTurnMessages = [];
-            _computerTurnMessages = [];
-            _shotMissedMessages = [];
-            _shotHitMessages = [];
-            _shipSunkMessages = [];
+            case GameEvent.GameStart: 
+                GetGameStartMessage(); 
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(message));
         }
+    }
 
-        #region Get Message Methods
-        public void RequestMessage(GameEvent message)
-        {
-            switch (message)
-            {
-                case GameEvent.GameStart: 
-                    GetGameStartMessage(); 
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(message));
-            }
-        }
+    public void GetGameStartMessage()
+    {
+        int messageTotal = _gameStartMessages.Length;
+        int index = RandomProvider.Instance.Next(messageTotal);
 
-        public void GetGameStartMessage()
-        {
-            int messageTotal = _gameStartMessages.Length;
-            int index = RandomProvider.Instance.Next(messageTotal);
+        _eventAggregator
+            .GetEvent<UserMessageEvent>()
+            .Publish(_gameStartMessages[index]);
+        _eventAggregator
+            .GetEvent<LoadSpeechEvent>()
+            .Publish(_gameStartAudio[index]);
+    }
+    public void GetGameOverMessage()
+    {
+        int messageTotal = _gameOverMessages.Length;
+        int index = RandomProvider.Instance.Next(messageTotal);
 
-            _eventAggregator
-                .GetEvent<UserMessageEvent>()
-                .Publish(_gameStartMessages[index]);
-                
-        }
-        public void GetGameOverMessage()
-        {
-            int messageTotal = _gameOverMessages.Length;
-            int index = RandomProvider.Instance.Next(messageTotal);
+        _eventAggregator
+            .GetEvent<UserMessageEvent>()
+            .Publish(_gameOverMessages[index]);
+        _eventAggregator
+            .GetEvent<LoadSpeechEvent>()
+            .Publish(_gameOverAudio[index]);
+    }
+    public void GetPlayerTurnMessage()
+    {
+        int messageTotal = _playerTurnMessages.Length;
+        int index = RandomProvider.Instance.Next(messageTotal);
 
-            _eventAggregator
-                .GetEvent<UserMessageEvent>()
-                .Publish(_gameOverMessages[index]);
-        }
-        public void GetPlayerTurnMessage()
-        {
-            int messageTotal = _playerTurnMessages.Length;
-            int index = RandomProvider.Instance.Next(messageTotal);
+        _eventAggregator
+            .GetEvent<UserMessageEvent>()
+            .Publish(_playerTurnMessages[index]);
+        _eventAggregator
+            .GetEvent<LoadSpeechEvent>()
+            .Publish(_playerTurnAudio[index]);
+    }
+    public void GetComputerTurnMessage()
+    {
+        int messageTotal = _computerTurnMessages.Length;
+        int index = RandomProvider.Instance.Next(messageTotal);
 
-            _eventAggregator
-                .GetEvent<UserMessageEvent>()
-                .Publish(_playerTurnMessages[index]);
-        }
-        public void GetComputerTurnMessage()
-        {
-            int messageTotal = _computerTurnMessages.Length;
-            int index = RandomProvider.Instance.Next(messageTotal);
+        _eventAggregator
+            .GetEvent<UserMessageEvent>()
+            .Publish(_computerTurnMessages[index]);
+        _eventAggregator
+            .GetEvent<LoadSpeechEvent>()
+            .Publish(_computerTurnAudio[index]);
+    }
+    public void GetShotMissedMessage()
+    {
+        int messageTotal = _shotMissedMessages.Length;
+        int index = RandomProvider.Instance.Next(messageTotal);
 
-            _eventAggregator
-                .GetEvent<UserMessageEvent>()
-                .Publish(_computerTurnMessages[index]);
-        }
-        public void GetShotMissedMessage()
-        {
-            int messageTotal = _shotMissedMessages.Length;
-            int index = RandomProvider.Instance.Next(messageTotal);
+        _eventAggregator
+            .GetEvent<UserMessageEvent>()
+            .Publish(_shotMissedMessages[index]);
+        _eventAggregator
+            .GetEvent<LoadSpeechEvent>()
+            .Publish(_shotMissedAudio[index]);
+    }
+    public void GetShotHitMessage()
+    {
+        int messageTotal = _shotHitMessages.Length;
+        int index = RandomProvider.Instance.Next(messageTotal);
 
-            _eventAggregator
-                .GetEvent<UserMessageEvent>()
-                .Publish(_shotMissedMessages[index]);
-        }
-        public void GetShotHitMessage()
-        {
-            int messageTotal = _shotHitMessages.Length;
-            int index = RandomProvider.Instance.Next(messageTotal);
+        _eventAggregator
+            .GetEvent<UserMessageEvent>()
+            .Publish(_shotHitMessages[index]);
+        _eventAggregator
+            .GetEvent<LoadSpeechEvent>()
+            .Publish(_shotHitAudio[index]);
+    }
+    public void GetShipSunkMessage()
+    {
+        int meesageTotal = _shipSunkMessages.Length;
+        int index = RandomProvider.Instance.Next(meesageTotal);
 
-            _eventAggregator
-                .GetEvent<UserMessageEvent>()
-                .Publish(_shotHitMessages[index]);
-        }
-        public void GetShipSunkMessage()
-        {
-            int meesageTotal = _shipSunkMessages.Length;
-            int index = RandomProvider.Instance.Next(meesageTotal);
-
-            _eventAggregator
-                .GetEvent<UserMessageEvent>()
-                .Publish(_shipSunkMessages[index]);
-        }
-        #endregion //Get Message Methods
+        _eventAggregator
+            .GetEvent<UserMessageEvent>()
+            .Publish(_shipSunkMessages[index]);
+        _eventAggregator
+            .GetEvent<LoadSpeechEvent>()
+            .Publish(_shipSunkAudio[index]);
     }
 }

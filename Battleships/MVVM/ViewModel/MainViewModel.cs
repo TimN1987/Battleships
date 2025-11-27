@@ -411,7 +411,7 @@ public class MainViewModel : ViewModelBase
         {
             if (param is Uri uriToLoad)
                 ForegroundSpeech = uriToLoad;
-        })
+        });
         _eventAggregator.GetEvent<NextSongEvent>().Subscribe(param =>
         {
             if (param is Uri uriToLoad)
