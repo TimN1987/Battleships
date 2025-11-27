@@ -5,10 +5,49 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Battleships.MVVM.View"
              xmlns:viewmodel="clr-namespace:Battleships.MVVM.ViewModel"
+             xmlns:converters="clr-namespace:Battleships.MVVM.Converters"
              d:DataContext="{d:DesignInstance Type=viewmodel:SaveGameViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <converters:VisibilityToBooleanConverter x:Key="VisibilityToBooleanConverter"/>
+    </UserControl.Resources>
     <Grid>
+        <Grid Width="250"
+              Height="150"
+              Background="Transparent"
+              Panel.ZIndex="10"
+              Visibility="{Binding OverwriteVisibility}"
+              IsHitTestVisible="{Binding OverwriteVisibility, Converter={StaticResource VisibilityToBooleanConverter}}"
+              Focusable="{Binding OverwriteVisibility, Converter={StaticResource VisibilityToBooleanConverter}}">
+            <Border Background="{DynamicResource MainBackground}"
+                    BorderBrush="{DynamicResource StandardButtonBorder}"
+                    BorderThickness="2"
+                    CornerRadius="10">
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Do you want to overwrite?"
+                              Style="{DynamicResource SubtitleText}"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Margin="10"/>
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+                        <Button Content="Yes"
+                                Command="{Binding OverwriteCommand}"
+                                Style="{DynamicResource StandardButtonStyle}"
+                                Height="75"
+                                Width="100"
+                                Margin="10"/>
+                        <Button Content="No"
+                                Command="{Binding RejectOverwriteCommand}"
+                                Style="{DynamicResource StandardButtonStyle}"
+                                Height="75"
+                                Width="100"
+                                Margin="10"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
         <Grid>
             <Viewbox>
                 <Grid>

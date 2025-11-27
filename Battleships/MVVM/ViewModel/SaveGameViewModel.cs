@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Battleships.MVVM.Services;
 using Battleships.MVVM.Structs;
@@ -23,10 +24,14 @@ public partial class SaveGameViewModel : ViewModelBase
     private SaveGame _selectedGame;
     private SaveGame[] _saveGames;
     private string _saveName;
+    private Visibility _overwriteVisibility;
     private ICommand? _saveGameCommand;
+    private ICommand? _overwriteCommand;
+    private ICommand? _rejectOverwriteCommand;
     private ICommand? _returnToGameCommand;
     #endregion //Fields
 
+    #region Properties
     public SaveGame SelectedGame
     {
         get => _selectedGame;
@@ -51,15 +56,24 @@ public partial class SaveGameViewModel : ViewModelBase
                 SetProperty(ref _saveName, value);
         }
     }
+    public Visibility OverwriteVisibility
+    {
+        get => _overwriteVisibility;
+        set => SetProperty(ref _overwriteVisibility, value);
+    }
 
     public ICommand SaveGameCommand
     {
         get
         {
-            _saveGameCommand ??= new RelayCommand(param => SaveGame(), param => CanSaveGame());
+            _saveGameCommand ??= new RelayCommand(param => OnSaveRequest(), param => CanSaveGame());
             return _saveGameCommand;
         }
     }
+    public ICommand OverwriteCommand => _overwriteCommand
+        ??= new RelayCommand(param => SaveGame());
+    public ICommand RejectOverwriteCommand => _rejectOverwriteCommand 
+        ??= new RelayCommand(param => RejectOverwrite());
     public ICommand ReturnToGameCommand
     {
         get
@@ -68,6 +82,7 @@ public partial class SaveGameViewModel : ViewModelBase
             return _returnToGameCommand;
         }
     }
+    #endregion // Properties
 
     public SaveGameViewModel(IEventAggregator eventAggregator, ISaveService saveService)
     {
@@ -76,6 +91,7 @@ public partial class SaveGameViewModel : ViewModelBase
         _saveService = saveService
             ?? throw new ArgumentNullException(nameof(saveService));
 
+        _overwriteVisibility = Visibility.Collapsed;
         _selectedGame = new SaveGame(0);
         _saveGames = [.. Enumerable.Range(1, 10)
             .Select(number => new SaveGame(number))];
@@ -117,6 +133,15 @@ public partial class SaveGameViewModel : ViewModelBase
                 .FirstOrDefault();
     }
 
+    private void OnSaveRequest()
+    {
+        if (string.IsNullOrEmpty(_selectedGame.GameName))
+            SaveGame();
+        else
+            CheckOverwrite();
+
+    }
+
     private void SaveGame()
     {
         if (SelectedGame.GameName == "Autosave")
@@ -127,8 +152,18 @@ public partial class SaveGameViewModel : ViewModelBase
         _eventAggregator.GetEvent<NavigationEvent>().Publish(typeof(PlayGameView));
     }
 
+    private void CheckOverwrite()
+    {
+        OverwriteVisibility = Visibility.Visible;
+    }
+
+    private void RejectOverwrite()
+    {
+        OverwriteVisibility = Visibility.Collapsed;
+    }
+
     /// <summary>
-    /// Checks that a valid selection has been made before allowing the LoadGame method to be called.
+    /// Checks that a valid selection has been made before allowing the SaveGame method to be called.
     /// </summary>
     /// <returns>True if a valid selection has been made, false if not.</returns>
     private bool CanSaveGame()
@@ -139,7 +174,7 @@ public partial class SaveGameViewModel : ViewModelBase
             return false;
         if (SaveName == "Empty")
             return false;
-        return Regex.IsMatch(SaveName, @"^[A-Za-z0-9]{3,20}$");
+        return ValidateSaveName(SaveName);
     }
 
     private void ReturnToGame()
