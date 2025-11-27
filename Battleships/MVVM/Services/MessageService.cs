@@ -23,11 +23,14 @@ public interface IMessageService
 public class MessageService : IMessageService
 {
     // Constant Messages
-    private const string GameStartMessageOne = "Welcome to the game, sailor.";
+    private const string GameStartMessageOne = "Welcome to the battle, sailor.";
     private const string GameStartMessageTwo = "Welcome aboard, sailor. You're just in time for the battle.";
     private const string GameStartMessageThree = "All hands on deck. Enemy approaching. Do your best, sailor.";
 
     // Audio Uris
+    private readonly Uri _gameStartsAudioOne = new(@"pack://application:,,,/MVVM/Resources/Speech/gamestartaudioone.wav", UriKind.Absolute);
+    private readonly Uri _gameStartsAudioTwo = new(@"pack://application:,,,/MVVM/Resources/Speech/gamestartaudiotwo.wav", UriKind.Absolute);
+    private readonly Uri _gameStartsAudioThree = new(@"pack://application:,,,/MVVM/Resources/Speech/gamestartaudiothree.wav", UriKind.Absolute);
 
     // Message Arrays
     private string[] _gameStartMessages;
@@ -72,7 +75,11 @@ public class MessageService : IMessageService
         _shotHitMessages = [];
         _shipSunkMessages = [];
 
-        _gameStartAudio = [];
+        _gameStartAudio = [
+            _gameStartsAudioOne,
+            _gameStartsAudioTwo,
+            _gameStartsAudioThree
+            ];
         _gameOverAudio = [];
         _playerTurnAudio = [];
         _computerTurnAudio = [];

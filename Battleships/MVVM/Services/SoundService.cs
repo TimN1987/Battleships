@@ -85,7 +85,9 @@ public class SoundService : ISoundService
             ];
         _backgroundMusicListSize = _backgroundMusicList.Count;
         _backgroundMusicIndex = RandomProvider.Instance.Next(_backgroundMusicListSize);
-        _foregroundSounds = []; //add the sounds here when stored in resources
+        _foregroundSounds = new() {
+            { GameEvent.GameStart, [] }
+        }; //add the sounds here when stored in resources
     }
 
     /// <summary>
@@ -108,6 +110,10 @@ public class SoundService : ISoundService
     {
         Uri[] sounds = _foregroundSounds[gameEvent];
         int availableSounds = sounds.Length;
+
+        if (availableSounds == 0)
+            return;
+
         int index = RandomProvider.Instance.Next(availableSounds);
 
         _eventAggregator

@@ -74,6 +74,9 @@
     <None Remove="MVVM\Resources\Images\ShipPlacementView\rotationimagewhiterotated.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\submarine.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\submarinewhite.png" />
+    <None Remove="MVVM\Resources\Speech\gamestartaudioone.wav" />
+    <None Remove="MVVM\Resources\Speech\gamestartaudiothree.wav" />
+    <None Remove="MVVM\Resources\Speech\gamestartaudiotwo.wav" />
   </ItemGroup>
 
   <ItemGroup>
@@ -173,6 +176,15 @@
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\submarinewhite.png" />
     <Resource Include="MVVM\Resources\Images\Loading\loadingGIF.gif" />
     <Resource Include="MVVM\Resources\Images\Loading\loadingImage.jpg" />
+    <Content Include="MVVM\Resources\Speech\gamestartaudioone.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\gamestartaudiothree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\gamestartaudiotwo.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="MVVM\Styles\ClassicTheme.xaml" />
     <Resource Include="MVVM\Styles\DarkTheme.xaml" />
     <Resource Include="MVVM\Styles\Styles.xaml" />
