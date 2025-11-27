@@ -15,6 +15,9 @@
         KeyDown="KeyDown_Escape">
     <Window.Resources>
         <converters:ViewToBooleanConverter x:Key="ViewToBooleanConverter"/>
+        <Storyboard x:Key="LoadingScreenFade">
+            
+        </Storyboard>
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Gesture="Ctrl + S"
@@ -28,150 +31,157 @@
         <KeyBinding Gesture="Ctrl + X"
                     Command="{Binding CloseApplicationCommand}"/>
     </Window.InputBindings>
-    <DockPanel>
-        <Menu DockPanel.Dock="Top" HorizontalAlignment="Stretch" MinHeight="30">
-            <Menu.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Grid HorizontalAlignment="Stretch">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                            <ColumnDefinition Width="auto"/>
-                        </Grid.ColumnDefinitions>
-                    </Grid>
-                </ItemsPanelTemplate>
-            </Menu.ItemsPanel>
-            <MenuItem Style="{DynamicResource GameMenuItem}" Header="_Game" Grid.Column="0"
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" HorizontalAlignment="Stretch" MinHeight="30">
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+                <MenuItem Style="{DynamicResource GameMenuItem}" Header="_Game" Grid.Column="0"
                       AutomationProperties.Name="Open game menu.">
-                <MenuItem Style="{DynamicResource GameMenuItem}" Header="_Save Game" InputGestureText="Ctrl + S" 
+                    <MenuItem Style="{DynamicResource GameMenuItem}" Header="_Save Game" InputGestureText="Ctrl + S" 
                           IsEnabled="{Binding CurrentView, Mode=OneWay, Converter={StaticResource ViewToBooleanConverter}}"
                           Command="{Binding SaveCommand}"
                           AutomationProperties.Name="Save current game.">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding SaveIcon}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Style="{DynamicResource GameMenuItem}" Header="S_ave Game As..." InputGestureText="Ctrl + A" 
+                        <MenuItem.Icon>
+                            <Image Source="{Binding SaveIcon}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Style="{DynamicResource GameMenuItem}" Header="S_ave Game As..." InputGestureText="Ctrl + A" 
                           IsEnabled="{Binding CurrentView, Mode=OneWay, Converter={StaticResource ViewToBooleanConverter}}"
                           Command="{Binding SaveAsCommand}"
                           AutomationProperties.Name="Open save game page.">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding SaveAsIcon}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Style="{DynamicResource GameMenuItem}" Header="_Load Game..." InputGestureText="Ctrl + L"
+                        <MenuItem.Icon>
+                            <Image Source="{Binding SaveAsIcon}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Style="{DynamicResource GameMenuItem}" Header="_Load Game..." InputGestureText="Ctrl + L"
                           Command="{Binding LoadCommand}"
                           AutomationProperties.Name="Open load game page.">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding LoadIcon}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Style="{DynamicResource GameMenuItem}" Header="_Return to Game" InputGestureText="Ctrl + R"
+                        <MenuItem.Icon>
+                            <Image Source="{Binding LoadIcon}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Style="{DynamicResource GameMenuItem}" Header="_Return to Game" InputGestureText="Ctrl + R"
                           Command="{Binding ReturnToGameCommand}"
                           Visibility="{Binding ReturnToGameAvailable, Mode=OneWay}"
                           AutomationProperties.Name="Return to the play game page.">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding ReturnIcon}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Style="{DynamicResource GameMenuItem}" Header="Return _home" InputGestureText="Ctril + H"
+                        <MenuItem.Icon>
+                            <Image Source="{Binding ReturnIcon}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Style="{DynamicResource GameMenuItem}" Header="Return _home" InputGestureText="Ctril + H"
                           Command="{Binding ReturnHomeCommand}"
                           Visibility="{Binding ReturnHomeAvailable, Mode=OneWay}"
                           AutomationProperties.Name="Return to the home page.">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding HomeIcon}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Style="{DynamicResource GameMenuItem}" Header="E_xit Game" InputGestureText="Ctrl + X"
+                        <MenuItem.Icon>
+                            <Image Source="{Binding HomeIcon}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Style="{DynamicResource GameMenuItem}" Header="E_xit Game" InputGestureText="Ctrl + X"
                           Command="{Binding CloseApplicationCommand}"
                           AutomationProperties.Name="Exit the game and close the window."/>
-            </MenuItem>
-            <MenuItem Grid.Column="1" Style="{DynamicResource TextBlockMenuItem}"
+                </MenuItem>
+                <MenuItem Grid.Column="1" Style="{DynamicResource TextBlockMenuItem}"
                       Header="{Binding SaveStatusMessage}"
                       AutomationProperties.LiveSetting="Polite"
                       AutomationProperties.Name="{Binding SaveStatusMessage}"/>
-            <MenuItem Header="Theme" Style="{DynamicResource ThemeMenuItem}"
+                <MenuItem Header="Theme" Style="{DynamicResource ThemeMenuItem}"
                       Grid.Column="2"
                       AutomationProperties.Name="Open theme selection menu.">
-                <MenuItem Header="Classic" Style="{DynamicResource ThemeMenuItem}"
+                    <MenuItem Header="Classic" Style="{DynamicResource ThemeMenuItem}"
                           Command="{Binding ChangeThemeCommand}" CommandParameter="{x:Static enums:ThemeNames.Classic}"
                           AutomationProperties.Name="Choose classic theme.">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding ClassicThemeIcon}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Dark" Style="{DynamicResource ThemeMenuItem}"
+                        <MenuItem.Icon>
+                            <Image Source="{Binding ClassicThemeIcon}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Dark" Style="{DynamicResource ThemeMenuItem}"
                           Command="{Binding ChangeThemeCommand}" CommandParameter="{x:Static enums:ThemeNames.Dark}"
                           AutomationProperties.Name="Choose dark theme.">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding DarkThemeIcon}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Light" Style="{DynamicResource ThemeMenuItem}"
+                        <MenuItem.Icon>
+                            <Image Source="{Binding DarkThemeIcon}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Light" Style="{DynamicResource ThemeMenuItem}"
                           Command="{Binding ChangeThemeCommand}" CommandParameter="{x:Static enums:ThemeNames.Light}"
                           AutomationProperties.Name="Choose light theme.">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding LightThemeIcon}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Neon" Style="{DynamicResource ThemeMenuItem}"
+                        <MenuItem.Icon>
+                            <Image Source="{Binding LightThemeIcon}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Neon" Style="{DynamicResource ThemeMenuItem}"
                           Command="{Binding ChangeThemeCommand}" CommandParameter="{x:Static enums:ThemeNames.Neon}"
                           AutomationProperties.Name="Choose neon theme.">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding NeonThemeIcon}"/>
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Header="Neutral" Style="{DynamicResource ThemeMenuItem}"
+                        <MenuItem.Icon>
+                            <Image Source="{Binding NeonThemeIcon}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Header="Neutral" Style="{DynamicResource ThemeMenuItem}"
                           Command="{Binding ChangeThemeCommand}" CommandParameter="{x:Static enums:ThemeNames.Neutral}"
                           AutomationProperties.Name="Choose neutral theme.">
-                    <MenuItem.Icon>
-                        <Image Source="{Binding NeutralThemeIcon}"/>
-                    </MenuItem.Icon>
+                        <MenuItem.Icon>
+                            <Image Source="{Binding NeutralThemeIcon}"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
                 </MenuItem>
-            </MenuItem>
-            <MenuItem Header="Sound" Style="{DynamicResource SoundMenuItem}"
+                <MenuItem Header="Sound" Style="{DynamicResource SoundMenuItem}"
                       Grid.Column="3"
                       AutomationProperties.Name="Open sound menu drop down list.">
-                <MenuItem Header="Background volume"
+                    <MenuItem Header="Background volume"
                           Tag="{Binding BackgroundVolume, Mode=TwoWay}"
                           Style="{DynamicResource SoundMenuItem}"
                           AutomationProperties.Name="Background music volume."
                           AutomationProperties.HelpText="Use arrow keys to adjust."/>
-                <MenuItem Header="Foreground volume"
+                    <MenuItem Header="Foreground volume"
                           Tag="{Binding ForegroundVolume}"
                           Style="{DynamicResource SoundMenuItem}"
                           AutomationProperties.Name="Game sounds volume."
                           AutomationProperties.HelpText="Use arrow keys to adjust."/>
-            </MenuItem>
-            <MenuItem Command="{Binding MuteCommand}" Style="{DynamicResource IconMenuItem}"
+                </MenuItem>
+                <MenuItem Command="{Binding MuteCommand}" Style="{DynamicResource IconMenuItem}"
                       Grid.Column="4"
                       AutomationProperties.Name="{Binding MuteAutomationPropertyName}">
-                <MenuItem.Icon>
-                    <Image Source="{Binding MuteMenuImage}"/>
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Command="{Binding FullScreenCommand}" Style="{DynamicResource IconMenuItem}"
+                    <MenuItem.Icon>
+                        <Image Source="{Binding MuteMenuImage}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Command="{Binding FullScreenCommand}" Style="{DynamicResource IconMenuItem}"
                       Grid.Column="5"
                       AutomationProperties.Name="{Binding FullScreenAutomationPropertyName}">
-                <MenuItem.Icon>
-                    <Image Source="{Binding FullScreenMenuImage}"/>
-                </MenuItem.Icon>
-            </MenuItem>
-        </Menu>
-        <MediaElement x:Name="BackgroundMusic"
+                    <MenuItem.Icon>
+                        <Image Source="{Binding FullScreenMenuImage}"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </Menu>
+            <MediaElement x:Name="BackgroundMusic"
                       Source="{Binding BackgroundMusic, Mode=OneWay}"
                       Volume="{Binding BackgroundVolume, Mode=OneWay}"
                       IsMuted="{Binding VolumeMuted, Mode=OneWay}"
                       LoadedBehavior="Play"
                       MediaEnded="BackgroundMusic_MediaEnded"/>
-        <MediaElement x:Name="ForegroundSound"
+            <MediaElement x:Name="ForegroundSound"
                       Source="{Binding ForegroundSound, Mode=OneWay}"
                       Volume="{Binding ForegroundVolume, Mode=OneWay}"
                       IsEnabled="{Binding VolumeMuted, Mode=OneWay}"
                       LoadedBehavior="Play"/>
-        <ContentControl Content="{Binding CurrentView, Mode=OneWay}"/>
-    </DockPanel>
+            <MediaElement x:Name="ForegroundSpeech"
+                      Source="{Binding CaptainSpeech, Mode=OneWay}"
+                      Volume="{Binding ForegroundVolume, Mode=OneWay}"
+                      IsEnabled="{Binding VolumeMuted, Mode=OneWay}"
+                      LoadedBehavior="Play"/>
+            <ContentControl Content="{Binding CurrentView, Mode=OneWay}"/>
+        </DockPanel>
+    </Grid>
 </Window>
