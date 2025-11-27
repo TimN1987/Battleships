@@ -13,17 +13,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Battleships.MVVM.ViewModel;
 
-namespace Battleships.MVVM.View
+namespace Battleships.MVVM.View;
+
+/// <summary>
+/// Interaction logic for LoadingView.xaml
+/// </summary>
+public partial class LoadingView : Window
 {
-    /// <summary>
-    /// Interaction logic for LoadingView.xaml
-    /// </summary>
-    public partial class LoadingView : Window
+    LoadingViewModel _viewModel;
+
+    public LoadingView(LoadingViewModel viewModel)
     {
-        public LoadingView(LoadingViewModel viewModel)
-        {
-            InitializeComponent();
-            DataContext = viewModel;
-        }
+        InitializeComponent();
+        _viewModel = viewModel;
+        DataContext = _viewModel;
     }
 }
