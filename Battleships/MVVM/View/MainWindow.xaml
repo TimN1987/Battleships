@@ -18,9 +18,9 @@
         <Storyboard x:Key="LoadingScreenFade">
             <DoubleAnimation Storyboard.TargetName="LoadingScreen"
                              Storyboard.TargetProperty="Opacity"
-                             From="6"
+                             From="3.5"
                              To="0"
-                             Duration="0:0:6"/>
+                             Duration="0:0:7"/>
         </Storyboard>
     </Window.Resources>
     <Window.InputBindings>
@@ -246,7 +246,7 @@
                       IsEnabled="{Binding VolumeMuted, Mode=OneWay}"
                       LoadedBehavior="Play"/>
             <MediaElement x:Name="ForegroundSpeech"
-                      Source="{Binding CaptainSpeech, Mode=OneWay}"
+                      Source="{Binding ForegroundSpeech, Mode=OneWay}"
                       Volume="{Binding ForegroundVolume, Mode=OneWay}"
                       IsEnabled="{Binding VolumeMuted, Mode=OneWay}"
                       LoadedBehavior="Play"/>

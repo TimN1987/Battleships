@@ -42,6 +42,7 @@ public class MainViewModel : ViewModelBase
     private Uri _backgroundMusic;
     private readonly Uri _defaultBackgroundMusic = new(@"pack://application:,,,/MVVM/Resources/Sounds/BackgroundMusic.mp3", UriKind.Absolute);
     private Uri? _foregroundSound;
+    private Uri? _foregroundSpeech;
 
     private Uri _muteMenuImage;
     private Uri _fullScreenMenuImage;
@@ -237,6 +238,12 @@ public class MainViewModel : ViewModelBase
         set => SetProperty(ref _foregroundSound, value);
     }
 
+    public Uri? ForegroundSpeech
+    {
+        get => _foregroundSpeech;
+        set => SetProperty(ref _foregroundSpeech, value);
+    }
+
     public Uri MuteMenuImage
     {
         get => _muteMenuImage;
@@ -398,8 +405,13 @@ public class MainViewModel : ViewModelBase
         _eventAggregator.GetEvent<LoadSoundEvent>().Subscribe(param =>
         {
             if (param is Uri uriToLoad)
-                LoadNewForegroundSound(uriToLoad);
+                ForegroundSound = uriToLoad;
         });
+        _eventAggregator.GetEvent<LoadSpeechEvent>().Subscribe(param =>
+        {
+            if (param is Uri uriToLoad)
+                ForegroundSpeech = uriToLoad;
+        })
         _eventAggregator.GetEvent<NextSongEvent>().Subscribe(param =>
         {
             if (param is Uri uriToLoad)
@@ -450,20 +462,7 @@ public class MainViewModel : ViewModelBase
 
     #region Methods
     //Methods for handling sound and display
-    private void Mute()
-    {
-        VolumeMuted = !VolumeMuted;
-    }
-
-    private void LoadNewForegroundSound(Uri uriToLoad)
-    {
-        ForegroundSound = uriToLoad;
-    }
-
-    private void LoadNextBackgroundMusic(Uri uriToLoad)
-    {
-        BackgroundMusic = uriToLoad;
-    }
+    private void Mute() => VolumeMuted = !VolumeMuted;
 
     private void ChangeFullScreenSetting()
     {
@@ -472,15 +471,9 @@ public class MainViewModel : ViewModelBase
         IsFullScreen = !IsFullScreen;
     }
 
-    private void OnEscapeKeyDown()
-    {
-        IsFullScreen = false;
-    }
+    private void OnEscapeKeyDown() => IsFullScreen = false;
 
-    private void ReturnToGame()
-    {
-        NavigateTo(typeof(PlayGameView));
-    }
+    private void ReturnToGame() => NavigateTo(typeof(PlayGameView));
 
     private void ChangeTheme(ThemeNames requestedTheme)
     {
@@ -531,15 +524,9 @@ public class MainViewModel : ViewModelBase
         _eventAggregator.GetEvent<SaveEvent>().Publish();
     }
 
-    private bool CanUseSaveAndLoadGameFunctionality()
-    {
-        return !_moveInProgress;
-    }
+    private bool CanUseSaveAndLoadGameFunctionality() => !_moveInProgress;
 
-    private void RequestAutosave()
-    {
-        _eventAggregator.GetEvent<AutosaveEvent>().Publish();
-    }
+    private void RequestAutosave() => _eventAggregator.GetEvent<AutosaveEvent>().Publish();
 
     private void MoveToLoadGame()
     {
