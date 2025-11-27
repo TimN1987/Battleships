@@ -34,6 +34,8 @@ namespace Battleships.MVVM.ViewModel
         private bool _shotsEqualLargestUnsunkShip = false;
         private bool _shotsEqualLargestUndamagedShip = false;
 
+        private Uri _helpPageImage = new(@"pack://application:,,,/MVVM/Resources/Images/SalvoRulesView/salvoruleshelp.jpg", UriKind.Absolute);
+
         private SalvoShots _selectedSalvoShotType = SalvoShots.Fixed;
 
         private ICommand? _setRulesCommand;
@@ -133,6 +135,8 @@ namespace Battleships.MVVM.ViewModel
                 }
             }
         }
+
+        public Uri HelpPageImage => _helpPageImage;
         #endregion //Properties
 
         public ICommand SetRulesCommand

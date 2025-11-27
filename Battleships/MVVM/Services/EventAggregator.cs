@@ -92,7 +92,7 @@ namespace Battleships.MVVM.Services
     }
 
     /// <summary>
-    /// {ublished the current game status when requested to ensure that transient views can display correctly 
+    /// Publishes the current game status when requested to ensure that transient views can display correctly 
     /// with the appropriate functionality for the current game status.
     /// </summary>
     public class UpdateGameStatusEvent : PubSubEvent<bool>
@@ -193,6 +193,22 @@ namespace Battleships.MVVM.Services
     /// Publishes the status of the theme to inform the <see cref="MainViewModel"> which theme to load.
     /// </summary>
     public class ChangeThemeEvent : PubSubEvent<string>
+    {
+    }
+
+    /// <summary>
+    /// Publishes the type of event that has heppened in a game to keep the user updated with messages and 
+    /// sound effects..
+    /// </summary>
+    public class GameEventEvent : PubSubEvent<GameEvent>
+    {
+    }
+
+    /// <summary>
+    /// Publishes a message to be displayed for the user in the <see cref="PlayGameView"/> to explain what 
+    /// has happened.
+    /// </summary>
+    public class UserMessageEvent : PubSubEvent<string>
     {
     }
 }

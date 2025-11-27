@@ -114,7 +114,6 @@ namespace Battleships.MVVM.ViewModel
         #region Fields
         private readonly IEventAggregator _eventAggregator;
         private readonly ISaveService _saveService;
-        private readonly IMessageService _messageService;
         private readonly ILoggerFactory _loggerFactory;
         private readonly IEventLogger _eventLogger;
         private GameSetUpInformation _gameSetUpInformation;
@@ -352,14 +351,12 @@ namespace Battleships.MVVM.ViewModel
         }
         #endregion //Commands
 
-        public PlayGameViewModel(IEventAggregator eventAggregator, ISaveService saveService, IMessageService messageService, ILoggerFactory loggerFactory)
+        public PlayGameViewModel(IEventAggregator eventAggregator, ISaveService saveService, ILoggerFactory loggerFactory)
         {
             _eventAggregator = eventAggregator
                 ?? throw new ArgumentNullException(nameof(eventAggregator));
             _saveService = saveService
                 ?? throw new ArgumentNullException(nameof(saveService));
-            _messageService = messageService 
-                ?? throw new ArgumentNullException(nameof(messageService));
             _loggerFactory = loggerFactory
                 ?? throw new ArgumentNullException(nameof(loggerFactory));
             _eventLogger = loggerFactory.CreateLogger(nameof(PlayGameViewModel))
@@ -379,6 +376,7 @@ namespace Battleships.MVVM.ViewModel
             _eventAggregator.GetEvent<LoadGameEvent>().Subscribe(async param => await LoadGame(param));
             _eventAggregator.GetEvent<GameLoadedEvent>().Subscribe(async param => await InitializeLoadedGame(param));
             _eventAggregator.GetEvent<ThemeUpdateEvent>().Subscribe(theme => UpdateTheme(theme));
+            _eventAggregator.GetEvent<UserMessageEvent>().Subscribe(param => GameStatusMessage = param);
 
             // Ensure player cannot click until game full initialized
             PlayerCanClick = false;
@@ -438,7 +436,7 @@ namespace Battleships.MVVM.ViewModel
                 { ShotType.Bombardment, new[] {0, -1, 1, -10, 10} }
             };
 
-            GameStatusMessage = _messageService.GetGameStartMessage();
+            _gameStatusMessage = string.Empty;
             _eventAggregator.GetEvent<ThemeRequestEvent>().Publish();
         }
 
@@ -453,6 +451,7 @@ namespace Battleships.MVVM.ViewModel
             // Ensure player cannot click until game full initialized
             PlayerCanClick = false;
 
+            _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.GameStart);
             var _ = InitializeGame(gameSetUpInformation);
         }
 
@@ -1005,7 +1004,7 @@ namespace Battleships.MVVM.ViewModel
             GameOverVisible = Visibility.Visible;
 
             // Delete game data
-            // Hide board
+            //Display end game message and gif
             // Clear board
             // Display return home options - restart or return home
         }

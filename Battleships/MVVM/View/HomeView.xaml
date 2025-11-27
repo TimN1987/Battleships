@@ -34,7 +34,7 @@
                     <VisualBrush.Visual>
                         <Image gif:ImageBehavior.AnimatedSource="/MVVM/Resources/loadingGIF.gif"
                                gif:ImageBehavior.AutoStart="True"
-                               gif:ImageBehavior.RepeatBehavior="3x"
+                               gif:ImageBehavior.RepeatBehavior="Forever"
                                gif:ImageBehavior.AnimationSpeedRatio="0.5"/>
                     </VisualBrush.Visual>
                 </VisualBrush>

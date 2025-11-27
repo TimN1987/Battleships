@@ -29,6 +29,8 @@ namespace Battleships.MVVM.ViewModel
         private bool _bombardmentAllowed = false;
         private bool _shipsCanTouch = false;
 
+        private Uri _helpPageImage = new(@"pack://application:,,,/MVVM/Resources/Images/GeneralRulesView/generalruleshelp.jpg", UriKind.Absolute);
+
         private ICommand? _setRulesCommand;
         #endregion //Fields
 
@@ -48,6 +50,7 @@ namespace Battleships.MVVM.ViewModel
             get => _shipsCanTouch;
             set => SetProperty(ref _shipsCanTouch, value);
         }
+        public Uri HelpPageImage => _helpPageImage;
         #endregion //Properties
 
         public ICommand SetRulesCommand

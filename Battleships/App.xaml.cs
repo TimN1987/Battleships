@@ -53,6 +53,7 @@ namespace Battleships
             initializer.DatabaseInitialized += OnDatabaseInitialized;
 
             Task.Run(async () => await initializer.InitializeDatabaseWithRetries());
+            _serviceProvider.GetRequiredService<IMessageService>();
 
             progress.Report(100);
         }

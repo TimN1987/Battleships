@@ -13,6 +13,9 @@
     <None Remove="MVVM\Resources\BackgroundMusic\backingone.wav" />
     <None Remove="MVVM\Resources\BackgroundMusic\backingthree.wav" />
     <None Remove="MVVM\Resources\BackgroundMusic\backingtwo.wav" />
+    <None Remove="MVVM\Resources\Images\ClassicRulesView\classicruleshelp.jpg" />
+    <None Remove="MVVM\Resources\Images\ClassicRulesView\generalruleshelp.jpg" />
+    <None Remove="MVVM\Resources\Images\ClassicRulesView\salvoruleshelp.jpg" />
     <None Remove="MVVM\Resources\Images\MainWindow\Menu\classicicon.png" />
     <None Remove="MVVM\Resources\Images\MainWindow\Menu\darkicon.png" />
     <None Remove="MVVM\Resources\Images\MainWindow\Menu\homeicon.png" />
@@ -106,6 +109,9 @@
     </Content>
     <Resource Include="MVVM\Resources\backgroundWaves.jpg" />
     <Resource Include="MVVM\Resources\battleshipsIcon.ico" />
+    <Resource Include="MVVM\Resources\Images\ClassicRulesView\classicruleshelp.jpg" />
+    <Resource Include="MVVM\Resources\Images\GeneralRulesView\generalruleshelp.jpg" />
+    <Resource Include="MVVM\Resources\Images\SalvoRulesView\salvoruleshelp.jpg" />
     <Resource Include="MVVM\Resources\Images\MainWindow\Menu\classicicon.png" />
     <Resource Include="MVVM\Resources\Images\MainWindow\Menu\darkicon.png" />
     <Resource Include="MVVM\Resources\Images\MainWindow\Menu\homeicon.png" />

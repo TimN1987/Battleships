@@ -5,74 +5,82 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Battleships.MVVM.View"
              xmlns:viewmodel="clr-namespace:Battleships.MVVM.ViewModel"
+             xmlns:controls="clr-namespace:Battleships.MVVM.View.CustomControls"
              d:DataContext="{d:DesignInstance viewmodel:ClassicRulesSetUpViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="5*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="2*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <Viewbox Grid.Row="1" 
+        <controls:InformationPopUp Panel.ZIndex="10"
+                                   Image="{Binding HelpPageImage}"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Top"
+                                   Margin="15,15,0,0"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Viewbox Grid.Row="1" 
                  Grid.Column="1" Grid.ColumnSpan="5">
-            <TextBlock Text="Select Classic Game rules"
+                <TextBlock Text="Select Classic Game rules"
                        Style="{DynamicResource TitleText}"/>
-        </Viewbox>
-        <Viewbox Grid.Row="3"
+            </Viewbox>
+            <Viewbox Grid.Row="3"
                  Grid.Column="1" Grid.ColumnSpan="2"
                  HorizontalAlignment="Right">
-            <TextBlock Text="Fire until miss"
+                <TextBlock Text="Fire until miss"
                        Style="{DynamicResource StandardText}"
                        ToolTip="{Binding FireUntilMissExplanation, Mode=OneWay}"/>
-        </Viewbox>
-        <CheckBox Grid.Row="3"
+            </Viewbox>
+            <CheckBox Grid.Row="3"
                   Grid.Column="4"
                   IsChecked="{Binding FireUntilMiss, Mode=TwoWay}"
                   Style="{DynamicResource ToggleSwitchCheckBox}"/>
-        <Viewbox Grid.Row="5"
+            <Viewbox Grid.Row="5"
                  Grid.Column="1" Grid.ColumnSpan="2"
                  HorizontalAlignment="Right">
-            <TextBlock Text="Bonus shot on hit"
+                <TextBlock Text="Bonus shot on hit"
                        Style="{DynamicResource StandardText}"
                        ToolTip="{Binding BonusShotOnHitExplanation, Mode=OneWay}"/>
-        </Viewbox>
-        <CheckBox Grid.Row="5"
+            </Viewbox>
+            <CheckBox Grid.Row="5"
                   Grid.Column="4"
                   IsChecked="{Binding BonusShotOnHit, Mode=TwoWay}"
                   Style="{DynamicResource ToggleSwitchCheckBox}"/>
-        <Viewbox Grid.Row="7"
+            <Viewbox Grid.Row="7"
                  Grid.Column="1" Grid.ColumnSpan="2"
                  HorizontalAlignment="Right">
-            <TextBlock Text="Hide sunk ships"
+                <TextBlock Text="Hide sunk ships"
                        Style="{DynamicResource StandardText}"
                        ToolTip="{Binding HideSunkShipsExplanation, Mode=OneWay}"/>
-        </Viewbox>
-        <CheckBox Grid.Row="7"
+            </Viewbox>
+            <CheckBox Grid.Row="7"
                   Grid.Column="4"
                   IsChecked="{Binding HideSunkShips, Mode=TwoWay}"
                   Style="{DynamicResource ToggleSwitchCheckBox}"/>
-        <Button Grid.Row="9"
+            <Button Grid.Row="9"
                 Grid.Column="2" Grid.ColumnSpan="2"
                 Content="Continue"
                 Command="{Binding SetRulesCommand}"
                 Style="{DynamicResource StandardButtonStyle}"/>
+        </Grid>
     </Grid>
 </UserControl>

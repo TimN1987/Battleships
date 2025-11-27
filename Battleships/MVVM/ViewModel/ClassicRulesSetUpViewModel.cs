@@ -30,6 +30,8 @@ namespace Battleships.MVVM.ViewModel
         private bool _bonusShotOnHit = false;
         private bool _hideSunkShips = false;
 
+        private Uri _helpPageImage = new(@"pack://application:,,,/MVVM/Resources/Images/ClassicRulesView/classicruleshelp.jpg", UriKind.Absolute);
+
         private ICommand? _setRulesCommand;
         #endregion //Fields
 
@@ -49,6 +51,7 @@ namespace Battleships.MVVM.ViewModel
             get => _hideSunkShips;
             set => SetProperty(ref _hideSunkShips, value);
         }
+        public Uri HelpPageImage => _helpPageImage;
         #endregion //Properties
 
         public ICommand SetRulesCommand

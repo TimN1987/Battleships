@@ -158,4 +158,19 @@ namespace Battleships.MVVM.Enums
         IsOccupied,
         IsTouching
     }
+
+    /// <summary>
+    /// Defines the types of events that can happen during a game. Used in EventAggregator publications to 
+    /// request display messages and sound effects.
+    /// </summary>
+    public enum GameEvent
+    {
+        GameStart,
+        Miss,
+        Hit,
+        Sunk,
+        PlayerTurn,
+        ComputerTurn,
+        GameOver
+    }
 }
