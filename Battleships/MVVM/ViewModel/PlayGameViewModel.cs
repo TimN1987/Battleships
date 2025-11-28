@@ -575,11 +575,14 @@ public class PlayGameViewModel : ViewModelBase
             ComputerGrid[i].UpdateCellState(computerState);
         }
 
-        List<int> sunkComputerShips = ComputerGrid
-            .Where(cell => cell.CellState == GridCellState.Sunk)
-            .Select(cell => cell.Index)
-            .ToList();
-        MarkSunkAdjacentCellsAsMissed(sunkComputerShips);
+        if (!_hideSunkShips && !_shipsCanTouch)
+        {
+            List<int> sunkComputerShips = ComputerGrid
+                .Where(cell => cell.CellState == GridCellState.Sunk)
+                .Select(cell => cell.Index)
+                .ToList();
+            MarkSunkAdjacentCellsAsMissed(sunkComputerShips);
+        }
 
         LoadingValue = 3;
         await Task.Delay(LoadingDelayTime);
