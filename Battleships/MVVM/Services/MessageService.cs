@@ -27,6 +27,15 @@ public class MessageService : IMessageService
     private const string GameStartMessageTwo = "Welcome aboard, sailor. You're just in time for the battle.";
     private const string GameStartMessageThree = "All hands on deck. Enemy approaching. Do your best, sailor.";
 
+    private const string PlayerTurnMessageOne = "It's your turn, sailor. Fire away!";
+    private const string PlayerTurnMessageTwo = "Man the guns! Time to shoot!";
+    private const string PlayerTurnMessageThree = "Get ready, sailor. Time to attack!";
+
+    private const string ComputerTurnMessageOne = "Brace yourself. Enemy attack incoming!";
+    private const string ComputerTurnMessageTwo = "Your turn's over. Prepare for an enemy attack";
+    private const string ComputerTurnMessageThree = "Attack incoming! Look out, sailor!";
+
+
     // Audio Uris
     private readonly Uri _gameStartsAudioOne = new(@"pack://application:,,,/MVVM/Resources/Speech/gamestartaudioone.wav", UriKind.Absolute);
     private readonly Uri _gameStartsAudioTwo = new(@"pack://application:,,,/MVVM/Resources/Speech/gamestartaudiotwo.wav", UriKind.Absolute);
@@ -69,8 +78,16 @@ public class MessageService : IMessageService
             GameStartMessageThree
         ];
         _gameOverMessages = [];
-        _playerTurnMessages = [];
-        _computerTurnMessages = [];
+        _playerTurnMessages = [
+            PlayerTurnMessageOne,
+            PlayerTurnMessageTwo,
+            PlayerTurnMessageThree
+        ];
+        _computerTurnMessages = [
+            ComputerTurnMessageOne,
+            ComputerTurnMessageTwo,
+            ComputerTurnMessageThree
+        ];
         _shotMissedMessages = [];
         _shotHitMessages = [];
         _shipSunkMessages = [];

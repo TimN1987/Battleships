@@ -77,9 +77,15 @@
     <None Remove="MVVM\Resources\Images\ShipPlacementView\rotationimagewhiterotated.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\submarine.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\submarinewhite.png" />
+    <None Remove="MVVM\Resources\Speech\computerturnaudioone.wav" />
+    <None Remove="MVVM\Resources\Speech\computerturnaudiothree.wav" />
+    <None Remove="MVVM\Resources\Speech\computerturnaudiotwo.wav" />
     <None Remove="MVVM\Resources\Speech\gamestartaudioone.wav" />
     <None Remove="MVVM\Resources\Speech\gamestartaudiothree.wav" />
     <None Remove="MVVM\Resources\Speech\gamestartaudiotwo.wav" />
+    <None Remove="MVVM\Resources\Speech\playerturnaudioone.wav" />
+    <None Remove="MVVM\Resources\Speech\playerturnaudiothree.wav" />
+    <None Remove="MVVM\Resources\Speech\playerturnaudiotwo.wav" />
   </ItemGroup>
 
   <ItemGroup>
@@ -92,6 +98,24 @@
   <ItemGroup>
     <Content Include="battleshipsIcon.ico" />
     <Content Include="MVVM\Resources\BackgroundMusic\backingthree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\computerturnaudioone.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\computerturnaudiothree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\computerturnaudiotwo.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\playerturnaudioone.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\playerturnaudiothree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\playerturnaudiotwo.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
