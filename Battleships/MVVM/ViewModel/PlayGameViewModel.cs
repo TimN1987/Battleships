@@ -29,6 +29,7 @@ namespace Battleships.MVVM.ViewModel;
 public class PlayGameViewModel : ViewModelBase
 {
     #region Constants
+    private const int GridSize = 10;
     private const int RequiredHitsForAirstrike = 5;
     private const int RequiredHitsForBombardment = 7;
 
@@ -55,6 +56,7 @@ public class PlayGameViewModel : ViewModelBase
     private const int AnimationRunTimeDelay = 2000;
     private const int MessageDisplayTime = 2000;
     private const int LoadingDelayTime = 300;
+    private const int ComputerShotTime = 500;
 
     private const string LoadingText0 = "Loading...";
     private const string LoadingText1 = "Initializing grid...";
@@ -120,6 +122,7 @@ public class PlayGameViewModel : ViewModelBase
     private Game? _currentGame;
     private string _gameStatusMessage;
     private CancellationTokenSource? _statusMessageCts;
+    private readonly Dictionary<ShipType, int> _shipSizes;
 
 
     private bool _airstrikeAllowed;
@@ -420,6 +423,15 @@ public class PlayGameViewModel : ViewModelBase
         _airstrikeUpRightButtonImage = _airstrikeUpRightImage;
         _airstrikeDownRightButtonImage = _airstrikeDownRightImage;
         _bombardmentButtonImage = _bombardmentImage;
+
+        _shipSizes = new()
+        {
+            { ShipType.Carrier, 5 },
+            { ShipType.Battleship, 4 },
+            { ShipType.Cruiser, 3 },
+            { ShipType.Submarine, 3 },
+            { ShipType.Destroyer, 2 }
+        };
 
         _computerGrid = [];
         _playerGrid = [];
@@ -859,6 +871,18 @@ public class PlayGameViewModel : ViewModelBase
         UpdateCellState(attackStatusReport.Reports[0].PositionsHit.ToList(), GridCellState.Hit);
         UpdateCellState(attackStatusReport.Reports[0].PositionsMissed.ToList(), GridCellState.Miss);
 
+        List<int> sunkPositions = _hideSunkShips
+            ? []
+            : attackStatusReport.Reports[0].ShipsSunk
+                .SelectMany(t =>
+                {
+                    (int position, bool isHorizontal, ShipType shipType) = t;
+                    return GetAllShipCells(position, isHorizontal, shipType);
+                })
+                .ToList();
+        UpdateCellState(sunkPositions, GridCellState.Sunk);
+
+
         _setFocusedCellOnMouseMove = true;
 
         // Add the player hits to the appropriate special attack hit count if active
@@ -873,6 +897,15 @@ public class PlayGameViewModel : ViewModelBase
         {
             UpdateCellState(attackStatusReport.Reports[i].PositionsHit.ToList(), GridCellState.Hit, true);
             UpdateCellState(attackStatusReport.Reports[i].PositionsMissed.ToList(), GridCellState.Miss, true);
+
+            // Set the sunk ships positions to 'sunk' if they should not be hidden. If hidden, keep them as 'hit'.
+            sunkPositions = _hideSunkShips
+                ? []
+                : attackStatusReport.Reports[i].ShipsSunk
+                    .SelectMany(((int position, bool direction, ShipType shipType) t) => GetAllShipCells(t.position, t.direction, t.shipType))
+                    .ToList();
+
+            UpdateCellState(sunkPositions, GridCellState.Sunk, true);
         }
 
         if (attackStatusReport.IsGameOver)
@@ -952,6 +985,26 @@ public class PlayGameViewModel : ViewModelBase
 
         return deltas.Select(d => d + gridPosition);
     }
+    private List<int> GetAllShipCells(int gridPosition, bool isHorizontal, ShipType shipType)
+    {
+        List<int> positions = [ gridPosition ];
+        int row = gridPosition / 10;
+        int col = gridPosition % 10;
+
+        if (!_shipSizes.TryGetValue(shipType, out var size))
+            return positions;
+
+        for (int i = 1; i < size; i++)
+        {
+            int newRow = isHorizontal ? row + i : row;
+            int newCol = isHorizontal ? col : col + 1;
+
+            if (newRow < GridSize && newCol < GridSize)
+                positions.Add(newRow * 10 + newCol);
+        }
+
+        return positions;
+    }
     #endregion //Shot Selection Methods
 
     #region Message and Animation Methods
@@ -1005,7 +1058,7 @@ public class PlayGameViewModel : ViewModelBase
         GameOverVisible = Visibility.Visible;
 
         // Delete game data
-        //Display end game message and gif
+        // Display end game message and gif
         // Clear board
         // Display return home options - restart or return home
     }
