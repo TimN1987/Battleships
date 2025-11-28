@@ -565,9 +565,21 @@ public class PlayGameViewModel : ViewModelBase
         {
             GridCellState playerState = gameDTO.PlayerBoardDTO.Grid[i];
             GridCellState computerState = gameDTO.ComputerBoardDTO.Grid[i];
+
+            if (_hideSunkShips && playerState == GridCellState.Sunk)
+                playerState = GridCellState.Hit;
             PlayerGrid[i].UpdateCellState(playerState);
+
+            if (_hideSunkShips && computerState == GridCellState.Sunk)
+                computerState = GridCellState.Hit;
             ComputerGrid[i].UpdateCellState(computerState);
         }
+
+        List<int> sunkComputerShips = ComputerGrid
+            .Where(cell => cell.CellState == GridCellState.Sunk)
+            .Select(cell => cell.Index)
+            .ToList();
+        MarkSunkAdjacentCellsAsMissed(sunkComputerShips);
 
         LoadingValue = 3;
         await Task.Delay(LoadingDelayTime);
