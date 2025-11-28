@@ -86,7 +86,9 @@ public class SoundService : ISoundService
         _backgroundMusicListSize = _backgroundMusicList.Count;
         _backgroundMusicIndex = RandomProvider.Instance.Next(_backgroundMusicListSize);
         _foregroundSounds = new() {
-            { GameEvent.GameStart, [] }
+            { GameEvent.GameStart, [] },
+            { GameEvent.PlayerTurn, [] },
+            { GameEvent.ComputerTurn, [] }
         }; //add the sounds here when stored in resources
     }
 

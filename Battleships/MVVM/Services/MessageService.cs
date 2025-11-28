@@ -41,6 +41,14 @@ public class MessageService : IMessageService
     private readonly Uri _gameStartsAudioTwo = new(@"pack://application:,,,/MVVM/Resources/Speech/gamestartaudiotwo.wav", UriKind.Absolute);
     private readonly Uri _gameStartsAudioThree = new(@"pack://application:,,,/MVVM/Resources/Speech/gamestartaudiothree.wav", UriKind.Absolute);
 
+    private readonly Uri _playerTurnAudioOne = new(@"pack://application:,,,/MVVM/Resources/Speech/playerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _playerTurnAudioTwo = new(@"pack://application:,,,/MVVM/Resources/Speech/playerturnaudiotwo.wav", UriKind.Absolute);
+    private readonly Uri _playerTurnAudioThree = new(@"pack://application:,,,/MVVM/Resources/Speech/playerturnaudiothree.wav", UriKind.Absolute);
+
+    private readonly Uri _computerTurnAudioOne = new(@"pack://application:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _computerTurnAudioTwo = new(@"pack://application:,,,/MVVM/Resources/Speech/computerturnaudiotwo.wav", UriKind.Absolute);
+    private readonly Uri _computerTurnAudioThree = new(@"pack://application:,,,/MVVM/Resources/Speech/computerturnaudiothree.wav", UriKind.Absolute);
+
     // Message Arrays
     private string[] _gameStartMessages;
     private string[] _gameOverMessages;
@@ -98,8 +106,16 @@ public class MessageService : IMessageService
             _gameStartsAudioThree
             ];
         _gameOverAudio = [];
-        _playerTurnAudio = [];
-        _computerTurnAudio = [];
+        _playerTurnAudio = [
+            _playerTurnAudioOne,
+            _playerTurnAudioTwo,
+            _playerTurnAudioThree
+            ];
+        _computerTurnAudio = [
+            _computerTurnAudioOne,
+            _computerTurnAudioTwo,
+            _computerTurnAudioThree
+            ];
         _shotMissedAudio = [];
         _shotHitAudio = [];
         _shipSunkAudio = [];
@@ -112,6 +128,12 @@ public class MessageService : IMessageService
         {
             case GameEvent.GameStart: 
                 GetGameStartMessage(); 
+                break;
+            case GameEvent.PlayerTurn:
+                GetPlayerTurnMessage();
+                break;
+            case GameEvent.ComputerTurn:
+                GetComputerTurnMessage();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(message));

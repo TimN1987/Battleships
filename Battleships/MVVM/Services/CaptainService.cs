@@ -43,6 +43,9 @@ public class CaptainService : ICaptainService
         Uri[] images = _captainImages.GetValueOrDefault(gameEvent) ?? [];
         int index = RandomProvider.Instance.Next(images.Length);
 
+        if (images.Length == 0)
+            return;
+
         _eventAggregator
             .GetEvent<LoadCaptainEvent>()
             .Publish(images[index]);

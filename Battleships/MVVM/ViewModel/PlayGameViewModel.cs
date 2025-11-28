@@ -910,6 +910,8 @@ public class PlayGameViewModel : ViewModelBase
         if (_bombardmentAllowed)
             BombardmentHitCount += totalHits;
 
+        _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.ComputerTurn);
+
         // Update player grid (subsequent reports are always computer shots)
         for (int i = 1; i < listLength; i++)
         {
@@ -932,7 +934,10 @@ public class PlayGameViewModel : ViewModelBase
             OnGameOver();
         }
         else
+        {
             PlayerCanClick = true;
+            _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.PlayerTurn);
+        }
     }
 
     private void UpdateCellState(List<int> indexes, GridCellState state, bool playerGrid = false)
