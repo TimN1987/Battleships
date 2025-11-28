@@ -9,6 +9,7 @@ using Battleships.MVVM.Enums;
 using Battleships.MVVM.ViewModel.Base;
 using Battleships.MVVM.View;
 using System.Diagnostics;
+using System.IO.Packaging;
 
 namespace Battleships.MVVM.ViewModel.GridCells;
 
@@ -40,6 +41,10 @@ public class PlayGameGridCell(int row, int column, ThemeNames theme) : GridCellB
     private readonly Uri _classicExplosion = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/explosion.png", UriKind.Absolute);
     private readonly Uri _darkExplosion = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/explosiondark.png", UriKind.Absolute);
     private readonly Uri _neonExplosion = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/explosionneon.png", UriKind.Absolute);
+
+    private readonly Uri _classicSkull = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/skull.png", UriKind.Absolute);
+    private readonly Uri _darkSkull = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/skullwhite.png", UriKind.Absolute);
+    private readonly Uri _neonSkull = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/skullneon.png", UriKind.Absolute);
     #endregion //Theme Image Resources
 
     #region Fields
@@ -116,6 +121,9 @@ public class PlayGameGridCell(int row, int column, ThemeNames theme) : GridCellB
             GridCellState.Hit => LightBackgroundThemes.Contains(_theme) ? _classicExplosion :
                                  DarkBackgroundThemes.Contains(_theme) ? _darkExplosion :
                                  _neonExplosion,
+            GridCellState.Sunk => LightBackgroundThemes.Contains(_theme) ? _classicSkull : 
+                                  DarkBackgroundThemes.Contains(_theme) ? _darkSkull :
+                                  _neonSkull,
             _ => null
         };
     }
@@ -136,6 +144,9 @@ public class PlayGameGridCell(int row, int column, ThemeNames theme) : GridCellB
             GridCellState.Hit => LightBackgroundThemes.Contains(_theme) ? _classicExplosion :
                                  DarkBackgroundThemes.Contains(_theme) ? _darkExplosion :
                                  _neonExplosion,
+            GridCellState.Sunk => LightBackgroundThemes.Contains(_theme) ? _classicSkull :
+                                  DarkBackgroundThemes.Contains(_theme) ? _darkSkull :
+                                  _neonSkull,
             _ => null
         };
     }
