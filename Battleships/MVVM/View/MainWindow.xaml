@@ -74,10 +74,10 @@
                 </Border.Background>
             </Border>
             <TextBlock Grid.Row="0" Grid.Column="1" Text="Battleships" 
-                       Foreground="AntiqueWhite" FontSize="80" FontWeight="Bold" 
+                       Foreground="White" FontSize="80" FontWeight="Bold" 
                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Text="Command the fleet. Rule the seas."
-                       Foreground="AntiqueWhite" FontSize="30" FontStyle="Italic"
+                       Foreground="White" FontSize="30" FontStyle="Italic"
                        VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <Border Grid.Row="3" Grid.Column="1" MaxHeight="25" MaxWidth="400"
                     BorderBrush="{DynamicResource MainBackground}" 
