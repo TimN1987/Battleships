@@ -882,6 +882,9 @@ public class PlayGameViewModel : ViewModelBase
                 .ToList();
         UpdateCellState(sunkPositions, GridCellState.Sunk);
 
+        if (!_shipsCanTouch && !_hideSunkShips)
+            MarkSunkAdjacentCellsAsMissed(sunkPositions);
+
 
         _setFocusedCellOnMouseMove = true;
 
@@ -906,6 +909,9 @@ public class PlayGameViewModel : ViewModelBase
                     .ToList();
 
             UpdateCellState(sunkPositions, GridCellState.Sunk, true);
+
+            if (!_shipsCanTouch && !_hideSunkShips)
+                MarkSunkAdjacentCellsAsMissed(sunkPositions, true);
         }
 
         if (attackStatusReport.IsGameOver)
@@ -1004,6 +1010,48 @@ public class PlayGameViewModel : ViewModelBase
         }
 
         return positions;
+    }
+    private void MarkSunkAdjacentCellsAsMissed(List<int> sunkPositions, bool isPlayerGrid = false)
+    {
+        // If ships can touch, adjacent cells could be hits. If sunk ships are hidden, this would reveal their location.
+        if (_shipsCanTouch || _hideSunkShips)
+            return;
+
+        List<int> adjacentPositions = sunkPositions
+            .Select(position => (row: position / 10, col: position % 10))
+            .SelectMany(p =>
+            {
+                (int row, int col) = p;
+                return new[] {
+                    (row + 1, col),
+                    (row - 1, col),
+                    (row, col + 1),
+                    (row, col - 1)
+                    };
+            })
+            .Where(t =>
+            {
+                (int row, int col) = t;
+                return row >= 0 && col >= 0 && row < GridSize && col < GridSize;
+            })
+            .Distinct()
+            .Where(t =>
+            {
+                (int row, int col) = t;
+                int gridPosition = 10 * row + col;
+                return isPlayerGrid
+                    ? PlayerGrid[gridPosition].CellState == GridCellState.Unattacked
+                    : ComputerGrid[gridPosition].CellState == GridCellState.Unattacked;
+            })
+            .Select(p =>
+            {
+                (int row, int col) = p;
+                return 10 * row + col;
+            })
+            .ToList();
+
+        // Marks cells adjacent to a sunk ship (if ships cannot touch and sunk ship are not hidden) as missed.
+        UpdateCellState(adjacentPositions, GridCellState.Miss, isPlayerGrid);
     }
     #endregion //Shot Selection Methods
 
