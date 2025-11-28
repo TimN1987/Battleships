@@ -909,9 +909,6 @@ public class PlayGameViewModel : ViewModelBase
                     .ToList();
 
             UpdateCellState(sunkPositions, GridCellState.Sunk, true);
-
-            if (!_shipsCanTouch && !_hideSunkShips)
-                MarkSunkAdjacentCellsAsMissed(sunkPositions, true);
         }
 
         if (attackStatusReport.IsGameOver)
@@ -1002,8 +999,8 @@ public class PlayGameViewModel : ViewModelBase
 
         for (int i = 1; i < size; i++)
         {
-            int newRow = isHorizontal ? row : row + 1;
-            int newCol = isHorizontal ? col + 1: col;
+            int newRow = isHorizontal ? row : row + i;
+            int newCol = isHorizontal ? col + i: col;
 
             if (newRow < GridSize && newCol < GridSize)
                 positions.Add(newRow * 10 + newCol);
