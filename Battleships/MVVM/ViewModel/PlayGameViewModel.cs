@@ -1002,8 +1002,8 @@ public class PlayGameViewModel : ViewModelBase
 
         for (int i = 1; i < size; i++)
         {
-            int newRow = isHorizontal ? row + i : row;
-            int newCol = isHorizontal ? col : col + 1;
+            int newRow = isHorizontal ? row : row + 1;
+            int newCol = isHorizontal ? col + 1: col;
 
             if (newRow < GridSize && newCol < GridSize)
                 positions.Add(newRow * 10 + newCol);
