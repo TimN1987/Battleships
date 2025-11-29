@@ -470,7 +470,6 @@ public class PlayGameViewModel : ViewModelBase
         // Ensure player cannot click until game full initialized
         PlayerCanClick = false;
 
-        _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.GameStart);
         var _ = InitializeGame(gameSetUpInformation);
     }
 
@@ -529,6 +528,8 @@ public class PlayGameViewModel : ViewModelBase
         LoadingValue = 4;
         await Task.Delay(LoadingDelayTime);
         LoadingScreenVisible = Visibility.Collapsed;
+
+        _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.GameStart);
     }
 
     private void InitializeGrids()
