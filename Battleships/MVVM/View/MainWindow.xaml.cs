@@ -44,6 +44,11 @@ public partial class MainWindow : Window
         storyboard.Begin();
     }
 
+    private void LoadingScreenFade_Completed(object sender, EventArgs e)
+    {
+        _eventAggregator.GetEvent<BackgroundMusicEndedEvent>().Publish();
+    }
+
     private void ChangeFullScreenSetting(bool isFullScreen)
     {
         if (isFullScreen)

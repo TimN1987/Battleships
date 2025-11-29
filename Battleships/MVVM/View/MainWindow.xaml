@@ -15,7 +15,8 @@
         KeyDown="KeyDown_Escape">
     <Window.Resources>
         <converters:ViewToBooleanConverter x:Key="ViewToBooleanConverter"/>
-        <Storyboard x:Key="LoadingScreenFade">
+        <Storyboard x:Key="LoadingScreenFade"
+                    Completed="LoadingScreenFade_Completed">
             <DoubleAnimation Storyboard.TargetName="LoadingScreen"
                              Storyboard.TargetProperty="Opacity"
                              From="3.5"

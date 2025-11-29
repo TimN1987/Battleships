@@ -39,8 +39,7 @@ public class MainViewModel : ViewModelBase
     private double _backgroundVolume;
     private double _foregroundVolume;
 
-    private Uri _backgroundMusic;
-    private readonly Uri _defaultBackgroundMusic = new(@"pack://application:,,,/MVVM/Resources/Sounds/BackgroundMusic.mp3", UriKind.Absolute);
+    private Uri? _backgroundMusic;
     private Uri? _foregroundSound;
     private Uri? _foregroundSpeech;
 
@@ -226,7 +225,7 @@ public class MainViewModel : ViewModelBase
         }
     }
 
-    public Uri BackgroundMusic
+    public Uri? BackgroundMusic
     {
         get => _backgroundMusic;
         set => SetProperty(ref _backgroundMusic, value);
@@ -441,8 +440,6 @@ public class MainViewModel : ViewModelBase
 
         _backgroundVolume = 0.5;
         _foregroundVolume = 0.5;
-
-        _backgroundMusic = _soundService.CurrentBackgroundMusic;
 
         _fullScreenMenuImage = _fullScreenMinimisedWhite;
         _muteMenuImage = MuteIconWhite;

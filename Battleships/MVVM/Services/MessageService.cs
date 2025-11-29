@@ -37,17 +37,17 @@ public class MessageService : IMessageService
 
 
     // Audio Uris
-    private readonly Uri _gameStartsAudioOne = new(@"pack://application:,,,/MVVM/Resources/Speech/gamestartaudioone.wav", UriKind.Absolute);
-    private readonly Uri _gameStartsAudioTwo = new(@"pack://application:,,,/MVVM/Resources/Speech/gamestartaudiotwo.wav", UriKind.Absolute);
-    private readonly Uri _gameStartsAudioThree = new(@"pack://application:,,,/MVVM/Resources/Speech/gamestartaudiothree.wav", UriKind.Absolute);
+    private readonly Uri _gameStartsAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/gamestartaudioone.wav", UriKind.Absolute);
+    private readonly Uri _gameStartsAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/gamestartaudiotwo.wav", UriKind.Absolute);
+    private readonly Uri _gameStartsAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/gamestartaudiothree.wav", UriKind.Absolute);
 
-    private readonly Uri _playerTurnAudioOne = new(@"pack://application:,,,/MVVM/Resources/Speech/playerturnaudioone.wav", UriKind.Absolute);
-    private readonly Uri _playerTurnAudioTwo = new(@"pack://application:,,,/MVVM/Resources/Speech/playerturnaudiotwo.wav", UriKind.Absolute);
-    private readonly Uri _playerTurnAudioThree = new(@"pack://application:,,,/MVVM/Resources/Speech/playerturnaudiothree.wav", UriKind.Absolute);
+    private readonly Uri _playerTurnAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/playerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _playerTurnAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/playerturnaudiotwo.wav", UriKind.Absolute);
+    private readonly Uri _playerTurnAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/playerturnaudiothree.wav", UriKind.Absolute);
 
-    private readonly Uri _computerTurnAudioOne = new(@"pack://application:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
-    private readonly Uri _computerTurnAudioTwo = new(@"pack://application:,,,/MVVM/Resources/Speech/computerturnaudiotwo.wav", UriKind.Absolute);
-    private readonly Uri _computerTurnAudioThree = new(@"pack://application:,,,/MVVM/Resources/Speech/computerturnaudiothree.wav", UriKind.Absolute);
+    private readonly Uri _computerTurnAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _computerTurnAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudiotwo.wav", UriKind.Absolute);
+    private readonly Uri _computerTurnAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudiothree.wav", UriKind.Absolute);
 
     // Message Arrays
     private string[] _gameStartMessages;
