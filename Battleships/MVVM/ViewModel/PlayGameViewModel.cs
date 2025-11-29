@@ -56,7 +56,7 @@ public class PlayGameViewModel : ViewModelBase
     private const int AnimationRunTimeDelay = 2000;
     private const int MessageDisplayTime = 2000;
     private const int LoadingDelayTime = 300;
-    private const int ComputerShotTime = 500;
+    private const int ComputerShotTime = 3000;
 
     private const string LoadingText0 = "Loading...";
     private const string LoadingText1 = "Initializing grid...";
@@ -921,6 +921,7 @@ public class PlayGameViewModel : ViewModelBase
             BombardmentHitCount += totalHits;
 
         _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.ComputerTurn);
+        await Task.Delay(ComputerShotTime);
 
         // Update player grid (subsequent reports are always computer shots)
         for (int i = 1; i < listLength; i++)
