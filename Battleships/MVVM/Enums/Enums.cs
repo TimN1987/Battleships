@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Battleships.MVVM.Model;
 using Battleships.MVVM.ViewModel;
+using Battleships.MVVM.Converters;
 
 namespace Battleships.MVVM.Enums
 {
@@ -163,5 +164,16 @@ namespace Battleships.MVVM.Enums
         ComputerTurn,
         GameOver,
         EventFinished
+    }
+
+    /// <summary>
+    /// Defines the positions to be returned by the <see cref="GridPositionToExplosionPositionConverter"/>.
+    /// </summary>
+    public enum ExplosionPosition
+    {
+        StartTop,
+        EndTop,
+        StartLeft,
+        EndLeft
     }
 }

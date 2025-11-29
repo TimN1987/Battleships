@@ -44,6 +44,10 @@ public partial class MainWindow : Window
         storyboard.Begin();
     }
 
+    /// <summary>
+    /// Allows the LoadingScreenFade animation to complete before the background music is loaded. Ensures that 
+    /// music is not playing when the volume controls cannot be accessed.
+    /// </summary>
     private void LoadingScreenFade_Completed(object sender, EventArgs e)
     {
         _eventAggregator.GetEvent<BackgroundMusicEndedEvent>().Publish();

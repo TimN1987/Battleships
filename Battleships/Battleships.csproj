@@ -77,15 +77,6 @@
     <None Remove="MVVM\Resources\Images\ShipPlacementView\rotationimagewhiterotated.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\submarine.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\submarinewhite.png" />
-    <None Remove="MVVM\Resources\Speech\computerturnaudioone.wav" />
-    <None Remove="MVVM\Resources\Speech\computerturnaudiothree.wav" />
-    <None Remove="MVVM\Resources\Speech\computerturnaudiotwo.wav" />
-    <None Remove="MVVM\Resources\Speech\gamestartaudioone.wav" />
-    <None Remove="MVVM\Resources\Speech\gamestartaudiothree.wav" />
-    <None Remove="MVVM\Resources\Speech\gamestartaudiotwo.wav" />
-    <None Remove="MVVM\Resources\Speech\playerturnaudioone.wav" />
-    <None Remove="MVVM\Resources\Speech\playerturnaudiothree.wav" />
-    <None Remove="MVVM\Resources\Speech\playerturnaudiotwo.wav" />
   </ItemGroup>
 
   <ItemGroup>
@@ -98,24 +89,6 @@
   <ItemGroup>
     <Content Include="battleshipsIcon.ico" />
     <Content Include="MVVM\Resources\BackgroundMusic\backingthree.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MVVM\Resources\Speech\computerturnaudioone.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MVVM\Resources\Speech\computerturnaudiothree.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MVVM\Resources\Speech\computerturnaudiotwo.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MVVM\Resources\Speech\playerturnaudioone.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MVVM\Resources\Speech\playerturnaudiothree.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MVVM\Resources\Speech\playerturnaudiotwo.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -206,15 +179,6 @@
     <Resource Include="MVVM\Resources\Images\ShipPlacementView\submarinewhite.png" />
     <Resource Include="MVVM\Resources\Images\Loading\loadingGIF.gif" />
     <Resource Include="MVVM\Resources\Images\Loading\loadingImage.jpg" />
-    <Content Include="MVVM\Resources\Speech\gamestartaudioone.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MVVM\Resources\Speech\gamestartaudiothree.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="MVVM\Resources\Speech\gamestartaudiotwo.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Resource Include="MVVM\Styles\ClassicTheme.xaml" />
     <Resource Include="MVVM\Styles\DarkTheme.xaml" />
     <Resource Include="MVVM\Styles\Styles.xaml" />
@@ -224,6 +188,36 @@
   <ItemGroup>
     <Folder Include="MVVM\Resources\ForegroundSounds\" />
     <Folder Include="MVVM\Resources\Images\HomeView\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="MVVM\Resources\Speech\computerturnaudioone.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="MVVM\Resources\Speech\computerturnaudiothree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="MVVM\Resources\Speech\computerturnaudiotwo.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="MVVM\Resources\Speech\gamestartaudioone.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="MVVM\Resources\Speech\gamestartaudiothree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="MVVM\Resources\Speech\gamestartaudiotwo.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="MVVM\Resources\Speech\playerturnaudioone.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="MVVM\Resources\Speech\playerturnaudiothree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="MVVM\Resources\Speech\playerturnaudiotwo.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

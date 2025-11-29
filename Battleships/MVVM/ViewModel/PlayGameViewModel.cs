@@ -124,7 +124,6 @@ public class PlayGameViewModel : ViewModelBase
     private CancellationTokenSource? _statusMessageCts;
     private readonly Dictionary<ShipType, int> _shipSizes;
 
-
     private bool _airstrikeAllowed;
     private bool _airstrikeAvailable;
     private int _airstrikeHitCount;
@@ -139,6 +138,7 @@ public class PlayGameViewModel : ViewModelBase
     private ObservableCollection<PlayerBoardGridCell> _playerGrid;
 
     private (int row, int column) _focusedCell;
+    private int _targetedCell;
     private bool _setFocusedCellOnMouseMove;
 
     private ShotType _selectedShotType;
@@ -287,6 +287,11 @@ public class PlayGameViewModel : ViewModelBase
     {
         get => _focusedCell;
         set => SetProperty(ref _focusedCell, value);
+    }
+    public int TargetedCell
+    {
+        get => _targetedCell;
+        set => SetProperty(ref _targetedCell, value);
     }
     public ShotType SelectedShotType
     {
@@ -438,6 +443,7 @@ public class PlayGameViewModel : ViewModelBase
         InitializeGrids();
 
         _focusedCell = (0, 0);
+        _targetedCell = 0;
         _setFocusedCellOnMouseMove = false;
 
         _selectedShotType = ShotType.Single;
@@ -845,6 +851,10 @@ public class PlayGameViewModel : ViewModelBase
 
         AttackStatusReport newReport = _currentGame?.ProcessPlayerShotSelection(gridPosition, SelectedShotType) 
                 ?? new();
+
+        // Update TargetedCell to feed into Bomber animation bindings.
+        TargetedCell = gridPosition;
+
         await ProcessAttackStatusReport(newReport);
 
         _setFocusedCellOnMouseMove = true;
@@ -863,7 +873,6 @@ public class PlayGameViewModel : ViewModelBase
 
     internal async Task ProcessAttackStatusReport(AttackStatusReport attackStatusReport, bool computerOpeningMove = false)
     {
-        //run animation, update message and grid, delay, update player/cpu turn message or run GameOver
         int listLength = attackStatusReport.Reports.Count;
 
         SetBomberImage();

@@ -244,12 +244,12 @@
             <MediaElement x:Name="ForegroundSound"
                       Source="{Binding ForegroundSound, Mode=OneWay}"
                       Volume="{Binding ForegroundVolume, Mode=OneWay}"
-                      IsEnabled="{Binding VolumeMuted, Mode=OneWay}"
+                      IsMuted="{Binding VolumeMuted, Mode=OneWay}"
                       LoadedBehavior="Play"/>
             <MediaElement x:Name="ForegroundSpeech"
                       Source="{Binding ForegroundSpeech, Mode=OneWay}"
                       Volume="{Binding ForegroundVolume, Mode=OneWay}"
-                      IsEnabled="{Binding VolumeMuted, Mode=OneWay}"
+                      IsMuted="{Binding VolumeMuted, Mode=OneWay}"
                       LoadedBehavior="Play"/>
             <ContentControl Content="{Binding CurrentView, Mode=OneWay}"/>
         </DockPanel>
