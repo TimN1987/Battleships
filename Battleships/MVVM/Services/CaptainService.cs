@@ -16,6 +16,11 @@ public class CaptainService : ICaptainService
     // Fields
     private IEventAggregator _eventAggregator;
     private readonly Dictionary<GameEvent, Uri[]> _captainImages;
+    private readonly Uri[] _talkingImages;
+    private readonly Uri[] _computerHitImages;
+    private readonly Uri[] _playerHitImages;
+    private readonly Uri[] _computerMissImages;
+    private readonly Uri[] _playerMissImages;
 
     public CaptainService(IEventAggregator eventAggregator)
     {
@@ -30,11 +35,17 @@ public class CaptainService : ICaptainService
                     ProvideCaptainImage(gameEvent);
             });
 
+        _talkingImages = [];
+        _computerHitImages = [];
+        _playerHitImages = [];
+        _computerMissImages = [];
+        _playerMissImages = [];
+
         _captainImages = new()
         {
-            { GameEvent.GameStart, [
-                _staticCaptainOne
-                ] }
+            { GameEvent.GameStart, _talkingImages },
+            { GameEvent.PlayerTurn, _talkingImages },
+            { GameEvent.ComputerTurn, _talkingImages }
         };
     }
 

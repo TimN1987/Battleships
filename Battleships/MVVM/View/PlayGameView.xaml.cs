@@ -1,23 +1,11 @@
 ﻿using Battleships.MVVM.Services;
 using Battleships.MVVM.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
+using WpfAnimatedGif;
 
 namespace Battleships.MVVM.View;
 
@@ -66,5 +54,17 @@ public partial class PlayGameView : UserControl
     private void ReturnFocusToGrid(object sender, RoutedEventArgs e)
     {
         FocusGrid();
+    }
+
+    private void CaptainGif_Loaded(object sender, RoutedEventArgs e)
+    {
+        CaptainGif.Visibility = Visibility.Visible;
+        CaptainImage.Visibility = Visibility.Collapsed;
+    }
+
+    private void CaptainGif_AnimationCompleted(object sender, RoutedEventArgs e)
+    {
+        CaptainGif.Visibility = Visibility.Collapsed;
+        CaptainImage.Visibility = Visibility.Visible;
     }
 }

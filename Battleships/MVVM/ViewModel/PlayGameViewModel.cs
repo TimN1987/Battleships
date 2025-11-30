@@ -11,18 +11,11 @@ using Battleships.MVVM.Services.Database;
 using Battleships.MVVM.ViewModel.Base;
 using Battleships.MVVM.Services;
 using Battleships.MVVM.Model;
-using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
-using System.Runtime.CompilerServices;
 using Battleships.MVVM.Model.DataTransferObjects;
 using Battleships.MVVM.ViewModel.GridCells;
 using System.Collections.ObjectModel;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
-using Newtonsoft.Json.Bson;
 using Battleships.MVVM.Utilities;
-using Microsoft.VisualBasic;
 using System.Windows;
-using System.Printing;
 
 namespace Battleships.MVVM.ViewModel;
 
@@ -86,7 +79,7 @@ public class PlayGameViewModel : ViewModelBase
 
     #region Image Fields
     private Uri _captainImage;
-    private Uri[] _captainImageArray;
+    private Uri? _captainGif;
     private Uri _bomberImage;
     private Uri[] _bomberImageArray;
     private Uri _gameOverImage;
@@ -157,6 +150,11 @@ public class PlayGameViewModel : ViewModelBase
     {
         get => _captainImage;
         set => SetProperty(ref _captainImage, value);
+    }
+    public Uri? CaptainGif
+    {
+        get => _captainGif;
+        set => SetProperty(ref _captainGif, value);
     }
     public Uri BomberImage
     {
@@ -392,9 +390,6 @@ public class PlayGameViewModel : ViewModelBase
 
         _gameStatusMessage = string.Empty;
         _captainImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/captain.png", UriKind.Absolute);
-        _captainImageArray = [
-            new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/captain.png", UriKind.Absolute)
-            ];
         _bomberImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bomberone.png", UriKind.Absolute);
         _bomberImageArray = [
             new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bomberone.png", UriKind.Absolute),
@@ -499,7 +494,7 @@ public class PlayGameViewModel : ViewModelBase
         BombardmentHitCount = 0;
 
         // Ensure default image settings
-        CaptainImage = _captainImageArray[0];
+        CaptainImage = _captainImage;
 
         LoadingValue = 2;
         await Task.Delay(LoadingDelayTime);
