@@ -151,6 +151,7 @@ namespace Battleships.MVVM.Enums
     public enum GameEvent
     {
         GameStart,
+        GameLoaded,
         MultipleHits,
         Hit,
         Miss,

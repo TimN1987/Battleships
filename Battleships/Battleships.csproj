@@ -78,6 +78,9 @@
     <None Remove="MVVM\Resources\Images\ShipPlacementView\rotationimagewhiterotated.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\submarine.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\submarinewhite.png" />
+    <None Remove="MVVM\Resources\Speech\gameloadedaudioone.wav" />
+    <None Remove="MVVM\Resources\Speech\gameloadedaudiothree.wav" />
+    <None Remove="MVVM\Resources\Speech\gameloadedaudiotwo.wav" />
     <None Remove="MVVM\Resources\Speech\gamestartaudioone.wav" />
     <None Remove="MVVM\Resources\Speech\gamestartaudiothree.wav" />
     <None Remove="MVVM\Resources\Speech\gamestartaudiotwo.wav" />
@@ -93,6 +96,15 @@
   <ItemGroup>
     <Content Include="battleshipsIcon.ico" />
     <Content Include="MVVM\Resources\BackgroundMusic\backingthree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\gameloadedaudioone.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\gameloadedaudiothree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\gameloadedaudiotwo.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="MVVM\Resources\Speech\gamestartaudioone.wav">

@@ -12,6 +12,7 @@ public interface IMessageService
 {
     void RequestMessage(GameEvent message);
     void GetGameStartMessage();
+    void GetGameLoadedMessage();
     void GetGameOverMessage();
     void GetPlayerTurnMessage();
     void GetComputerTurnMessage();
@@ -27,6 +28,10 @@ public class MessageService : IMessageService
     private const string GameStartMessageTwo = "Welcome aboard, sailor. You're just in time for the battle.";
     private const string GameStartMessageThree = "All hands on deck. Enemy approaching. Do your best, sailor.";
 
+    private const string GameLoadedMessageOne = "Welcome back sailor. Time to finish the battle.";
+    private const string GameLoadedMessageTwo = "Back to work sailor. It's time to end this!";
+    private const string GameLoadedMessageThree = "Good to have you back, sailor. Let's get to work.";
+
     private const string PlayerTurnMessageOne = "It's your turn, sailor. Fire away!";
     private const string PlayerTurnMessageTwo = "Man the guns! Time to shoot!";
     private const string PlayerTurnMessageThree = "Get ready, sailor. Time to attack!";
@@ -41,6 +46,10 @@ public class MessageService : IMessageService
     private readonly Uri _gameStartsAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/gamestartaudiotwo.wav", UriKind.Absolute);
     private readonly Uri _gameStartsAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/gamestartaudiothree.wav", UriKind.Absolute);
 
+    private readonly Uri _gameLoadedAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/gameloadedaudioone.wav", UriKind.Absolute);
+    private readonly Uri _gameLoadedAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/gameloadedaudiotwo.wav", UriKind.Absolute);
+    private readonly Uri _gameLoadedAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/gameloadedaudiothree.wav", UriKind.Absolute);
+
     private readonly Uri _playerTurnAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/playerturnaudioone.wav", UriKind.Absolute);
     private readonly Uri _playerTurnAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/playerturnaudiotwo.wav", UriKind.Absolute);
     private readonly Uri _playerTurnAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/playerturnaudiothree.wav", UriKind.Absolute);
@@ -51,6 +60,7 @@ public class MessageService : IMessageService
 
     // Message Arrays
     private string[] _gameStartMessages;
+    private string[] _gameLoadedMessages;
     private string[] _gameOverMessages;
     private string[] _playerTurnMessages;
     private string[] _computerTurnMessages;
@@ -60,6 +70,7 @@ public class MessageService : IMessageService
 
     // Audio Arrays
     private Uri[] _gameStartAudio;
+    private Uri[] _gameLoadedAudio;
     private Uri[] _gameOverAudio;
     private Uri[] _playerTurnAudio;
     private Uri[] _computerTurnAudio;
@@ -85,6 +96,11 @@ public class MessageService : IMessageService
             GameStartMessageTwo,
             GameStartMessageThree
         ];
+        _gameLoadedMessages = [
+            GameLoadedMessageOne,
+            GameLoadedMessageTwo,
+            GameLoadedMessageThree
+            ];
         _gameOverMessages = [];
         _playerTurnMessages = [
             PlayerTurnMessageOne,
@@ -101,6 +117,11 @@ public class MessageService : IMessageService
         _shipSunkMessages = [];
 
         _gameStartAudio = [
+            _gameStartsAudioOne,
+            _gameStartsAudioTwo,
+            _gameStartsAudioThree
+            ];
+        _gameLoadedAudio = [
             _gameStartsAudioOne,
             _gameStartsAudioTwo,
             _gameStartsAudioThree
@@ -129,6 +150,9 @@ public class MessageService : IMessageService
             case GameEvent.GameStart: 
                 GetGameStartMessage(); 
                 break;
+            case GameEvent.GameLoaded:
+                GetGameLoadedMessage();
+                break;
             case GameEvent.PlayerTurn:
                 GetPlayerTurnMessage();
                 break;
@@ -151,6 +175,18 @@ public class MessageService : IMessageService
         _eventAggregator
             .GetEvent<LoadSpeechEvent>()
             .Publish(_gameStartAudio[index]);
+    }
+    public void GetGameLoadedMessage()
+    {
+        int messageTotal = _gameStartMessages.Length;
+        int index = RandomProvider.Instance.Next(messageTotal);
+
+        _eventAggregator
+            .GetEvent<UserMessageEvent>()
+            .Publish(_gameLoadedMessages[index]);
+        _eventAggregator
+            .GetEvent<LoadSpeechEvent>()
+            .Publish(_gameLoadedAudio[index]);
     }
     public void GetGameOverMessage()
     {
