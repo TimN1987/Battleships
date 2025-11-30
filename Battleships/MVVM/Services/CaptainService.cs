@@ -35,7 +35,9 @@ public class CaptainService : ICaptainService
                     ProvideCaptainImage(gameEvent);
             });
 
-        _talkingImages = [];
+        _talkingImages = [
+            new(@"pack://application:,,,/MVVM/Resources/Images/Captains/captaintalkingone.gif", UriKind.Absolute)
+            ];
         _computerHitImages = [];
         _playerHitImages = [];
         _computerMissImages = [];

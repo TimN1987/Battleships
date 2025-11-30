@@ -13,6 +13,7 @@
     <None Remove="MVVM\Resources\BackgroundMusic\backingone.wav" />
     <None Remove="MVVM\Resources\BackgroundMusic\backingthree.wav" />
     <None Remove="MVVM\Resources\BackgroundMusic\backingtwo.wav" />
+    <None Remove="MVVM\Resources\Images\Captains\captaintalkingone.gif" />
     <None Remove="MVVM\Resources\Images\ClassicRulesView\classicruleshelp.jpg" />
     <None Remove="MVVM\Resources\Images\ClassicRulesView\generalruleshelp.jpg" />
     <None Remove="MVVM\Resources\Images\ClassicRulesView\salvoruleshelp.jpg" />
@@ -122,6 +123,7 @@
     <Content Include="MVVM\Resources\BackgroundMusic\backingtwo.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="MVVM\Resources\Images\Captains\captaintalkingone.gif" />
     <Resource Include="MVVM\Resources\Images\Captains\staticcaptainone.png" />
     <Resource Include="MVVM\Resources\Images\Loading\backgroundWaves.jpg" />
     <Resource Include="MVVM\Resources\battleshipsIcon.ico" />
