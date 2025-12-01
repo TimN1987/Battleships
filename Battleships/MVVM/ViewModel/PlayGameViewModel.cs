@@ -599,6 +599,7 @@ public class PlayGameViewModel : ViewModelBase
         LoadingValue = 4;
         await Task.Delay(LoadingDelayTime);
         LoadingScreenVisible = Visibility.Collapsed;
+        _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.GameLoaded);
     }
 
     private async Task Autosave()
@@ -914,6 +915,23 @@ public class PlayGameViewModel : ViewModelBase
             AirstrikeHitCount += totalHits;
         if (_bombardmentAllowed)
             BombardmentHitCount += totalHits;
+
+        // Do not attempt to handle computer moves if none exist.
+        if (listLength == 1)
+        {
+            if (attackStatusReport.IsGameOver)
+            {
+                PlayerCanClick = false;
+                OnGameOver();
+            }
+            else
+            {
+                PlayerCanClick = true;
+                _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.PlayerTurn);
+            }
+
+            return;
+        }
 
         _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.ComputerTurn);
         await Task.Delay(ComputerShotTime);
