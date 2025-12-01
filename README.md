@@ -2,10 +2,19 @@
 
 [![.NET](https://img.shields.io/badge/.NET-8.0-blue?logo=dotnet)](https://dotnet.microsoft.com/)
 [![C#](https://img.shields.io/badge/C%23-WPF-purple?logo=csharp)](https://learn.microsoft.com/dotnet/csharp/)
-[![WPF](https://img.shields.io/badge/UI-WPF-5C2D91?logo=windows)]()
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 A **full-stack** Battleships game with multiple difficulty settings, customisable house rules, encrypted saving and loading functionality, background music and sound effects. The difficulty settings also have the option for an AI player, with the ability to send game data and receive shot selections from a machine-learning opponent.
+
+## ⚙️ Tech Stack:
+
+| Technology | Role |
+|------------|------|
+| WPF | UI Framework |
+| C# | Backend (Models and ViewModels) |
+| XAML | UI Markup |
+| SQLite | Database management |
+| MVVM | Architectural pattern |
 
 ## ✨ Features:
 
@@ -33,3 +42,16 @@ A **full-stack** Battleships game with multiple difficulty settings, customisabl
 
     Each view is hosted in a ContentControl under a menu bar, containing game options (e.g. Save, Load and Return Home), volume controls (adjusting the volume settings for the different MediaElements) and theme options. ResourceDictionaries in XAML contain different color definitions which can be selected from the menu bar, for example Classic and Neon themes. The theme effects are applied throughout the game screens.
 
+## 🖼️ Screenshots:
+
+## Background:
+
+In November 2024, a friend gave me the idea to make a Battleships game. I had been planning to look into learning WPF (having so far focused on creating simple applications in WinForms) and decided that this would be a great project to start with. I had soon created a loading screen, but I realised that WPF worked quite differently to WinForms.
+
+After some time working on other projects and reading up on WPF, I returned to my Battleships game in March 2025. This time I was better prepared with some relatively detailed plans and experience of creating simple WPF applications using the Model-View-ViewModel (MVVM) framework.
+
+By summer 2025, I had created the backend of the application with the difficulty settings as well as a basic frontend UI in XAML. There were still a lot of issues to be fixed and features to be completed, but I took a break after some work on training an AI player in Python to integrate into the game.
+
+In October 2025, I returned to the game, fixing the save and load functionality as well as completing the basic UI for game play. The application was now working correctly, but I had a long list of issues to work on over the coming weeks. These included setting up the sound effects and in-game messages, adding Game Over animations and finishing the AI player set up. These issues took me into December 2025.
+
+When I started, I never expected to spend so much time developing this application, nor did I expect the scope to grow so significantly. I am immensely proud of the result, however, and I have learned a huge amount through the process.
