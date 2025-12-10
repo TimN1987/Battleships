@@ -55,7 +55,7 @@ A **full-stack** Battleships game with multiple difficulty settings, customisabl
 - **Styles and themes in XAML**
     As I added more styles, the main resource dictionary became harder to navigate. Using more resource dictionaries, with a sharper focus for each, would help to keep the styles more open to changes and development.
 
-## Background:
+## 📖 Background:
 
 In November 2024, a friend gave me the idea to make a Battleships game. I had been planning to look into learning WPF (having so far focused on creating simple applications in WinForms) and decided that this would be a great project to start with. I had soon created a loading screen, but I realised that WPF worked quite differently to WinForms.
 
