@@ -44,6 +44,17 @@ A **full-stack** Battleships game with multiple difficulty settings, customisabl
 
 ## 🖼️ Screenshots:
 
+## 📝 Lessons learned:
+
+- **Data storage**
+    Serializing the game data to a Json to be encrypted seemed like an excellent idea at the time, especially to ensure that data could not be accessed and changed. It created two major problems - needing to create DTOs to manage the different classes and making it much more difficult to add new data fields without significant rewrites. Next, I will look into Entity Framework or similar for cleaner data management.
+- **Separation of concerns**
+    While I feel I made good use of object oriented programming (OOP) for large parts of the game design, the viewmodels soon became bloated as they needed to handle resources, game objects and commands. Separating out the resources into (possibly static) classes and creating each command in its own class would help make the viewmodels much cleaner.
+- **Events and messaging**
+    Later in development, I did separate out lots of the speech, sounds and graphics, but this was built on an overly complicated series of EventAggregator messages. With more experience, care and planning, this could be streamlined to ensure a cleaner and more maintainable system.
+- **Styles and themes in XAML**
+    As I added more styles, the main resource dictionary became harder to navigate. Using more resource dictionaries, with a sharper focus for each, would help to keep the styles more open to changes and development.
+
 ## Background:
 
 In November 2024, a friend gave me the idea to make a Battleships game. I had been planning to look into learning WPF (having so far focused on creating simple applications in WinForms) and decided that this would be a great project to start with. I had soon created a loading screen, but I realised that WPF worked quite differently to WinForms.
