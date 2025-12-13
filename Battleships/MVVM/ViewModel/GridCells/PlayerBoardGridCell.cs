@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.ViewModel.Base;
 
 namespace Battleships.MVVM.ViewModel.GridCells;
@@ -45,7 +40,7 @@ public class PlayerBoardGridCell(int row, int column) : GridCellBase
     private GridCellState _cellState = GridCellState.Unattacked;
     private ThemeNames _theme;
     private Uri? _displayImage;
-    
+
     public GridCellState CellState
     {
         get => _cellState;

@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 using Battleships.MVVM.Services;
 using Battleships.MVVM.Structs;
 using Battleships.MVVM.View;
 using Battleships.MVVM.ViewModel.Base;
-using Prism.Events;
 
 namespace Battleships.MVVM.ViewModel;
 
@@ -72,7 +64,7 @@ public partial class SaveGameViewModel : ViewModelBase
     }
     public ICommand OverwriteCommand => _overwriteCommand
         ??= new RelayCommand(param => SaveGame());
-    public ICommand RejectOverwriteCommand => _rejectOverwriteCommand 
+    public ICommand RejectOverwriteCommand => _rejectOverwriteCommand
         ??= new RelayCommand(param => RejectOverwrite());
     public ICommand ReturnToGameCommand
     {

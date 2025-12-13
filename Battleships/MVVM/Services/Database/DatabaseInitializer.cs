@@ -1,14 +1,6 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Data.SQLite;
+﻿using System.Data.SQLite;
 using System.Diagnostics;
-using System.Drawing.Text;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Animation;
 using Battleships.MVVM.Factories;
 
 namespace Battleships.MVVM.Services.Database;
@@ -58,9 +50,9 @@ public class DatabaseInitializer : IDatabaseInitializer
 
     public DatabaseInitializer(ILoggerFactory loggerFactory, string connectionString)
     {
-        _connectionString = connectionString 
+        _connectionString = connectionString
             ?? throw new ArgumentNullException(nameof(connectionString), "Database file path cannot be null.");
-        _loggerFactory = loggerFactory 
+        _loggerFactory = loggerFactory
             ?? throw new ArgumentNullException(nameof(loggerFactory), "Logger factory cannot be null.");
         _eventLogger = _loggerFactory.CreateLogger(nameof(DatabaseInitializer)) ?? throw new ArgumentNullException(nameof(loggerFactory), "Event logger cannot be null.");
     }
@@ -108,7 +100,7 @@ public class DatabaseInitializer : IDatabaseInitializer
                     else
                         _eventLogger.LogWarning($"Database initialization failed on attempt {i + 1}. {2 - i} retries left.");
 
-                   await Task.Delay(500);
+                    await Task.Delay(500);
                 }
             }
         }
@@ -261,7 +253,7 @@ public class DatabaseInitializer : IDatabaseInitializer
     private static void EnsureDatabaseFolderExists(string directory)
     {
         Debug.WriteLine("Ensuring that database folder exists");
-        
+
         try
         {
             ArgumentNullException.ThrowIfNullOrWhiteSpace(directory);

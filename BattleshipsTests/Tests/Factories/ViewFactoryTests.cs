@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using Battleships.MVVM.Factories;
+﻿using Battleships.MVVM.Factories;
 using Battleships.MVVM.Services;
 using Battleships.MVVM.Services.Database;
 using Battleships.MVVM.View;

@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Input;
-using Battleships.MVVM.Enums;
-using Battleships.MVVM.Structs;
-using Battleships.MVVM.ViewModel;
-using Battleships.MVVM.View;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Model;
 using Battleships.MVVM.Model.DataTransferObjects;
-using System.Diagnostics;
+using Battleships.MVVM.Structs;
+using Battleships.MVVM.View;
+using Battleships.MVVM.ViewModel;
 
 namespace Battleships.MVVM.Services;
 

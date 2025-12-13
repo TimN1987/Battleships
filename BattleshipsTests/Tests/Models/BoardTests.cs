@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Model;
 using Battleships.MVVM.Model.DataTransferObjects;
 using Battleships.MVVM.Structs;
@@ -184,10 +179,10 @@ namespace BattleshipsTests.Tests.Models
         [Theory]
         [MemberData(nameof(GetSingleTurnReportFullData))]
         public void GenerateSingleTurnReport_HitsAndMisses_ReturnsReportsWithCorrectLists
-            (int gridPosition, 
-            ShotType shotType, 
-            List<int> expectedMisses, 
-            List<int> expectedHits, 
+            (int gridPosition,
+            ShotType shotType,
+            List<int> expectedMisses,
+            List<int> expectedHits,
             List<(int position, bool isHorizontal, ShipType shipType)> expectedSinkings)
         {
             //Arrange
@@ -221,7 +216,7 @@ namespace BattleshipsTests.Tests.Models
                 Dictionary<ShipType, (int position, bool isHorizontal)> ships = board.GenerateRandomShips();
 
                 var totalPositions = ships
-                        .SelectMany(ship => 
+                        .SelectMany(ship =>
                             GenerateAllShipPositions(ship.Value.position, ship.Value.isHorizontal, _shipSizes[ship.Key]))
                         .Count();
                 if (totalPositions == TotalShipSize)
@@ -277,7 +272,7 @@ namespace BattleshipsTests.Tests.Models
         /// <param name="shotCalculationMethod">The type of <see cref="SalvoShots"/> calculation method.</param>
         /// <param name="expectedShotsNumber">The expected number of shots to check against.</param>
         [Theory]
-        [InlineData (SalvoShots.None, 1)]
+        [InlineData(SalvoShots.None, 1)]
         [InlineData(SalvoShots.EqualsUnsunkShips, 4)]
         [InlineData(SalvoShots.EqualsUndamagedShips, 3)]
         [InlineData(SalvoShots.EqualsLargestUnsunkShip, 5)]

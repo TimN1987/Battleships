@@ -1,19 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Runtime.Versioning;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InstallCustomActions
 {
     public static class EncryptionSetUp
     {
         private const string EventSourceName = "EncryptionSetUp";
-        
+
         public static void GenerateEncryptionKey()
         {
             string appDataPath = GenerateEncryptionPath();

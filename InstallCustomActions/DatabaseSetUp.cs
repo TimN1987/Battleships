@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Configuration;
 using System.Data.SQLite;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Diagnostics.Tracing;
 using System.IO;
-using System.Runtime.Versioning;
 
 namespace InstallCustomActions
 {

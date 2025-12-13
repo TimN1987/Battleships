@@ -2,11 +2,6 @@
 using Battleships.MVVM.Utilities;
 using Battleships.MVVM.View;
 using Battleships.MVVM.ViewModel.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Battleships.MVVM.ViewModel;
 
@@ -32,13 +27,13 @@ public class PlayerStartsViewModel(IEventAggregator eventAggregator, IGameSetUpS
 
     // Commands
 
-    public RelayCommand? PlayerStartsCommand => _playerStartsCommand 
+    public RelayCommand? PlayerStartsCommand => _playerStartsCommand
         ??= new RelayCommand(param => SetStartingPlayer(false));
 
-    public RelayCommand? ComputerStartsCommand => _computerStartsCommand 
-        ??=new RelayCommand(param => SetStartingPlayer(false, false));
+    public RelayCommand? ComputerStartsCommand => _computerStartsCommand
+        ??= new RelayCommand(param => SetStartingPlayer(false, false));
 
-    public RelayCommand? RandomStartsCommand => _randomStartsCommand 
+    public RelayCommand? RandomStartsCommand => _randomStartsCommand
         ??= new RelayCommand(param => SetStartingPlayer());
 
     // Methods

@@ -1,22 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Configuration;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Markup;
+﻿using System.Windows.Input;
 using Battleships.MVVM.Services;
-using Battleships.MVVM.ViewModel.Base;
 using Battleships.MVVM.Structs;
-using System.Windows.Input;
-using System.Windows.Controls;
-using Battleships.MVVM.Model.DataTransferObjects;
-using System.Diagnostics.CodeAnalysis;
 using Battleships.MVVM.View;
-using System.Windows.Documents;
-using System.Windows;
+using Battleships.MVVM.ViewModel.Base;
 
 namespace Battleships.MVVM.ViewModel;
 
@@ -80,7 +66,7 @@ public class LoadGameViewModel : ViewModelBase
 
     public LoadGameViewModel(IEventAggregator eventAggregator, ISaveService saveService)
     {
-        _eventAggregator = eventAggregator 
+        _eventAggregator = eventAggregator
             ?? throw new ArgumentNullException(nameof(eventAggregator));
         _saveService = saveService
             ?? throw new ArgumentNullException(nameof(saveService));

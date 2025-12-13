@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core.Metadata.Edm;
-using System.Linq;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Model.DataTransferObjects;
 using Battleships.MVVM.Utilities;
 
@@ -52,7 +45,7 @@ namespace Battleships.MVVM.Model
         public RandomShotPicker()
         {
             _gridRange = Enumerable.Range(0, 100);
-            
+
             _availableShots = GenerateAllShotsList();
             _availableDiagonalSpacingTwoShots = GenerateDiagonalShotsList(2);
             _availableDiagonalSpacingThreeShots = GenerateDiagonalShotsList(3);
@@ -99,7 +92,7 @@ namespace Battleships.MVVM.Model
         {
             if (!Enumerable.Range(2, 4).Contains(spacing))
                 return [];
-            
+
             var random = RandomProvider.Instance.Next(2);
 
             bool slopingUp = (random == 0);
@@ -195,7 +188,7 @@ namespace Battleships.MVVM.Model
         /// using the <see cref="RandomShotPicker"/> to avoid duplication of shots.</remarks>
         public void UpdateShotPickerLists(int gridPosition, ShotType shotType)
         {
-            
+
             if (GenerateValidShotPositions(gridPosition, shotType, out List<int> shotPositions))
             {
                 _availableShots = _availableShots
@@ -236,7 +229,7 @@ namespace Battleships.MVVM.Model
             var row = gridPosition / 10;
             var column = gridPosition % 10;
             shotPositions = [];
-            
+
             if (shotType == ShotType.AirstrikeUpRight && (column > 7 || row < 2))
                 return false;
 
@@ -270,7 +263,7 @@ namespace Battleships.MVVM.Model
         {
             if (possibleShots is null || possibleShots.Count == 0)
                 return -1;
-            
+
             var length = possibleShots.Count;
             var index = RandomProvider.Instance.Next(0, length);
 

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core.Mapping;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Media3D;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Model.DataTransferObjects;
 using Battleships.MVVM.Services;
 using Battleships.MVVM.Structs;
@@ -23,7 +15,7 @@ namespace Battleships.MVVM.Model
         int ChooseNextMove(GridCellState[] playerGrid, List<int> remainingShipSizes, SingleTurnReport lastMoveReport, out ShotType shotType);
 
     }
-    
+
     /// <summary>
     /// This class implements the IComputerPlayer and provides methods for choosing computer moves with different 
     /// difficulty levels. It includes a <see cref="RandomShotPicker"/> as well as a probability density map for 
@@ -169,7 +161,7 @@ namespace Battleships.MVVM.Model
                 _airstrikeHitCount = 0;
             if (shotType == ShotType.Bombardment)
                 _bombardmentHitCount = 0;
-            
+
             return attackGridPosition;
         }
 
@@ -244,7 +236,7 @@ namespace Battleships.MVVM.Model
         internal int GenerateAIMove(GridCellState[] playerGrid, List<int> remainingShipSizes, out ShotType shotType)
         {
             var gameStateDTO = new GameStateDTO
-            { 
+            {
                 Grid = playerGrid
                 .Select(state => (int)state)
                 .ToArray(),
@@ -322,7 +314,7 @@ namespace Battleships.MVVM.Model
         internal int SelectHuntPhaseShot(out ShotType shotType)
         {
             shotType = ShotType.Single;
-            
+
             var bestProbabilityTargets = SelectBestProbabilityTargets()
                 .Where(position => _availablePositions.Contains(position));
 
@@ -385,7 +377,7 @@ namespace Battleships.MVVM.Model
         private static List<List<int>> IdentifyLinesOfHits(IEnumerable<int> hits)
         {
             var hitsHashSet = hits.ToHashSet();
-            
+
             var linesOfHits = new List<List<int>>();
 
             for (int i = 0; i < 10; i++)
@@ -421,7 +413,7 @@ namespace Battleships.MVVM.Model
         {
             var lines = new List<List<int>>();
             var possibleLine = new List<int>();
-            
+
             for (int j = 0; j < 9; j++)
             {
                 int currentPosition = isRow ? 10 * fixedIndex + j : 10 * j + fixedIndex;
@@ -526,7 +518,7 @@ namespace Battleships.MVVM.Model
         {
             int offset = isRow ? 1 : 10;
             int testPosition = isBefore ? gridPosition - offset : gridPosition + offset;
-            
+
             if (!_availablePositions.Contains(testPosition))
                 return false;
 
@@ -614,7 +606,7 @@ namespace Battleships.MVVM.Model
         /// <returns>A list of tuples containing key information about the attack: the key grid position, the 
         /// type of shot, the total number of hit adjacent cells targeted and the total probability score 
         /// for the shot.</returns>
-        private List<(int position, ShotType shotType, int totalHitAdjacent, int totalProbabilityScore)> 
+        private List<(int position, ShotType shotType, int totalHitAdjacent, int totalProbabilityScore)>
             EvaluateShotSelectionOptions(int gridPosition, bool isRow, List<int> hitAdjacentCells)
         {
             var scoredShotOptions = new List<(int position, ShotType shotType, int totalHitAdjacent, int totalProbabilityScore)>
@@ -624,7 +616,7 @@ namespace Battleships.MVVM.Model
 
             if (AirstrikeActivated)
                 scoredShotOptions.AddRange(GenerateAirstrikeOptions(gridPosition, hitAdjacentCells));
-            
+
             if (BombardmentActivated)
                 scoredShotOptions.AddRange(GenerateBombardmentOptions(gridPosition, isRow, hitAdjacentCells));
 
@@ -697,15 +689,15 @@ namespace Battleships.MVVM.Model
         /// <returns>A list of tuples containing key information about the attack: the key grid position, the 
         /// type of shot, the total number of hit adjacent cells targeted and the total probability score 
         /// for the shot.</returns>
-        private List<(int position, ShotType shotType, int totalHitAdjacent, int totalProbabilityScore)> 
+        private List<(int position, ShotType shotType, int totalHitAdjacent, int totalProbabilityScore)>
             GenerateBombardmentOptions(int gridPosition, bool isRow, List<int> hitAdjacentCells)
         {
             var bombardmentOptions = new List<(int position, ShotType shotType, int totalHitAdjacent, int totalProbabilityScore)>();
 
             //If the line is a row, the bombardment should try the row above and below to fit around the hit.
-            var step = isRow ? 10 : 1; 
+            var step = isRow ? 10 : 1;
 
-            var offsets = new int[] { - step, 0, step}
+            var offsets = new int[] { -step, 0, step }
                 .Select(offset => gridPosition + offset)
                 .Where(position => _availablePositions.Contains(position))
                 .Where(position => position % 10 < 9 && position % 10 > 0 && position >= 10 && position < 90)
@@ -882,7 +874,7 @@ namespace Battleships.MVVM.Model
             _bombardmentHitCount += lastMoveReport.PositionsHit?.Count ?? 0;
             UpdateProbabilityDensityMap(lastMoveReport);
         }
-        
+
         /// <summary>
         /// Creates a new integer array with all values set to 100 to represent an equal chance of each grid 
         /// position being hit at the start of the game. Balances the greater number of possible ship placements 
@@ -971,7 +963,7 @@ namespace Battleships.MVVM.Model
                 var newPosition = (shipInformation.isHorizontal)
                      ? shipInformation.gridPosition + i
                      : shipInformation.gridPosition + 10 * i;
-                
+
                 sunkShipPositions.Add(newPosition);
             }
 
@@ -989,7 +981,7 @@ namespace Battleships.MVVM.Model
                         SetProbability(position, direction, 2, 0);
                 }
             }
-            
+
             foreach (var position in sunkShipPositions)
                 _probabilityDensityMap[position] = 0;
         }

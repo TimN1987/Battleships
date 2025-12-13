@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using Battleships.MVVM.Enums;
-using Battleships.MVVM.Structs;
 using Battleships.MVVM.Factories;
-using Battleships.MVVM.Services.Database;
-using Battleships.MVVM.ViewModel.Base;
-using Battleships.MVVM.Services;
 using Battleships.MVVM.Model;
 using Battleships.MVVM.Model.DataTransferObjects;
-using Battleships.MVVM.ViewModel.GridCells;
-using System.Collections.ObjectModel;
+using Battleships.MVVM.Services;
+using Battleships.MVVM.Structs;
 using Battleships.MVVM.Utilities;
-using System.Windows;
+using Battleships.MVVM.ViewModel.Base;
+using Battleships.MVVM.ViewModel.GridCells;
 
 namespace Battleships.MVVM.ViewModel;
 
@@ -218,9 +212,9 @@ public class PlayGameViewModel : ViewModelBase
 
     public bool PlayerCanClick { get; set; }
     public string GameStatusMessage
-    { 
-        get => _gameStatusMessage; 
-        set => SetProperty(ref _gameStatusMessage, value); 
+    {
+        get => _gameStatusMessage;
+        set => SetProperty(ref _gameStatusMessage, value);
     }
 
     public bool AirstrikeAllowed
@@ -263,7 +257,7 @@ public class PlayGameViewModel : ViewModelBase
     }
     public int BombardmentHitCount
     {
-        get => _bombardmentHitCount ;
+        get => _bombardmentHitCount;
         set
         {
             SetProperty(ref _bombardmentHitCount, value);
@@ -393,7 +387,7 @@ public class PlayGameViewModel : ViewModelBase
         _bomberImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bomberone.png", UriKind.Absolute);
         _bomberImageArray = [
             new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bomberone.png", UriKind.Absolute),
-            new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bombertwo.png", UriKind.Absolute), 
+            new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bombertwo.png", UriKind.Absolute),
             new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bomberthree.png", UriKind.Absolute),
             new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bomberfour.png", UriKind.Absolute),
             new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bomberfive.png", UriKind.Absolute),
@@ -504,7 +498,7 @@ public class PlayGameViewModel : ViewModelBase
         _currentGame = (_gameSetUpInformation.Type == GameType.Classic)
             ? new ClassicGame(_loggerFactory, _gameSetUpInformation)
             : new SalvoGame(_loggerFactory, _gameSetUpInformation);
-        
+
         PlayerCanClick = _gameSetUpInformation.PlayerStarts;
 
         _currentGame.ComputerOpeningMoveCompleted += OnComputerOpeningMoveCompleted;
@@ -546,7 +540,7 @@ public class PlayGameViewModel : ViewModelBase
         GameOverVisible = Visibility.Collapsed;
 
         _currentGame = (gameDTO.GameType == GameType.Classic) ?
-            new ClassicGame(_loggerFactory, gameDTO) : 
+            new ClassicGame(_loggerFactory, gameDTO) :
             new SalvoGame(_loggerFactory, gameDTO);
 
         LoadingValue = 1;
@@ -617,7 +611,7 @@ public class PlayGameViewModel : ViewModelBase
     private async Task OnSaveRequest(bool isAutosave = true, (string gameName, int saveSlot)? saveGame = null)
     {
         bool isSaveAs = saveGame is not null;
-        
+
         _saveService.CurrentGame = _currentGame;
 
         if (isSaveAs)
@@ -654,7 +648,7 @@ public class PlayGameViewModel : ViewModelBase
 
         if (isLoaded)
             _eventAggregator.GetEvent<StartGameEvent>().Publish();
-            
+
     }
 
     /// <summary>
@@ -750,22 +744,22 @@ public class PlayGameViewModel : ViewModelBase
                 ShotType.Bombardment => BombardmentLeftLimit,
                 _ => SingleShotLeftLimit
             },
-            KeyboardDirection.Right => FocusedCell.column < SelectedShotType switch 
-            { 
+            KeyboardDirection.Right => FocusedCell.column < SelectedShotType switch
+            {
                 ShotType.AirstrikeUpRight => AirstrikeUpRightRightLimit,
                 ShotType.AirstrikeDownRight => AirstrikeDownRightRightLimit,
                 ShotType.Bombardment => BombardmentRightLimit,
                 _ => SingleShotRightLimit
             },
             KeyboardDirection.Up => FocusedCell.row > SelectedShotType switch
-            { 
+            {
                 ShotType.AirstrikeUpRight => AirstrikeUpRightTopLimit,
                 ShotType.AirstrikeDownRight => AirstrikeDownRightTopLimit,
                 ShotType.Bombardment => BombardmentTopLimit,
                 _ => SingleShotTopLimit
             },
             KeyboardDirection.Down => FocusedCell.row < SelectedShotType switch
-            { 
+            {
                 ShotType.AirstrikeUpRight => AirstrikeUpRightBottomLimit,
                 ShotType.AirstrikeDownRight => AirstrikeDownRightBottomLimit,
                 ShotType.Bombardment => BombardmentBottomLimit,
@@ -823,7 +817,7 @@ public class PlayGameViewModel : ViewModelBase
             _ => selectedCell.row
         };
         int inboundsColumn = SelectedShotType switch
-        { 
+        {
             ShotType.AirstrikeUpRight => Math.Min(selectedCell.column, AirstrikeUpRightRightLimit),
             ShotType.AirstrikeDownRight => Math.Min(selectedCell.column, AirstrikeDownRightRightLimit),
             ShotType.Bombardment => Math.Clamp(selectedCell.column, BombardmentLeftLimit, BombardmentRightLimit),
@@ -846,7 +840,7 @@ public class PlayGameViewModel : ViewModelBase
         (row, column) = AdjustFocusedCellToInbounds((row, column));
         gridPosition = 10 * row + column;
 
-        AttackStatusReport newReport = _currentGame?.ProcessPlayerShotSelection(gridPosition, SelectedShotType) 
+        AttackStatusReport newReport = _currentGame?.ProcessPlayerShotSelection(gridPosition, SelectedShotType)
                 ?? new();
 
         // Update TargetedCell to feed into Bomber animation bindings.
@@ -1034,7 +1028,7 @@ public class PlayGameViewModel : ViewModelBase
     }
     private List<int> GetAllShipCells(int gridPosition, bool isHorizontal, ShipType shipType)
     {
-        List<int> positions = [ gridPosition ];
+        List<int> positions = [gridPosition];
         int row = gridPosition / 10;
         int col = gridPosition % 10;
 
@@ -1044,7 +1038,7 @@ public class PlayGameViewModel : ViewModelBase
         for (int i = 1; i < size; i++)
         {
             int newRow = isHorizontal ? row : row + i;
-            int newCol = isHorizontal ? col + i: col;
+            int newCol = isHorizontal ? col + i : col;
 
             if (newRow < GridSize && newCol < GridSize)
                 positions.Add(newRow * 10 + newCol);
@@ -1101,18 +1095,18 @@ public class PlayGameViewModel : ViewModelBase
     private void SetBomberImage()
     {
         BomberVisible = Visibility.Visible;
-        
+
         int length = _bomberImageArray.Length;
         if (length <= 1)
-            return; 
-        
+            return;
+
         int newIndex;
 
         do
         {
             newIndex = RandomProvider.Instance.Next(length);
         } while (newIndex == _bomberIndex);
-            
+
 
         _bomberIndex = newIndex;
         BomberImage = _bomberImageArray[_bomberIndex];
@@ -1151,7 +1145,7 @@ public class PlayGameViewModel : ViewModelBase
         // Clear board
         // Display return home options - restart or return home
     }
-    
+
     #endregion //Message and Animation Methods
 
     #region Event Handler Methods
@@ -1162,7 +1156,7 @@ public class PlayGameViewModel : ViewModelBase
     {
         AttackStatusReport attackStatusReport = e;
         int listLength = attackStatusReport.Reports.Count;
-        
+
         for (int i = 0; i < listLength; i++)
         {
             UpdateCellState(attackStatusReport.Reports[i].PositionsHit.ToList(), GridCellState.Hit, true);

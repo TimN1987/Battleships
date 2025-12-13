@@ -1,9 +1,7 @@
-using System.Data.SQLite;
-using Moq;
-using Battleships.MVVM.Services.Database;
-using Battleships.MVVM.Services;
 using Battleships.MVVM.Factories;
-using NuGet.Frameworks;
+using Battleships.MVVM.Services;
+using Battleships.MVVM.Services.Database;
+using Moq;
 
 namespace BattleshipsTests.Tests.Database
 {
@@ -132,7 +130,7 @@ namespace BattleshipsTests.Tests.Database
             await initializer.Object.InitializeDatabaseWithRetries();
 
             // Assert
-            _eventLogger.Verify(logger => 
+            _eventLogger.Verify(logger =>
                 logger.LogInformation(It.Is<string>(msg => msg.Contains("Database successfully initialized")), null));
         }
 
@@ -152,7 +150,7 @@ namespace BattleshipsTests.Tests.Database
                                             .Throws(new Exception("First attempt failed."))
                                             .Throws(new Exception("Second attempt failed."))
                                             .ReturnsAsync(true);
-            
+
             //Act
             await initializer.Object.InitializeDatabaseWithRetries();
 

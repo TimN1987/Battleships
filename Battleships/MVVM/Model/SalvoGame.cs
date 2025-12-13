@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Factories;
 using Battleships.MVVM.Model.DataTransferObjects;
 using Battleships.MVVM.Structs;
@@ -20,11 +15,11 @@ namespace Battleships.MVVM.Model
             _salvoShotType = information.SalvoShotType;
         }
 
-        public SalvoGame(ILoggerFactory loggerFactory, GameDTO gameDTO) : base(loggerFactory, gameDTO) 
+        public SalvoGame(ILoggerFactory loggerFactory, GameDTO gameDTO) : base(loggerFactory, gameDTO)
         {
             _salvoShotType = gameDTO.SalvoShotType;
         }
-        
+
         /// <summary>
         /// Override method. Uses the <see cref="SalvoShots"/> type and <see cref="Board"/> information to 
         /// calculate the correct number of shots for the turn in a <see cref="SalvoGame"/>.
@@ -35,7 +30,7 @@ namespace Battleships.MVVM.Model
             if (_salvoShotType == SalvoShots.Fixed)
                 return FixedSalvoShotsTotal;
 
-            return (_isPlayerTurn) ? _playerBoard.CheckShipStatusToCalculateShots(_salvoShotType) 
+            return (_isPlayerTurn) ? _playerBoard.CheckShipStatusToCalculateShots(_salvoShotType)
                 : _computerBoard.CheckShipStatusToCalculateShots(_salvoShotType);
         }
 

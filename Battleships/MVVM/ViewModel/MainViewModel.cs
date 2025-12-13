@@ -1,13 +1,4 @@
-﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO.Packaging;
-using System.Linq;
-using System.Printing;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Battleships.MVVM.Enums;
@@ -15,7 +6,6 @@ using Battleships.MVVM.Factories;
 using Battleships.MVVM.Services;
 using Battleships.MVVM.View;
 using Battleships.MVVM.ViewModel.Base;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Battleships.MVVM.ViewModel;
 
@@ -145,7 +135,7 @@ public class MainViewModel : ViewModelBase
         set
         {
             SetProperty(ref _gameInProgress, value);
-            ReturnToGameAvailable = _gameInProgress && _currentView is not PlayGameView 
+            ReturnToGameAvailable = _gameInProgress && _currentView is not PlayGameView
                 ? Visibility.Visible : Visibility.Collapsed;
         }
     }
@@ -464,7 +454,7 @@ public class MainViewModel : ViewModelBase
     private void ChangeFullScreenSetting()
     {
         _eventAggregator.GetEvent<FullScreenEvent>().Publish(IsFullScreen);
-        
+
         IsFullScreen = !IsFullScreen;
     }
 

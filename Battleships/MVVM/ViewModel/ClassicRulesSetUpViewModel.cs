@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Battleships.MVVM.Factories;
+﻿using System.Windows.Input;
 using Battleships.MVVM.Services;
-using Battleships.MVVM.Services.Database;
 using Battleships.MVVM.View;
 using Battleships.MVVM.ViewModel.Base;
 
 namespace Battleships.MVVM.ViewModel
 {
-    public class ClassicRulesSetUpViewModel (IEventAggregator eventAggregator, IGameSetUpService gameSetUpService) : ViewModelBase
+    public class ClassicRulesSetUpViewModel(IEventAggregator eventAggregator, IGameSetUpService gameSetUpService) : ViewModelBase
     {
         #region ToolTip Messages
         public static string FireUntilMissExplanation => "Players continue taking shots until they miss.";

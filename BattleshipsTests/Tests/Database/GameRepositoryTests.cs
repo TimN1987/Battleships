@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.SQLite;
 using Battleships.MVVM.Enums;
 using Battleships.MVVM.Factories;
 using Battleships.MVVM.Services;
@@ -49,7 +43,7 @@ namespace BattleshipsTests.Tests.Database
                 Directory.CreateDirectory(_testDirectoryPath);
 
             _databaseInitializer = new DatabaseInitializer(_loggerFactory.Object, _testDatabasePath);
-            Task.Run(async () => 
+            Task.Run(async () =>
                 await _databaseInitializer.InitializeDatabaseWithRetries());
 
             if (!File.Exists(_testDatabasePath))
@@ -187,7 +181,7 @@ namespace BattleshipsTests.Tests.Database
             await _gameRepository.CreateSaveGameRecord(null!);
 
             // Assert
-            _eventLogger.Verify(message => 
+            _eventLogger.Verify(message =>
                 message.LogCritical(It.IsAny<string>(), It.IsAny<ArgumentException>(), null, false));
         }
 
@@ -216,7 +210,7 @@ namespace BattleshipsTests.Tests.Database
             await _gameRepository.CreateSaveGameRecord(WhiteSpace);
 
             //Assert
-            _eventLogger.Verify(message => 
+            _eventLogger.Verify(message =>
                 message.LogCritical(It.IsAny<string>(), It.IsAny<ArgumentException>(), null, false));
         }
 
@@ -243,7 +237,7 @@ namespace BattleshipsTests.Tests.Database
         {
             //Arrange
             ClearTable(SaveGameTable.AutosaveGame);
-            
+
             //Act
             await _gameRepository.CreateSaveGameRecord(TestData, null!);
 
@@ -266,7 +260,7 @@ namespace BattleshipsTests.Tests.Database
             await _gameRepository.CreateSaveGameRecord(TestData, null!, SaveGameTable.SaveGames);
 
             //Assert
-            _eventLogger.Verify(message => 
+            _eventLogger.Verify(message =>
                 message.LogCritical(It.IsAny<string>(), It.IsAny<ArgumentException>(), null, false));
         }
 
@@ -278,7 +272,7 @@ namespace BattleshipsTests.Tests.Database
         public async Task CreateSaveGameRecord_ValidSaveGameNoTableName_ThrowsInvalidOperationException()
         {
             //Arrange & Act
-            var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => 
+            var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
                 _gameRepository.CreateSaveGameRecord(WhiteSpace, TestName));
 
             //Assert
@@ -439,7 +433,7 @@ namespace BattleshipsTests.Tests.Database
 
             //Assert
             Assert.False(isUpdated);
-            _eventLogger.Verify(message => 
+            _eventLogger.Verify(message =>
                 message.LogCritical(It.IsAny<string>(), It.IsAny<ArgumentException>(), null, false));
         }
 
@@ -716,7 +710,7 @@ namespace BattleshipsTests.Tests.Database
             Assert.False(isDeleted);
             _eventLogger.Verify(message =>
                 message.LogWarning(It.IsAny<string>(), null), Times.Exactly(2));
-            _eventLogger.Verify(message => 
+            _eventLogger.Verify(message =>
                 message.LogCritical(It.IsAny<string>(), It.IsAny<InvalidOperationException>(), null, false), Times.Once);
             Assert.True(CountTableEntries(SaveGameTable.AutosaveGame) == 0);
         }

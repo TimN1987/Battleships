@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Factories;
-using Battleships.MVVM.Services.Database;
 using Battleships.MVVM.Model;
-using Prism.Events;
+using Battleships.MVVM.Services.Database;
 using Battleships.MVVM.View;
-using Battleships.MVVM.Enums;
-using System.Diagnostics;
-using Battleships.MVVM.Model.DataTransferObjects;
 
 namespace Battleships.MVVM.Services;
 
@@ -90,7 +82,7 @@ public class SaveService(IEventAggregator eventAggregator, ILoggerFactory logger
         }
 
         await UpdateSaveStatus("Saving game...");
-        
+
         if (CurrentGame is null)
         {
             _eventLogger.LogWarning("No game data exists to save.");
@@ -206,7 +198,7 @@ public class SaveService(IEventAggregator eventAggregator, ILoggerFactory logger
     public async Task<bool> LoadGame(bool autosaveGame = true)
     {
         await UpdateSaveStatus("Game loading...");
-        
+
         var gameName = (autosaveGame) ? null : CurrentGameName;
         SaveGameTable? saveGameTable = (autosaveGame) ? null : SaveGameTable.SaveGames;
 
@@ -265,7 +257,7 @@ public class SaveService(IEventAggregator eventAggregator, ILoggerFactory logger
             _eventAggregator.GetEvent<SaveStatusEvent>().Publish(saveStatusMessage);
 
             await Task.Delay(SaveStatusMessageDisplayTime);
-            
+
             _eventAggregator.GetEvent<SaveStatusEvent>().Publish(string.Empty);
         }
         catch (Exception ex)

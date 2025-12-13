@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SQLite;
+﻿using System.Data.SQLite;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Factories;
 using Battleships.MVVM.Enums;
+using Battleships.MVVM.Factories;
 
 namespace Battleships.MVVM.Services.Database
 {
@@ -33,9 +27,9 @@ namespace Battleships.MVVM.Services.Database
     {
         #region Fields
         private const string _eventSourceName = nameof(GameRepository);
-        private readonly string _connectionString = connectionString 
+        private readonly string _connectionString = connectionString
             ?? throw new ArgumentNullException(nameof(connectionString), "Connection string cannot be null.");
-        private readonly IEventLogger _eventLogger = loggerFactory.CreateLogger(_eventSourceName) 
+        private readonly IEventLogger _eventLogger = loggerFactory.CreateLogger(_eventSourceName)
             ?? throw new ArgumentNullException(nameof(loggerFactory), "Logger factory cannot be null.");
         #endregion //Fields
 
@@ -119,7 +113,7 @@ namespace Battleships.MVVM.Services.Database
                 throw new InvalidOperationException("Only the Autosave game can be saved in the AutosaveGame table. Include the correct table name.");
 
             saveSlot ??= 0;
-            
+
             tableName ??= SaveGameTable.AutosaveGame;
             if (tableName == SaveGameTable.AutosaveGame)
                 gameName ??= "Autosave";
@@ -140,7 +134,7 @@ namespace Battleships.MVVM.Services.Database
                 for (int i = 0; i < RetryCount; i++)
                 {
                     using var transaction = connection.BeginTransaction();
-   
+
                     try
                     {
                         var spaceAvailable = (tableName == SaveGameTable.AutosaveGame) || await IsSaveSlotAvailable(connection, countQuery);
@@ -212,7 +206,7 @@ namespace Battleships.MVVM.Services.Database
             try
             {
                 ArgumentException.ThrowIfNullOrWhiteSpace(gameName);
-                
+
                 using var connection = new SQLiteConnection(_connectionString);
                 await connection.OpenAsync();
 
@@ -320,7 +314,7 @@ namespace Battleships.MVVM.Services.Database
                     catch (InvalidOperationException ex)
                     {
                         _eventLogger.LogWarning($"Operation was not successful: {ex.Message}. Attempt {i + 1} of {RetryCount}");
-                    }                   
+                    }
                     catch (Exception)
                     {
                         _eventLogger.LogWarning($"Failed to update database record in {tableName}. Attempt {i + 1} of {RetryCount}.");
@@ -403,7 +397,7 @@ namespace Battleships.MVVM.Services.Database
                     {
                         _eventLogger.LogWarning($"Failed to delete database record in {tableName}. Attempt {i + 1} of {RetryCount}.");
                     }
-                }                    
+                }
             }
             catch (SQLiteException ex)
             {
@@ -612,7 +606,7 @@ namespace Battleships.MVVM.Services.Database
             }
 
             await reader.DisposeAsync();
-            
+
             return (string.Empty, DateTime.Now, 0);
         }
 

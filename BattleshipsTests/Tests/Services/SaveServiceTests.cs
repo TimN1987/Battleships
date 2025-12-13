@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Factories;
 using Battleships.MVVM.Model;
 using Battleships.MVVM.Services;
 using Battleships.MVVM.Services.Database;
+using Battleships.MVVM.Structs;
 using Battleships.MVVM.View;
 using Moq;
-using Battleships.MVVM.Enums;
-using Battleships.MVVM.Structs;
 
 namespace BattleshipsTests.Tests.Services
 {

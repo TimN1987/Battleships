@@ -1,14 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Navigation;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Utilities;
 using Battleships.MVVM.ViewModel;
-using Battleships.MVVM.View;
 
 namespace Battleships.MVVM.Services;
 
@@ -110,7 +102,8 @@ public class SoundService : ISoundService
     /// </summary>
     internal void OnGameEventReceived(GameEvent gameEvent)
     {
-        Uri[] sounds = _foregroundSounds[gameEvent];
+        if (!_foregroundSounds.TryGetValue(gameEvent, out Uri[]? sounds))
+            return;
         int availableSounds = sounds.Length;
 
         if (availableSounds == 0)

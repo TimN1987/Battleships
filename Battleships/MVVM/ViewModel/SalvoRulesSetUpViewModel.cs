@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows.Markup;
+﻿using System.Windows.Input;
 using Battleships.MVVM.Enums;
 using Battleships.MVVM.Services;
 using Battleships.MVVM.View;
@@ -23,9 +17,9 @@ namespace Battleships.MVVM.ViewModel
         #endregion //Tooltip Messages
 
         #region Fields
-        private readonly IEventAggregator _eventAggregator = eventAggregator 
+        private readonly IEventAggregator _eventAggregator = eventAggregator
             ?? throw new ArgumentNullException(nameof(eventAggregator));
-        private readonly IGameSetUpService _gameSetUpService = gameSetUpService 
+        private readonly IGameSetUpService _gameSetUpService = gameSetUpService
             ?? throw new ArgumentNullException(nameof(gameSetUpService));
 
         private bool _shotsFixed = true;
@@ -42,7 +36,7 @@ namespace Battleships.MVVM.ViewModel
         #endregion //Fields
 
         #region Properties
-        
+
 
         public bool ShotsFixed
         {
@@ -54,7 +48,7 @@ namespace Battleships.MVVM.ViewModel
                 if (value == true)
                 {
                     _selectedSalvoShotType = SalvoShots.Fixed;
-                    
+
                     ShotsEqualUnsunkShips = false;
                     ShotsEqualUndamagedShips = false;
                     ShotsEqualLargestUnsunkShip = false;
@@ -72,7 +66,7 @@ namespace Battleships.MVVM.ViewModel
                 if (value == true)
                 {
                     _selectedSalvoShotType = SalvoShots.EqualsUnsunkShips;
-                    
+
                     ShotsFixed = false;
                     ShotsEqualUndamagedShips = false;
                     ShotsEqualLargestUnsunkShip = false;
@@ -90,7 +84,7 @@ namespace Battleships.MVVM.ViewModel
                 if (value == true)
                 {
                     _selectedSalvoShotType = SalvoShots.EqualsUndamagedShips;
-                    
+
                     ShotsFixed = false;
                     ShotsEqualUnsunkShips = false;
                     ShotsEqualLargestUnsunkShip = false;
@@ -108,7 +102,7 @@ namespace Battleships.MVVM.ViewModel
                 if (value == true)
                 {
                     _selectedSalvoShotType = SalvoShots.EqualsLargestUnsunkShip;
-                    
+
                     ShotsFixed = false;
                     ShotsEqualUnsunkShips = false;
                     ShotsEqualUndamagedShips = false;
@@ -127,7 +121,7 @@ namespace Battleships.MVVM.ViewModel
                 if (value == true)
                 {
                     _selectedSalvoShotType = SalvoShots.EqualsLargestUndamagedShip;
-                    
+
                     ShotsFixed = false;
                     ShotsEqualUnsunkShips = false;
                     ShotsEqualUndamagedShips = false;

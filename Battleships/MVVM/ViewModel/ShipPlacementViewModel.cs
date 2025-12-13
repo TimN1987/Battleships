@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Battleships.MVVM.Enums;
-using Battleships.MVVM.Factories;
 using Battleships.MVVM.Services;
-using Battleships.MVVM.Services.Database;
 using Battleships.MVVM.Structs;
-using Battleships.MVVM.ViewModel.Base;
-using Battleships.MVVM.View;
-using Battleships.MVVM.Model;
-using Battleships.MVVM.ViewModel.GridCells;
 using Battleships.MVVM.Utilities;
+using Battleships.MVVM.View;
+using Battleships.MVVM.ViewModel.Base;
+using Battleships.MVVM.ViewModel.GridCells;
 
 namespace Battleships.MVVM.ViewModel;
 
@@ -388,7 +380,7 @@ public class ShipPlacementViewModel : ViewModelBase
     {
         if (errorMessage == _errorMessage)
             return;
-        
+
         _ = HandleErrorMessageAsync(errorMessage);
     }
 
@@ -431,9 +423,9 @@ public class ShipPlacementViewModel : ViewModelBase
     {
         if (!Enum.IsDefined(typeof(KeyboardDirection), direction))
             return;
-        
+
         (int row, int column) cell = FocusedCell;
-        
+
         switch (direction)
         {
             case KeyboardDirection.Left:
@@ -537,7 +529,7 @@ public class ShipPlacementViewModel : ViewModelBase
     {
         if (!CanPlaceShip(gridPosition))
             return;
-        
+
         gridPosition ??= 10 * FocusedCell.row + FocusedCell.column;
         _shipPositions ??= [];
 
@@ -563,10 +555,10 @@ public class ShipPlacementViewModel : ViewModelBase
     private bool CanPlaceShip(int? gridPosition = null)
     {
         gridPosition ??= 10 * FocusedCell.row + FocusedCell.column;
-        
+
         gridPosition = AdjustStartPositionToStayInBounds((int)gridPosition, IsShipHorizontal, CurrentShipSize);
 
-        return !IsOverlappingOccupiedCells((int)gridPosition) 
+        return !IsOverlappingOccupiedCells((int)gridPosition)
             && !IsOverlappingTouchingCells((int)gridPosition);
     }
 
@@ -641,7 +633,7 @@ public class ShipPlacementViewModel : ViewModelBase
         int startPosition;
         int shipSize;
         bool isHorizontal;
-        
+
         if (shipType is null)
         {
             startPosition = FocusedCell.row * 10 + FocusedCell.column;
@@ -865,7 +857,7 @@ public class ShipPlacementViewModel : ViewModelBase
         }
 
         _shipPositions = shipPositions;
-        
+
         ResetOccupiedCells();
         ResetTouchingCells();
     }

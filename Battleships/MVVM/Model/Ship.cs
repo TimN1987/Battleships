@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Model.DataTransferObjects;
 using Battleships.MVVM.ViewModel;
 
@@ -53,7 +48,7 @@ namespace Battleships.MVVM.Model
         public Ship((int startPosition, bool isHorizontal) shipPositions, int size)
         {
             Size = size;
-            
+
             Damage = new bool[Size];
             Positions = new int[Size];
 
@@ -91,7 +86,7 @@ namespace Battleships.MVVM.Model
                 UpdateDamage(position);
                 return true;
             }
-                return false;
+            return false;
         }
 
         /// <summary>

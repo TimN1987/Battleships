@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Model;
-using Battleships.MVVM.Enums;
-using System.Printing;
 using Battleships.MVVM.Structs;
 using Battleships.MVVM.View;
 using Battleships.MVVM.ViewModel;
-using System.Diagnostics;
 
 namespace Battleships.MVVM.Services
 {

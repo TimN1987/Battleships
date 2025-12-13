@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Model.DataTransferObjects;
 using Battleships.MVVM.Structs;
 using Battleships.MVVM.Utilities;
@@ -43,7 +38,7 @@ namespace Battleships.MVVM.Model
             { ShipType.Submarine, 3 }
         };
         private readonly bool _shipsCanTouch;
-        
+
         public GridCellState[] Grid { get; set; }
         public Ship[] Ships { get; set; }
 
@@ -55,12 +50,12 @@ namespace Battleships.MVVM.Model
         /// needed to see up the <see cref="Board"/>.</param>
         public Board(GameSetUpInformation information, bool isPlayer)
         {
-            var shipPlacements = isPlayer 
-                ? information.ShipPositions ??= GenerateRandomShips() 
+            var shipPlacements = isPlayer
+                ? information.ShipPositions ??= GenerateRandomShips()
                 : GenerateRandomShips();
 
             _shipsCanTouch = information.ShipsCanTouch;
-          
+
             Ships = new Ship[5];
             Ships[0] = new Battleship(shipPlacements[ShipType.Battleship]);
             Ships[1] = new Carrier(shipPlacements[ShipType.Carrier]);
@@ -79,7 +74,7 @@ namespace Battleships.MVVM.Model
         public Board(BoardDTO boardDTO)
         {
             _shipsCanTouch = boardDTO.ShipsCanTouch;
-            
+
             Grid = boardDTO.Grid;
 
             Ships = new Ship[5];
@@ -105,7 +100,7 @@ namespace Battleships.MVVM.Model
         public SingleTurnReport GenerateSingleTurnReport(int gridPosition, ShotType shotType)
         {
             var shotsFired = new List<int>();
-            
+
             switch (shotType)
             {
                 case ShotType.Single:
@@ -200,14 +195,14 @@ namespace Battleships.MVVM.Model
 
             var random = RandomProvider.Instance;
 
-            foreach(var (shipType, size) in _shipSizes)
+            foreach (var (shipType, size) in _shipSizes)
             {
                 bool isValid = false;
 
                 while (!isValid)
                 {
                     isValid = true;
-                    
+
                     var testPosition = random.Next(100);
                     var isHorizontal = random.Next(2) == 0;
 

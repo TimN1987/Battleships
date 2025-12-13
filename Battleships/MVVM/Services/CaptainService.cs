@@ -24,7 +24,7 @@ public class CaptainService : ICaptainService
 
     public CaptainService(IEventAggregator eventAggregator)
     {
-        _eventAggregator = eventAggregator 
+        _eventAggregator = eventAggregator
             ?? throw new ArgumentNullException(nameof(eventAggregator));
 
         _eventAggregator

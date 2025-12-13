@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 
 namespace Battleships.MVVM.Structs
 {
@@ -20,7 +15,7 @@ namespace Battleships.MVVM.Structs
         public SingleTurnReport()
         {
             FirstTurn = true;
-            
+
             PositionsHit = [];
             PositionsMissed = [];
             ShipsSunk = [];
@@ -36,7 +31,7 @@ namespace Battleships.MVVM.Structs
             bool isGameOver)
         {
             FirstTurn = false;
-            
+
             PositionsHit = positionsHit ?? [];
             PositionsMissed = positionsMissed ?? [];
             ShipsSunk = shipsSunk ?? new List<(int, bool, ShipType)>();

@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using Battleships.MVVM.Enums;
-using Battleships.MVVM.ViewModel.Base;
 using Battleships.MVVM.View;
-using System.Diagnostics;
-using System.IO.Packaging;
+using Battleships.MVVM.ViewModel.Base;
 
 namespace Battleships.MVVM.ViewModel.GridCells;
 
@@ -115,13 +107,13 @@ public class PlayGameGridCell(int row, int column, ThemeNames theme) : GridCellB
         DisplayImage = CellState switch
         {
             GridCellState.Miss => _theme == ThemeNames.Dark ? _darkMiss :
-                                    _theme == ThemeNames.Neon ? _neonMiss : 
-                                    _theme == ThemeNames.Neutral ? _neutralMiss : 
+                                    _theme == ThemeNames.Neon ? _neonMiss :
+                                    _theme == ThemeNames.Neutral ? _neutralMiss :
                                     _classicLightMiss,
             GridCellState.Hit => LightBackgroundThemes.Contains(_theme) ? _classicExplosion :
                                  DarkBackgroundThemes.Contains(_theme) ? _darkExplosion :
                                  _neonExplosion,
-            GridCellState.Sunk => LightBackgroundThemes.Contains(_theme) ? _classicSkull : 
+            GridCellState.Sunk => LightBackgroundThemes.Contains(_theme) ? _classicSkull :
                                   DarkBackgroundThemes.Contains(_theme) ? _darkSkull :
                                   _neonSkull,
             _ => null

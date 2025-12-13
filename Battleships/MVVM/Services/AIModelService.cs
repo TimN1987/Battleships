@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Net.Http;
 using Battleships.MVVM.Enums;
 using Battleships.MVVM.Model.DataTransferObjects;
 using Newtonsoft.Json;
@@ -14,7 +9,7 @@ namespace Battleships.MVVM.Services
     {
         int SelectNextSHot(GameStateDTO gameStateDTO, out ShotType shotType);
     }
-    
+
     public class AIModelService : IAIModelService
     {
         private readonly HttpClient _httpClient = new HttpClient();

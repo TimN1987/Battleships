@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.Xml;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Model;
 using Battleships.MVVM.Model.DataTransferObjects;
 
@@ -65,9 +59,9 @@ namespace BattleshipsTests.Tests.Models
         /// <param name="startPosition">An integer representing the start position for the ship.</param>
         /// <param name="isHorizontal">A boolean value indicating whether the ship is aligned horizontally.</param>
         [Theory]
-        [InlineData (3, true)]
-        [InlineData (26, false)]
-        [InlineData (90, true)]
+        [InlineData(3, true)]
+        [InlineData(26, false)]
+        [InlineData(90, true)]
         public void MainConstructor_ValidParameters_SuccessfullyCreatesInstance(int startPosition, bool isHorizontal)
         {
             //Arrange & Act
@@ -266,7 +260,7 @@ namespace BattleshipsTests.Tests.Models
         /// <param name="position">An inteer value representing the position to be tested.</param>
         /// <param name="expectedResult">A boolean value indicating the expected outcome.</param>
         [Theory]
-        [InlineData (7, true)]
+        [InlineData(7, true)]
         [InlineData(17, true)]
         [InlineData(27, true)]
         [InlineData(37, true)]
@@ -382,7 +376,7 @@ namespace BattleshipsTests.Tests.Models
             yield return new object[] { new Battleship(_battleshipDTO), new int[] { 30, 99, 27, 17, 14, 37, 7 } };
             yield return new object[] { new Carrier(_carrierDTO), new int[] { 99, 0, 17, 12, 13, 1, 14 } };
             yield return new object[] { new Cruiser(_cruiserDTO), Array.Empty<int>() };
-            yield return new object[] { new Destroyer(_destroyerDTO), new int[] { 0, 17, 15, 99, 42, 5} };
+            yield return new object[] { new Destroyer(_destroyerDTO), new int[] { 0, 17, 15, 99, 42, 5 } };
             yield return new object[] { new Submarine(_submarineDTO), new int[] { 99, 98, 97, 96, 95, 94, 93, 92, 91, 90 } };
         }
 

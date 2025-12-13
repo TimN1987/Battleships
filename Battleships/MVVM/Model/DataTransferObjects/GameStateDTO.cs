@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace Battleships.MVVM.Model.DataTransferObjects
 {
@@ -55,7 +49,7 @@ namespace Battleships.MVVM.Model.DataTransferObjects
         bool bombardmentAvailable
         )
         {
-            Grid = grid ?? new int [100];
+            Grid = grid ?? new int[100];
             RemainingShipSizes = remainingShipSizes ?? [5, 4, 3, 3, 2];
             ShipsCanTouch = shipsCanTouch;
             AirstrikeAllowed = airstrikeAllowed;

@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.ViewModel.Base;
 
 namespace Battleships.MVVM.ViewModel.GridCells
 {
-    public class ShipPlacementGridCell (int row, int column) : GridCellBase
+    public class ShipPlacementGridCell(int row, int column) : GridCellBase
     {
         #region Fields
         private bool _isHighlighted = (row == 0 && column == 0);

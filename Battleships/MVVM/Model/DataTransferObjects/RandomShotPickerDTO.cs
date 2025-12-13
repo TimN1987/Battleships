@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Battleships.MVVM.Model.DataTransferObjects
+﻿namespace Battleships.MVVM.Model.DataTransferObjects
 {
-    
+
     /// <summary>
     /// A class for storing <see cref="RandomShotPicker"/> state information to enable simple Json serialization 
     /// and data persistance.

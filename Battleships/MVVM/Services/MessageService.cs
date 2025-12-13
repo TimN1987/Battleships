@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Utilities;
-using Battleships.MVVM.Enums;
 
 namespace Battleships.MVVM.Services;
 
@@ -147,8 +142,8 @@ public class MessageService : IMessageService
     {
         switch (message)
         {
-            case GameEvent.GameStart: 
-                GetGameStartMessage(); 
+            case GameEvent.GameStart:
+                GetGameStartMessage();
                 break;
             case GameEvent.GameLoaded:
                 GetGameLoadedMessage();

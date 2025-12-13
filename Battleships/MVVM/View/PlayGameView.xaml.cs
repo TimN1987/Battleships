@@ -1,11 +1,9 @@
-﻿using Battleships.MVVM.Services;
-using Battleships.MVVM.ViewModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Threading;
-using WpfAnimatedGif;
+using Battleships.MVVM.ViewModel;
 
 namespace Battleships.MVVM.View;
 

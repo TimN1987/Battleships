@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Services.Database;
+﻿using Battleships.MVVM.Factories;
 using Battleships.MVVM.Services;
-using Battleships.MVVM.ViewModel;
-using Battleships.MVVM.Factories;
-using Moq;
-using System.Reflection;
+using Battleships.MVVM.Services.Database;
 using Battleships.MVVM.View;
+using Battleships.MVVM.ViewModel;
+using Moq;
 
 namespace BattleshipsTests.Tests.ViewModels
 {

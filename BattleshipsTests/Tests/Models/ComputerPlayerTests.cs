@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Model;
 using Battleships.MVVM.Model.DataTransferObjects;
 using Battleships.MVVM.Structs;
@@ -68,19 +63,19 @@ namespace BattleshipsTests.Tests.Models
             CompletedShots = [],
         };
         private static readonly ComputerPlayerDTO _computerPlayerDTOHard = new()
-            {
-                RandomShotPickerDTO = _randomShotPickerDTO,
-                GameDifficulty = GameDifficulty.Hard,
-                ShipsCanTouch = true,
-                ProbabilityDensityMap = new int[100].Select(value => 100).ToArray(),
-                Directions = [1, -1, 10, -10],
-                AvailablePositions = [.. Enumerable.Range(0, 100)],
-                AirstrikeAllowed = true,
-                BombardmentAllowed = true,
-                AirstrikeHitCount = 0,
-                BombardmentHitCount = 7,
-                MaximumShipSize = 5,
-                CompletedShots = [],
+        {
+            RandomShotPickerDTO = _randomShotPickerDTO,
+            GameDifficulty = GameDifficulty.Hard,
+            ShipsCanTouch = true,
+            ProbabilityDensityMap = new int[100].Select(value => 100).ToArray(),
+            Directions = [1, -1, 10, -10],
+            AvailablePositions = [.. Enumerable.Range(0, 100)],
+            AirstrikeAllowed = true,
+            BombardmentAllowed = true,
+            AirstrikeHitCount = 0,
+            BombardmentHitCount = 7,
+            MaximumShipSize = 5,
+            CompletedShots = [],
         };
         private static readonly ComputerPlayerDTO _computerPlayerDTOAI = new()
         {
@@ -289,7 +284,7 @@ namespace BattleshipsTests.Tests.Models
                 targetGrid[shotPosition] = GridCellState.Miss;
 
                 //Only adds a new valid shot count if the shot is valid and unique.
-                if(availablePositions.Remove(shotPosition))
+                if (availablePositions.Remove(shotPosition))
                     validShotsCount++;
 
                 foreach (var position in FindMultiShotPositions(shotPosition, shotType))

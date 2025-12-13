@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Model;
 using Battleships.MVVM.Model.DataTransferObjects;
 using Battleships.MVVM.Utilities;
@@ -92,7 +87,7 @@ namespace BattleshipsTests.Tests.Models
         /// <param name="spacing">The spacing between diagonal lines to start with.</param>
         /// <param name="expectedShotType">The shot type that should fit into the available spaces.</param>
         [Theory]
-        [InlineData (ShotType.Single, 5, ShotType.Single)]
+        [InlineData(ShotType.Single, 5, ShotType.Single)]
         [InlineData(ShotType.Single, 4, ShotType.Single)]
         [InlineData(ShotType.Single, 3, ShotType.Single)]
         [InlineData(ShotType.Single, 2, ShotType.Single)]
@@ -186,7 +181,7 @@ namespace BattleshipsTests.Tests.Models
 
                 var shotPosition = randomShotPicker.GenerateRandomShot(ref shotType, 5);
 
-                if(!availablePositions.Remove(shotPosition))
+                if (!availablePositions.Remove(shotPosition))
                     errors++;
 
                 var multiShotPositions = FindMultiShotPositions(shotPosition, shotType);

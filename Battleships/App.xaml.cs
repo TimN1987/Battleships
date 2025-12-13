@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Security.AccessControl;
+﻿using System.IO;
 using System.Windows;
 using Battleships.MVVM.Factories;
 using Battleships.MVVM.Services;
@@ -27,7 +24,7 @@ public partial class App : Application
 
     public App()
     {
-        
+
         _databaseFilePath = GenerateDatabaseFilePath();
         _connectionString = $"Data Source=/{_databaseFilePath.Substring(3)}";
         _fallbackLogFilePath = GenerateFallbackLogFilePath();
@@ -80,7 +77,7 @@ public partial class App : Application
 
 public static class ServiceCollectionExtensions
 {
-    
+
     public static void ConfigureServices(this IServiceCollection services, string fallbackLogFilePath, string connectionString)
     {
         //Factories

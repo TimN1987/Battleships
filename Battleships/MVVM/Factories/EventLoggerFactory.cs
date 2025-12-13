@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using System.Windows.Controls;
-using Battleships.MVVM.Services;
+﻿using Battleships.MVVM.Services;
 
 namespace Battleships.MVVM.Factories
 {
@@ -51,7 +44,7 @@ namespace Battleships.MVVM.Factories
             eventSourceName ??= DefaultEventSourceName;
 
             ValidateEventSource(eventSourceName);
-            
+
             try
             {
                 var eventLogger = new EventLogger(eventSourceName, _fallbackLogPath);

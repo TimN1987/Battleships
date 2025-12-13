@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Structs;
 
 namespace Battleships.MVVM.Model.DataTransferObjects;
@@ -29,7 +24,7 @@ public class GameDTO
     public int AirstrikeHitCount { get; set; } = 0;
     public int BombardmentHitCount { get; set; } = 0;
     public SingleTurnReport LastComputerMove { get; set; } = new SingleTurnReport();
-    public bool FireUntilMiss {get; set; } = false;
+    public bool FireUntilMiss { get; set; } = false;
     public bool BonusShotIfSunk { get; set; } = false;
     public SalvoShots SalvoShotType { get; set; } = SalvoShots.None;
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 
 namespace Battleships.MVVM.Model.DataTransferObjects
 {
@@ -20,7 +15,7 @@ namespace Battleships.MVVM.Model.DataTransferObjects
         public int[] Directions { get; set; } = [];
         public List<int> AvailablePositions { get; set; } = [];
         public bool AirstrikeAllowed { get; set; } = false;
-        public bool BombardmentAllowed { get; set; }  = false;
+        public bool BombardmentAllowed { get; set; } = false;
         public int AirstrikeHitCount { get; set; } = 0;
         public int BombardmentHitCount { get; set; } = 0;
         public int MaximumShipSize { get; set; } = 5;

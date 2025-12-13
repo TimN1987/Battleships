@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Factories;
-using Battleships.MVVM.Services;
+﻿using Battleships.MVVM.Factories;
 using Battleships.MVVM.Structs;
 
 namespace Battleships.MVVM.Model

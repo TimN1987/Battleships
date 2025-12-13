@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Factories;
 using Battleships.MVVM.Model;
 using Battleships.MVVM.Model.DataTransferObjects;
@@ -145,7 +140,7 @@ namespace BattleshipsTests.Tests.Services
 
             //Act
             var decryptedGame = await encryptionService.DecryptGameData(encryptedString!);
-            
+
             //Assert
             Assert.NotNull(decryptedGame);
             Assert.IsType<GameDTO>(decryptedGame);
@@ -378,6 +373,6 @@ namespace BattleshipsTests.Tests.Services
         }
         #endregion //AES Tests
 
-        
+
     }
 }

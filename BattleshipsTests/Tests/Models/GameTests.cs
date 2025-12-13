@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Factories;
 using Battleships.MVVM.Model;
 using Battleships.MVVM.Model.DataTransferObjects;
 using Battleships.MVVM.Services;
 using Battleships.MVVM.Structs;
 using Moq;
-using Newtonsoft.Json.Bson;
 
 namespace BattleshipsTests.Tests.Models
 {
@@ -29,7 +23,7 @@ namespace BattleshipsTests.Tests.Models
         private readonly GameSetUpInformation _gameSetUpInformationClassic;
         private readonly GameSetUpInformation _gameSetUpInformationSalvo;
         private readonly RandomShotPickerDTO _randomShotPickerDTO;
-        private readonly BoardDTO _boardDTO; 
+        private readonly BoardDTO _boardDTO;
         private readonly ComputerPlayerDTO _computerPlayerDTO;
         private readonly GameDTO _gameDTO;
         private readonly BoardDTO _lastShotBoardDTO;
@@ -70,24 +64,24 @@ namespace BattleshipsTests.Tests.Models
                 {ShipType.Destroyer, (9, false) },
                 {ShipType.Submarine, (39, false) }
             });
-        _randomShotPickerDTO = new()
-        {
-            AvailableShots = [.. Enumerable.Range(0, 100)],
-            AvailableDiagonalSpacingTwoShots = [.. Enumerable.Range(0, 100)
+            _randomShotPickerDTO = new()
+            {
+                AvailableShots = [.. Enumerable.Range(0, 100)],
+                AvailableDiagonalSpacingTwoShots = [.. Enumerable.Range(0, 100)
                 .Where(number => (number / 10 + number % 10) % 2 == 0)],
-            AvailableDiagonalSpacingThreeShots = [.. Enumerable.Range(0, 100)
+                AvailableDiagonalSpacingThreeShots = [.. Enumerable.Range(0, 100)
                 .Where(number => (number / 10 + number % 10) % 3 == 0)],
-            AvailableDiagonalSpacingFourShots = [.. Enumerable.Range(0, 100)
+                AvailableDiagonalSpacingFourShots = [.. Enumerable.Range(0, 100)
                 .Where(number => (number / 10 + number % 10) % 4 == 0)],
-            AvailableDiagonalSpacingFiveShots = [.. Enumerable.Range(0, 100)
+                AvailableDiagonalSpacingFiveShots = [.. Enumerable.Range(0, 100)
                 .Where(number => (number / 10 + number % 10) % 5 == 0)]
-        };
-        _boardDTO = new()
-        {
-            Grid = new GridCellState[100],
-            ShipsDTO =
-            [
-                new()
+            };
+            _boardDTO = new()
+            {
+                Grid = new GridCellState[100],
+                ShipsDTO =
+                [
+                    new()
                 {
                     ShipType = ShipType.Battleship,
                     Size = 4,
@@ -127,46 +121,46 @@ namespace BattleshipsTests.Tests.Models
                     Positions = [90, 91, 92],
                     IsHorizontal = true
                 }
-            ]
-        };
-        _computerPlayerDTO = new()
-        {
-            RandomShotPickerDTO = _randomShotPickerDTO,
-            GameDifficulty = GameDifficulty.Easy,
-            ShipsCanTouch = true,
-            ProbabilityDensityMap = new int[100].Select(value => 100).ToArray(),
-            Directions = [1, -1, 10, -10],
-            AvailablePositions = [.. Enumerable.Range(0, 100)],
-            AirstrikeAllowed = true,
-            BombardmentAllowed = true,
-            AirstrikeHitCount = 0,
-            BombardmentHitCount = 0,
-            MaximumShipSize = 5,
-            CompletedShots = [],
-        };
-        _gameDTO = new()
-        {
-            PlayerBoardDTO = _boardDTO,
-            ComputerBoardDTO = _boardDTO,
-            ComputerPlayerDTO = _computerPlayerDTO,
-            GameDifficulty = GameDifficulty.Easy,
-            AirstrikeAllowed = true,
-            BombardmentAllowed = true,
-            ShotsRemaining = 1,
-            IsPlayerTurn = false,
-            AirstrikeHitCount = 0,
-            BombardmentHitCount = 0,
-            LastComputerMove = new SingleTurnReport(),
-            BonusShotIfSunk = false,
-            FireUntilMiss = false,
-            SalvoShotType = SalvoShots.EqualsUnsunkShips
-        };
-        _lastShotBoardDTO = new()
-        {
-            Grid = new GridCellState[100],
-            ShipsDTO =
-            [
-                new()
+                ]
+            };
+            _computerPlayerDTO = new()
+            {
+                RandomShotPickerDTO = _randomShotPickerDTO,
+                GameDifficulty = GameDifficulty.Easy,
+                ShipsCanTouch = true,
+                ProbabilityDensityMap = new int[100].Select(value => 100).ToArray(),
+                Directions = [1, -1, 10, -10],
+                AvailablePositions = [.. Enumerable.Range(0, 100)],
+                AirstrikeAllowed = true,
+                BombardmentAllowed = true,
+                AirstrikeHitCount = 0,
+                BombardmentHitCount = 0,
+                MaximumShipSize = 5,
+                CompletedShots = [],
+            };
+            _gameDTO = new()
+            {
+                PlayerBoardDTO = _boardDTO,
+                ComputerBoardDTO = _boardDTO,
+                ComputerPlayerDTO = _computerPlayerDTO,
+                GameDifficulty = GameDifficulty.Easy,
+                AirstrikeAllowed = true,
+                BombardmentAllowed = true,
+                ShotsRemaining = 1,
+                IsPlayerTurn = false,
+                AirstrikeHitCount = 0,
+                BombardmentHitCount = 0,
+                LastComputerMove = new SingleTurnReport(),
+                BonusShotIfSunk = false,
+                FireUntilMiss = false,
+                SalvoShotType = SalvoShots.EqualsUnsunkShips
+            };
+            _lastShotBoardDTO = new()
+            {
+                Grid = new GridCellState[100],
+                ShipsDTO =
+                [
+                    new()
                 {
                     ShipType = ShipType.Battleship,
                     Size = 4,
@@ -206,25 +200,25 @@ namespace BattleshipsTests.Tests.Models
                     Positions = [90, 91, 92],
                     IsHorizontal = true
                 }
-            ]
-        };
-        _lastShotGameDTO = new()
-        {
-            PlayerBoardDTO = _boardDTO,
-            ComputerBoardDTO = _lastShotBoardDTO,
-            ComputerPlayerDTO = _computerPlayerDTO,
-            GameDifficulty = GameDifficulty.Easy,
-            AirstrikeAllowed = true,
-            BombardmentAllowed = true,
-            ShotsRemaining = 1,
-            IsPlayerTurn = false,
-            AirstrikeHitCount = 0,
-            BombardmentHitCount = 0,
-            LastComputerMove = new SingleTurnReport(),
-            BonusShotIfSunk = false,
-            FireUntilMiss = false,
-            SalvoShotType = SalvoShots.EqualsUnsunkShips
-        };
+                ]
+            };
+            _lastShotGameDTO = new()
+            {
+                PlayerBoardDTO = _boardDTO,
+                ComputerBoardDTO = _lastShotBoardDTO,
+                ComputerPlayerDTO = _computerPlayerDTO,
+                GameDifficulty = GameDifficulty.Easy,
+                AirstrikeAllowed = true,
+                BombardmentAllowed = true,
+                ShotsRemaining = 1,
+                IsPlayerTurn = false,
+                AirstrikeHitCount = 0,
+                BombardmentHitCount = 0,
+                LastComputerMove = new SingleTurnReport(),
+                BonusShotIfSunk = false,
+                FireUntilMiss = false,
+                SalvoShotType = SalvoShots.EqualsUnsunkShips
+            };
         }
 
         #region Constructor Tests
@@ -406,10 +400,10 @@ namespace BattleshipsTests.Tests.Models
         [Theory]
         [MemberData(nameof(GetProcessPlayerShotData))]
         public void ProcessPlayerShotSelection_DifferentShotTypesAndPositions_ReturnsCorrectAttackStatusReport(
-            int gridPosition, 
-            ShotType shotType, 
-            int expectedShotsTotal, 
-            AttackStatusReport expectedClassicReport, 
+            int gridPosition,
+            ShotType shotType,
+            int expectedShotsTotal,
+            AttackStatusReport expectedClassicReport,
             AttackStatusReport expectedSalvoReport)
         {
             //Arrange
@@ -508,7 +502,7 @@ namespace BattleshipsTests.Tests.Models
         public static IEnumerable<object[]> GetProcessPlayerShotData()
         {
             yield return new object[] { 0, ShotType.Single, 1,
-                new AttackStatusReport(false, [new SingleTurnReport()] ), 
+                new AttackStatusReport(false, [new SingleTurnReport()] ),
                 new AttackStatusReport(false, [new SingleTurnReport()]) };
             yield return new object[] { 20, ShotType.AirstrikeUpRight, 3,
                 new AttackStatusReport(false, [new SingleTurnReport()] ),

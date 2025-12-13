@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Battleships.MVVM.Enums;
+﻿using Battleships.MVVM.Enums;
 using Battleships.MVVM.Factories;
 using Battleships.MVVM.Model.DataTransferObjects;
 using Battleships.MVVM.Services;
 using Battleships.MVVM.Structs;
-using Battleships.MVVM.ViewModel;
 
 namespace Battleships.MVVM.Model
 {
@@ -65,7 +58,7 @@ namespace Battleships.MVVM.Model
         #endregion //Events
 
         #region Properties
-        public int HitCountAirstrike 
+        public int HitCountAirstrike
         {
             get => _airstrikeHitCount;
             set
@@ -98,7 +91,7 @@ namespace Battleships.MVVM.Model
         protected Game(ILoggerFactory loggerFactory, GameSetUpInformation information)
         {
             _eventLogger = loggerFactory.CreateLogger(nameof(Game));
-            
+
             _gameDifficulty = information.Difficulty;
             _airstrikeAllowed = information.AirstrikeAllowed;
             _bombardmentAllowed = information.BombardmentAllowed;
@@ -129,7 +122,7 @@ namespace Battleships.MVVM.Model
         public Game(ILoggerFactory loggerFactory, GameDTO gameDTO)
         {
             _eventLogger = loggerFactory.CreateLogger(nameof(Game));
-            
+
             _playerBoard = new Board(gameDTO.PlayerBoardDTO);
             _computerBoard = new Board(gameDTO.ComputerBoardDTO);
             _computerPlayer = new ComputerPlayer(gameDTO.ComputerPlayerDTO);
@@ -232,7 +225,7 @@ namespace Battleships.MVVM.Model
 
                 UpdateShotsRemainingThisTurn(turnReport.ShotOutcome, turnReport.ShipsSunk.Count);
             }
-            
+
             return reportsList;
         }
 
@@ -280,7 +273,7 @@ namespace Battleships.MVVM.Model
         {
             _shotsRemaining--;
         }
-     
+
         #endregion //Handling Moves Methods
 
         /// <summary>
