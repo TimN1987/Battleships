@@ -916,7 +916,7 @@ public class PlayGameViewModel : ViewModelBase
             if (attackStatusReport.IsGameOver)
             {
                 PlayerCanClick = false;
-                OnGameOver();
+                OnGameOver(playerWins: true);
             }
             else
             {
@@ -949,7 +949,7 @@ public class PlayGameViewModel : ViewModelBase
         if (attackStatusReport.IsGameOver)
         {
             PlayerCanClick = false;
-            OnGameOver();
+            OnGameOver(playerWins: false);
         }
         else
         {
@@ -1136,7 +1136,7 @@ public class PlayGameViewModel : ViewModelBase
             // Task cancellation expected
         }
     }
-    private void OnGameOver()
+    private void OnGameOver(bool playerWins)
     {
         GameOverVisible = Visibility.Visible;
 

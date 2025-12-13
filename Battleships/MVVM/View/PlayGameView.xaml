@@ -165,7 +165,8 @@
                         Orientation="Vertical"
                         Background="{DynamicResource MainBackground}"
                         Visibility="{Binding GameOverVisible}">
-                <TextBlock Text="Game Over!"/>
+                <TextBlock Text="Game Over!"
+                           Style="{DynamicResource TitleText}"/>
                 <Image gif:ImageBehavior.AnimatedSource="{Binding GameOverImage}"
                        gif:ImageBehavior.AutoStart="True"
                        gif:ImageBehavior.RepeatBehavior="3x"
