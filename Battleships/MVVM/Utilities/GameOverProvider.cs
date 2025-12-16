@@ -3,23 +3,26 @@
 public static class GameOverProvider
 {
     // Player wins messages
-    const string PlayerWinMessageOne = "Congratulations! You've sunk all enemy ships and won the battle!";
-    const string PlayerWinMessageTwo = "Victory is yours! The enemy fleet has been defeated!";
-    const string PlayerWinMessageThree = "Well done, Captain! You've outmaneuvered the enemy and secured a win!";
-    const string PlayerWinMessageFour = "You've emerged victorious! The seas are yours!";
-    const string PlayerWinMessageFive = "Fantastic job! You've successfully destroyed the enemy fleet!";
+    private const string PlayerWinMessageOne = "Congratulations! You've sunk all enemy ships and won the battle!";
+    private const string PlayerWinMessageTwo = "Victory is yours! The enemy fleet has been defeated!";
+    private const string PlayerWinMessageThree = "Well done, Captain! You've outmaneuvered the enemy and secured a win!";
+    private const string PlayerWinMessageFour = "You've emerged victorious! The seas are yours!";
+    private const string PlayerWinMessageFive = "Fantastic job! You've successfully destroyed the enemy fleet!";
 
     // Computer wins messages
-    const string ComputerWinMessageOne = "Defeat! The enemy fleet has sunk all your ships!";
-    const string ComputerWinMessageTwo = "The enemy has won! Your fleet has been destroyed!";
-    const string ComputerWinMessageThree = "Alas, Captain! The enemy has outmaneuvered you and claimed victory!";
-    const string ComputerWinMessageFour = "The seas belong to the enemy now! Your ships have been sunk!";
-    const string ComputerWinMessageFive = "The enemy fleet has triumphed! Better luck next time!";
+    private const string ComputerWinMessageOne = "Defeat! The enemy fleet has sunk all your ships!";
+    private const string ComputerWinMessageTwo = "The enemy has won! Your fleet has been destroyed!";
+    private const string ComputerWinMessageThree = "Alas, Captain! The enemy has outmaneuvered you and claimed victory!";
+    private const string ComputerWinMessageFour = "The seas belong to the enemy now! Your ships have been sunk!";
+    private const string ComputerWinMessageFive = "The enemy fleet has triumphed! Better luck next time!";
 
     // Player wins gifs
+    private static readonly Uri _playerWinsGif1 = new(@"pack://application:,,,/MVVM/Resources/Images/GameOver/playerwinsgif1.gif");
+    private static readonly Uri _playerWinsGif2 = new(@"pack://application:,,,/MVVM/Resources/Images/GameOver/playerwinsgif2.gif");
+    private static readonly Uri _playerWinsGif3 = new(@"pack://application:,,,/MVVM/Resources/Images/GameOver/playerwinsgif3.gif");
 
     // Computer wins gifs
-
+    private static readonly Uri _computerWinsGif1 = new(@"pack://application:,,,/MVVM/Resources/Images/GameOver/computerwinsgif1.png");
 
     // Static fields
     private static bool _playerWins = false;
@@ -39,8 +42,14 @@ public static class GameOverProvider
         ComputerWinMessageFive
     ];
     private static int _gifIndex = 0;
-    private static Uri[] _playerWinsGifs = [];
-    private static Uri[] _computerWinsGifs = [];
+    private static Uri[] _playerWinsGifs = [
+        _playerWinsGif1,
+        _playerWinsGif2,
+        _playerWinsGif3
+    ];
+    private static Uri[] _computerWinsGifs = [
+        _computerWinsGif1
+    ];
 
     // Methods
 

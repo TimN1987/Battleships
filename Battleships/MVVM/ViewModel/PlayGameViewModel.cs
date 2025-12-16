@@ -1208,7 +1208,7 @@ public class PlayGameViewModel : ViewModelBase
     private void OnGameOver(bool playerWins)
     {
         GameOverText = GameOverProvider.GetGameOverMessage(playerWins);
-        //GameOverImage = GameOverProvider.GetGameOverGif(playerWins);
+        GameOverImage = GameOverProvider.GetGameOverGif(playerWins);
         GameOverVisible = Visibility.Visible;
         Reset();
     }
