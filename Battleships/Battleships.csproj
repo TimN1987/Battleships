@@ -17,10 +17,15 @@
     <None Remove="MVVM\Resources\Images\ClassicRulesView\classicruleshelp.jpg" />
     <None Remove="MVVM\Resources\Images\ClassicRulesView\generalruleshelp.jpg" />
     <None Remove="MVVM\Resources\Images\ClassicRulesView\salvoruleshelp.jpg" />
-    <None Remove="MVVM\Resources\Images\GameOver\computerwinsgif1.png" />
+    <None Remove="MVVM\Resources\Images\GameOver\computerwinsgif1.gif" />
+    <None Remove="MVVM\Resources\Images\GameOver\computerwinsgif2.gif" />
+    <None Remove="MVVM\Resources\Images\GameOver\computerwinsgif3.gif" />
     <None Remove="MVVM\Resources\Images\GameOver\playerwinsgif1.gif" />
     <None Remove="MVVM\Resources\Images\GameOver\playerwinsgif2.gif" />
     <None Remove="MVVM\Resources\Images\GameOver\playerwinsgif3.gif" />
+    <None Remove="MVVM\Resources\Images\GameOver\playerwinsgif4.gif" />
+    <None Remove="MVVM\Resources\Images\GameOver\playerwinsgif5.gif" />
+    <None Remove="MVVM\Resources\Images\HomeView\titlegif1.gif" />
     <None Remove="MVVM\Resources\Images\MainWindow\Menu\classicicon.png" />
     <None Remove="MVVM\Resources\Images\MainWindow\Menu\darkicon.png" />
     <None Remove="MVVM\Resources\Images\MainWindow\Menu\homeicon.png" />
@@ -141,10 +146,15 @@
     </Content>
     <Resource Include="MVVM\Resources\Images\Captains\captaintalkingone.gif" />
     <Resource Include="MVVM\Resources\Images\Captains\staticcaptainone.png" />
-    <Resource Include="MVVM\Resources\Images\GameOver\computerwinsgif1.png" />
+    <Resource Include="MVVM\Resources\Images\GameOver\computerwinsgif1.gif" />
+    <Resource Include="MVVM\Resources\Images\GameOver\computerwinsgif2.gif" />
+    <Resource Include="MVVM\Resources\Images\GameOver\computerwinsgif3.gif" />
     <Resource Include="MVVM\Resources\Images\GameOver\playerwinsgif1.gif" />
     <Resource Include="MVVM\Resources\Images\GameOver\playerwinsgif2.gif" />
     <Resource Include="MVVM\Resources\Images\GameOver\playerwinsgif3.gif" />
+    <Resource Include="MVVM\Resources\Images\GameOver\playerwinsgif4.gif" />
+    <Resource Include="MVVM\Resources\Images\GameOver\playerwinsgif5.gif" />
+    <Resource Include="MVVM\Resources\Images\HomeView\titlegif1.gif" />
     <Resource Include="MVVM\Resources\Images\Loading\backgroundWaves.jpg" />
     <Resource Include="MVVM\Resources\battleshipsIcon.ico" />
     <Resource Include="MVVM\Resources\Images\ClassicRulesView\classicruleshelp.jpg" />
@@ -221,7 +231,6 @@
 
   <ItemGroup>
     <Folder Include="MVVM\Resources\ForegroundSounds\" />
-    <Folder Include="MVVM\Resources\Images\HomeView\" />
   </ItemGroup>
 
   <ItemGroup>

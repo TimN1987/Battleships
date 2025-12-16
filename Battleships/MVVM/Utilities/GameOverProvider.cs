@@ -20,9 +20,13 @@ public static class GameOverProvider
     private static readonly Uri _playerWinsGif1 = new(@"pack://application:,,,/MVVM/Resources/Images/GameOver/playerwinsgif1.gif");
     private static readonly Uri _playerWinsGif2 = new(@"pack://application:,,,/MVVM/Resources/Images/GameOver/playerwinsgif2.gif");
     private static readonly Uri _playerWinsGif3 = new(@"pack://application:,,,/MVVM/Resources/Images/GameOver/playerwinsgif3.gif");
+    private static readonly Uri _playerWinsGif4 = new(@"pack://application:,,,/MVVM/Resources/Images/GameOver/playerwinsgif4.gif");
+    private static readonly Uri _playerWinsGif5 = new(@"pack://application:,,,/MVVM/Resources/Images/GameOver/playerwinsgif5.gif");
 
     // Computer wins gifs
-    private static readonly Uri _computerWinsGif1 = new(@"pack://application:,,,/MVVM/Resources/Images/GameOver/computerwinsgif1.png");
+    private static readonly Uri _computerWinsGif1 = new(@"pack://application:,,,/MVVM/Resources/Images/GameOver/computerwinsgif1.gif");
+    private static readonly Uri _computerWinsGif2 = new(@"pack://application:,,,/MVVM/Resources/Images/GameOver/computerwinsgif2.gif");
+    private static readonly Uri _computerWinsGif3 = new(@"pack://application:,,,/MVVM/Resources/Images/GameOver/computerwinsgif3.gif");
 
     // Static fields
     private static bool _playerWins = false;
@@ -45,10 +49,14 @@ public static class GameOverProvider
     private static Uri[] _playerWinsGifs = [
         _playerWinsGif1,
         _playerWinsGif2,
-        _playerWinsGif3
+        _playerWinsGif3,
+        _playerWinsGif4,
+        _playerWinsGif5
     ];
     private static Uri[] _computerWinsGifs = [
-        _computerWinsGif1
+        _computerWinsGif1,
+        _computerWinsGif2,
+        _computerWinsGif3
     ];
 
     // Methods
