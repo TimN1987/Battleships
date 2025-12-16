@@ -24,8 +24,20 @@ public static class GameOverProvider
     // Static fields
     private static bool _playerWins = false;
     private static int _messageIndex = 0;
-    private static string[] _playerWinsMessages = [];
-    private static string[] _computerWinsMessages = [];
+    private static string[] _playerWinsMessages = [
+        PlayerWinMessageOne,
+        PlayerWinMessageTwo,
+        PlayerWinMessageThree,
+        PlayerWinMessageFour,
+        PlayerWinMessageFive
+    ];
+    private static string[] _computerWinsMessages = [
+        ComputerWinMessageOne,
+        ComputerWinMessageTwo,
+        ComputerWinMessageThree,
+        ComputerWinMessageFour,
+        ComputerWinMessageFive
+    ];
     private static int _gifIndex = 0;
     private static Uri[] _playerWinsGifs = [];
     private static Uri[] _computerWinsGifs = [];

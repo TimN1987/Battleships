@@ -214,6 +214,7 @@
   <ItemGroup>
     <Folder Include="MVVM\Resources\ForegroundSounds\" />
     <Folder Include="MVVM\Resources\Images\HomeView\" />
+    <Folder Include="MVVM\Resources\Images\GameOver\" />
   </ItemGroup>
 
   <ItemGroup>

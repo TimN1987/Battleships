@@ -165,18 +165,31 @@
                         Orientation="Vertical"
                         Background="{DynamicResource MainBackground}"
                         Visibility="{Binding GameOverVisible}">
-                <TextBlock Text="Game Over!"
+                <TextBlock Text="Game Over" 
                            Style="{DynamicResource TitleText}"/>
+                <TextBlock Text="{Binding GameOverText}"
+                           Style="{DynamicResource StandardText}"
+                           HorizontalAlignment="Center"/>
                 <Image gif:ImageBehavior.AnimatedSource="{Binding GameOverImage}"
                        gif:ImageBehavior.AutoStart="True"
                        gif:ImageBehavior.RepeatBehavior="3x"
                        gif:ImageBehavior.AnimationSpeedRatio="0.5"
                        Visibility="{Binding GameOverVisible}"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center"/>
-                <StackPanel Orientation="Horizontal">
-                    <Button />
-                    <Button />
+                       HorizontalAlignment="Center"
+                       MaxHeight="300"/>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center">
+                    <Button Content="Home"
+                            Style="{DynamicResource StandardButtonStyle}"
+                            Command="{Binding ReturnHomeCommand}"
+                            Padding="20,5"
+                            Margin="10,0"/>
+                    <Button Content="Restart"
+                            Style="{DynamicResource StandardButtonStyle}"
+                            Command="{Binding RestartGameCommand}"
+                            Padding="20,5"
+                            Margin="10,0"/>
                 </StackPanel>
             </StackPanel>
         </Viewbox>

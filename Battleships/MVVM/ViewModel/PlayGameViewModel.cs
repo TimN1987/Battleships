@@ -8,6 +8,7 @@ using Battleships.MVVM.Model.DataTransferObjects;
 using Battleships.MVVM.Services;
 using Battleships.MVVM.Structs;
 using Battleships.MVVM.Utilities;
+using Battleships.MVVM.View;
 using Battleships.MVVM.ViewModel.Base;
 using Battleships.MVVM.ViewModel.GridCells;
 
@@ -87,6 +88,7 @@ public class PlayGameViewModel : ViewModelBase
     private int _loadingValue;
     private string _loadingText;
     private string[] _loadingTextArray;
+    private string _gameOverText;
 
     private readonly Uri _airstrikeUpRightImage;
     private readonly Uri _airstrikeUpRightWhiteImage;
@@ -137,6 +139,8 @@ public class PlayGameViewModel : ViewModelBase
     private ICommand? _moveFocusCommand;
     private ICommand? _mouseEnterCommand;
     private ICommand? _mouseMoveCommand;
+    private ICommand? _returnHomeCommand;
+    private ICommand? _restartGameCommand;
     #endregion //Fields
 
     #region Properties
@@ -193,6 +197,11 @@ public class PlayGameViewModel : ViewModelBase
     {
         get => _loadingText;
         set => SetProperty(ref _loadingText, value);
+    }
+    public string GameOverText
+    {
+        get => _gameOverText;
+        set => SetProperty(ref _gameOverText, value);
     }
     public Uri AirstrikeUpRightButtonImage
     {
@@ -349,6 +358,13 @@ public class PlayGameViewModel : ViewModelBase
             return _mouseMoveCommand;
         }
     }
+
+    public ICommand ReturnHomeCommand => _returnHomeCommand
+        ??= new RelayCommand(param => _eventAggregator
+            .GetEvent<NavigationEvent>()
+            .Publish(typeof(HomeView)));
+    public ICommand RestartGameCommand => _restartGameCommand
+        ??= new RelayCommand(param => Restart());
     #endregion //Commands
 
     public PlayGameViewModel(IEventAggregator eventAggregator, ISaveService saveService, ILoggerFactory loggerFactory)
@@ -406,6 +422,7 @@ public class PlayGameViewModel : ViewModelBase
         _loadingTextArray = [
             LoadingText0, LoadingText1, LoadingText2, LoadingText3, LoadingText4
             ];
+        _gameOverText = string.Empty;
 
         _airstrikeUpRightImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/airstrikeupright.png", UriKind.Absolute);
         _airstrikeUpRightWhiteImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/airstrikeuprightwhite.png", UriKind.Absolute);
@@ -449,6 +466,33 @@ public class PlayGameViewModel : ViewModelBase
     }
 
     #region Game Data Methods
+
+    /// <summary>
+    /// Resets the game data at the end of a game or before starting a new game. Ensures that the 
+    /// grid is cleared and no current game is stored.
+    /// </summary>
+    private void Reset()
+    {
+        ComputerGrid = [];
+        PlayerGrid = [];
+
+        InitializeGrids();
+
+        _currentGame = null;
+    }
+
+    /// <summary>
+    /// Restarts the current game using the stored <see cref="GameSetUpInformation"/> data.
+    /// </summary>
+    private void Restart()
+    {
+        SetUpNewGame(_gameSetUpInformation);
+    }
+
+    /// <summary>
+    /// Sets up a new game using the provided <see cref="GameSetUpInformation"/> data. Used to start 
+    /// a new game from the information entered in the set up process.
+    /// </summary>
     private void SetUpNewGame(GameSetUpInformation gameSetUpInformation)
     {
         LoadingScreenVisible = Visibility.Visible;
@@ -462,6 +506,10 @@ public class PlayGameViewModel : ViewModelBase
         var _ = InitializeGame(gameSetUpInformation);
     }
 
+    /// <summary>
+    /// Asynchronously initializes a new game using the provided <see cref="GameSetUpInformation"/> 
+    /// data. Ensures that the game grids, custom settings and images are displayed correctly.
+    /// </summary>
     private async Task InitializeGame(GameSetUpInformation gameSetUpInformation)
     {
         // Ensure game grids and settings are reset for all new games
@@ -521,6 +569,10 @@ public class PlayGameViewModel : ViewModelBase
         _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.GameStart);
     }
 
+    /// <summary>
+    /// Sets up empty 10x10 grids for both the player and computer boards. Used to ensure an empty 
+    /// board is provided and displayed for game resets or at the start of a new game.
+    /// </summary>
     private void InitializeGrids()
     {
         for (int row = 0; row < 10; row++)
@@ -533,6 +585,11 @@ public class PlayGameViewModel : ViewModelBase
         }
     }
 
+    /// <summary>
+    /// Uses the provided <see cref="GameDTO"/> data to initialize a loaded game. Ensures that the 
+    /// game settings are restored and that the game grids are updated to reflect the loaded game 
+    /// state.
+    /// </summary>
     internal async Task InitializeLoadedGame(GameDTO gameDTO)
     {
         // Ensure player cannot click until game full initialized
@@ -596,6 +653,10 @@ public class PlayGameViewModel : ViewModelBase
         _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.GameLoaded);
     }
 
+    /// <summary>
+    /// Asycnhronously autosaves the current game using the <see cref="ISaveService"/> to stored 
+    /// the data under the 'Autosave' name. Used for regular saving during an ongoing game.
+    /// </summary>
     private async Task Autosave()
     {
         try
@@ -608,6 +669,10 @@ public class PlayGameViewModel : ViewModelBase
         }
     }
 
+    /// <summary>
+    /// Saves game data using the <see cref="ISaveService"/>. Can be used for both regular saves and 
+    /// autosaves. Ensures the data is saved with the expected game name and save slot.
+    /// </summary>
     private async Task OnSaveRequest(bool isAutosave = true, (string gameName, int saveSlot)? saveGame = null)
     {
         bool isSaveAs = saveGame is not null;
@@ -630,6 +695,10 @@ public class PlayGameViewModel : ViewModelBase
         }
     }
 
+    /// <summary>
+    /// Loads a game using the <see cref="ISaveService"/> with the provided game name and save slot. 
+    /// Enables the user to continue a previous game.
+    /// </summary>
     internal async Task LoadGame((string gameName, int saveSlot) saveGame)
     {
         LoadingScreenVisible = Visibility.Visible;
@@ -1138,12 +1207,10 @@ public class PlayGameViewModel : ViewModelBase
     }
     private void OnGameOver(bool playerWins)
     {
+        GameOverText = GameOverProvider.GetGameOverMessage(playerWins);
+        //GameOverImage = GameOverProvider.GetGameOverGif(playerWins);
         GameOverVisible = Visibility.Visible;
-
-        // Delete game data
-        // Display end game message and gif
-        // Clear board
-        // Display return home options - restart or return home
+        Reset();
     }
 
     #endregion //Message and Animation Methods
