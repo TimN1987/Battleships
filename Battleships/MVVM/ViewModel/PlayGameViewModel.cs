@@ -110,7 +110,6 @@ public class PlayGameViewModel : ViewModelBase
     private GameSetUpInformation _gameSetUpInformation;
     private Game? _currentGame;
     private string _gameStatusMessage;
-    private CancellationTokenSource? _statusMessageCts;
     private readonly Dictionary<ShipType, int> _shipSizes;
 
     private bool _airstrikeAllowed;
@@ -538,7 +537,7 @@ public class PlayGameViewModel : ViewModelBase
         await Autosave();
 
         if (!gameSetUpInformation.PlayerStarts)
-            _currentGame.PlayComputerOpeningMove();
+            await _currentGame.PlayComputerOpeningMove();
 
         LoadingValue = 4;
         await Task.Delay(LoadingDelayTime);
