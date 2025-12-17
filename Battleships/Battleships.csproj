@@ -93,12 +93,36 @@
     <None Remove="MVVM\Resources\Images\ShipPlacementView\rotationimagewhiterotated.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\submarine.png" />
     <None Remove="MVVM\Resources\Images\ShipPlacementView\submarinewhite.png" />
+    <None Remove="MVVM\Resources\Speech\computerhitshipaudioone.wav" />
+    <None Remove="MVVM\Resources\Speech\computerhitshipaudiothree.wav" />
+    <None Remove="MVVM\Resources\Speech\computerhitshipaudiotwo.wav" />
+    <None Remove="MVVM\Resources\Speech\computermissedaudioone.wav" />
+    <None Remove="MVVM\Resources\Speech\computermissedaudiothree.wav" />
+    <None Remove="MVVM\Resources\Speech\computermissedaudiotwo.wav" />
+    <None Remove="MVVM\Resources\Speech\computersunkshipaudioone.wav" />
+    <None Remove="MVVM\Resources\Speech\computersunkshipaudiothree.wav" />
+    <None Remove="MVVM\Resources\Speech\computersunkshipaudiotwo.wav" />
+    <None Remove="MVVM\Resources\Speech\computerturnaudioone.wav" />
+    <None Remove="MVVM\Resources\Speech\computerturnaudiothree.wav" />
+    <None Remove="MVVM\Resources\Speech\computerturnaudiotwo.wav" />
     <None Remove="MVVM\Resources\Speech\gameloadedaudioone.wav" />
     <None Remove="MVVM\Resources\Speech\gameloadedaudiothree.wav" />
     <None Remove="MVVM\Resources\Speech\gameloadedaudiotwo.wav" />
     <None Remove="MVVM\Resources\Speech\gamestartaudioone.wav" />
     <None Remove="MVVM\Resources\Speech\gamestartaudiothree.wav" />
     <None Remove="MVVM\Resources\Speech\gamestartaudiotwo.wav" />
+    <None Remove="MVVM\Resources\Speech\playerhitshipaudioone.wav" />
+    <None Remove="MVVM\Resources\Speech\playerhitshipaudiothree.wav" />
+    <None Remove="MVVM\Resources\Speech\playerhitshipaudiotwo.wav" />
+    <None Remove="MVVM\Resources\Speech\playermissedaudioone.wav" />
+    <None Remove="MVVM\Resources\Speech\playermissedaudiothree.wav" />
+    <None Remove="MVVM\Resources\Speech\playermissedaudiotwo.wav" />
+    <None Remove="MVVM\Resources\Speech\playersunkshipaudioone.wav" />
+    <None Remove="MVVM\Resources\Speech\playersunkshipaudiothree.wav" />
+    <None Remove="MVVM\Resources\Speech\playersunkshipaudiotwo.wav" />
+    <None Remove="MVVM\Resources\Speech\playerturnaudioone.wav" />
+    <None Remove="MVVM\Resources\Speech\playerturnaudiothree.wav" />
+    <None Remove="MVVM\Resources\Speech\playerturnaudiotwo.wav" />
   </ItemGroup>
 
   <ItemGroup>
@@ -111,6 +135,42 @@
   <ItemGroup>
     <Content Include="battleshipsIcon.ico" />
     <Content Include="MVVM\Resources\BackgroundMusic\backingthree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\computerhitshipaudioone.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\computerhitshipaudiothree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\computerhitshipaudiotwo.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\computermissedaudioone.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\computermissedaudiothree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\computermissedaudiotwo.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\computersunkshipaudioone.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\computersunkshipaudiothree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\computersunkshipaudiotwo.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\computerturnaudioone.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\computerturnaudiothree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\computerturnaudiotwo.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="MVVM\Resources\Speech\gameloadedaudioone.wav">
@@ -129,6 +189,42 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="MVVM\Resources\Speech\gamestartaudiotwo.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\playerhitshipaudioone.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\playerhitshipaudiothree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\playerhitshipaudiotwo.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\playermissedaudioone.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\playermissedaudiothree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\playermissedaudiotwo.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\playersunkshipaudioone.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\playersunkshipaudiothree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\playersunkshipaudiotwo.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\playerturnaudioone.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\playerturnaudiothree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\Speech\playerturnaudiotwo.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -243,27 +339,6 @@
 
   <ItemGroup>
     <Folder Include="MVVM\Resources\ForegroundSounds\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="MVVM\Resources\Speech\computerturnaudioone.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="MVVM\Resources\Speech\computerturnaudiothree.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="MVVM\Resources\Speech\computerturnaudiotwo.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="MVVM\Resources\Speech\playerturnaudioone.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="MVVM\Resources\Speech\playerturnaudiothree.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="MVVM\Resources\Speech\playerturnaudiotwo.wav">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

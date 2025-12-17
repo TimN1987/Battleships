@@ -41,26 +41,25 @@ public class MessageService : IMessageService
     private const string PlayerSunkShipMessageTwo = "Direct hit! Another enemy ship has been sunk.";
     private const string PlayerSunkShipMessageThree = "Excellent shooting, sailor! You've sunk an enemy ship.";
 
-    private const string ComputerSunkShipMessageOne = "An enemy has sunk one of your ships. Stay strong, sailor.";
-    private const string ComputerSunkShipMessageTwo = "Your ship has been hit and sunk. Don't lose hope, sailor.";
-    private const string ComputerSunkShipMessageThree = "Tough luck, sailor. An enemy has sunk one of your ships.";
+    private const string ComputerSunkShipMessageOne = "Ship sunk! Stay strong, sailor.";
+    private const string ComputerSunkShipMessageTwo = "They sank one! Don't lose hope, sailor.";
+    private const string ComputerSunkShipMessageThree = "Tough luck, sailor. Ship sunk.";
 
-    private const string PlayerHitShipMessageOne = "Direct hit on the enemy ship! Keep it up, sailor.";
+    private const string PlayerHitShipMessageOne = "Direct hit! Keep it up, sailor.";
     private const string PlayerHitShipMessageTwo = "Nice shot! You've hit an enemy ship.";
-    private const string PlayerHitShipMessageThree = "Good aim, sailor! You've struck an enemy ship.";
+    private const string PlayerHitShipMessageThree = "Good aim, sailor! You've hit the target.";
 
-    private const string ComputerHitShipMessageOne = "The enemy has hit one of your ships. Stay alert, sailor.";
-    private const string ComputerHitShipMessageTwo = "Your ship has been hit by the enemy. Keep your wits about you, sailor.";
-    private const string ComputerHitShipMessageThree = "Watch out, sailor! The enemy has struck one of your ships.";
+    private const string ComputerHitShipMessageOne = "We've been hit. Stay alert, sailor.";
+    private const string ComputerHitShipMessageTwo = "It's a hit! Keep your wits about you, sailor.";
+    private const string ComputerHitShipMessageThree = "Watch out, sailor! The enemy hit our ship.";
 
-    private const string PlayerMissedMessageOne = "You missed the enemy ship. Try again, sailor.";
-    private const string PlayerMissedMessageTwo = "No hit this time, sailor. Adjust your aim and fire again.";
-    private const string PlayerMissedMessageThree = "The enemy ship remains unscathed. Take another shot, sailor.";
+    private const string PlayerMissedMessageOne = "You missed the enemy ship. Time to reload.";
+    private const string PlayerMissedMessageTwo = "No hit this time, sailor. Better adjust your aim.";
+    private const string PlayerMissedMessageThree = "No damage this time. Take another shot, sailor.";
 
     private const string ComputerMissedMessageOne = "The enemy missed your ship. Stay focused, sailor.";
-    private const string ComputerMissedMessageTwo = "Your ship remains safe for now. Keep your guard up, sailor.";
-    private const string ComputerMissedMessageThree = "The enemy's shot went wide. Don't let your guard down, sailor.";
-
+    private const string ComputerMissedMessageTwo = "Safe for now. Keep your guard up, sailor.";
+    private const string ComputerMissedMessageThree = "Enemy attack over, but don't let your guard down.";
 
     // Audio Uris
     private readonly Uri _gameStartsAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/gamestartaudioone.wav", UriKind.Absolute);
@@ -79,29 +78,29 @@ public class MessageService : IMessageService
     private readonly Uri _computerTurnAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudiotwo.wav", UriKind.Absolute);
     private readonly Uri _computerTurnAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudiothree.wav", UriKind.Absolute);
 
-    private readonly Uri _playerSunkShipAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
-    private readonly Uri _playerSunkShipAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
-    private readonly Uri _playerSunkShipAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _playerSunkShipAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/playersunkshipaudioone.wav", UriKind.Absolute);
+    private readonly Uri _playerSunkShipAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/playersunkshipaudiotwo.wav", UriKind.Absolute);
+    private readonly Uri _playerSunkShipAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/playersunkshipaudiothree.wav", UriKind.Absolute);
 
-    private readonly Uri _computerSunkShipAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
-    private readonly Uri _computerSunkShipAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
-    private readonly Uri _computerSunkShipAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _computerSunkShipAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computersunkshipaudioone.wav", UriKind.Absolute);
+    private readonly Uri _computerSunkShipAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computersunkshipaudiotwo.wav", UriKind.Absolute);
+    private readonly Uri _computerSunkShipAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computersunkshipaudiothree.wav", UriKind.Absolute);
 
-    private readonly Uri _playerHitShipAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
-    private readonly Uri _playerHitShipAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
-    private readonly Uri _playerHitShipAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _playerHitShipAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/playerhitshipaudioone.wav", UriKind.Absolute);
+    private readonly Uri _playerHitShipAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/playerhitshipaudiotwo.wav", UriKind.Absolute);
+    private readonly Uri _playerHitShipAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/playerhitshipaudiothree.wav", UriKind.Absolute);
 
-    private readonly Uri _computerHitShipAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
-    private readonly Uri _computerHitShipAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
-    private readonly Uri _computerHitShipAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _computerHitShipAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerhitshipaudioone.wav", UriKind.Absolute);
+    private readonly Uri _computerHitShipAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerhitshipaudiotwo.wav", UriKind.Absolute);
+    private readonly Uri _computerHitShipAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerhitshipaudiothree.wav", UriKind.Absolute);
 
-    private readonly Uri _playerMissedAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
-    private readonly Uri _playerMissedAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
-    private readonly Uri _playerMissedAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _playerMissedAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/playermissedaudioone.wav", UriKind.Absolute);
+    private readonly Uri _playerMissedAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/playermissedaudiotwo.wav", UriKind.Absolute);
+    private readonly Uri _playerMissedAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/playermissedaudiothree.wav", UriKind.Absolute);
 
-    private readonly Uri _computerMissedAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
-    private readonly Uri _computerMissedAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
-    private readonly Uri _computerMissedAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _computerMissedAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computermissedaudioone.wav", UriKind.Absolute);
+    private readonly Uri _computerMissedAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computermissedaudiotwo.wav", UriKind.Absolute);
+    private readonly Uri _computerMissedAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computermissedaudiothree.wav", UriKind.Absolute);
 
     // Message Arrays
     private readonly string[] _gameStartMessages;
