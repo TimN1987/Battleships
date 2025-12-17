@@ -881,10 +881,32 @@ public class PlayGameViewModel : ViewModelBase
     #region Shot Processing Methods
 
     /// <summary>
+    /// Processes the computer opening move if required and updates the grid/messages.
+    /// </summary>
+    private async Task OnComputerOpeningMoveCompleted(object? sender, AttackStatusReport e)
+    {
+        // Allow initial message to complete.
+        await Task.Delay(MessageDisplayTime);
+
+        AttackStatusReport attackStatusReport = e;
+        int listLength = attackStatusReport.Reports.Count;
+
+        _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.ComputerTurn);
+        await Task.Delay(ComputerShotTime);
+
+        UpdateGrid(attackStatusReport, isPlayerTurn: false, isComputerOpeningTurn: true);
+        DisplayTurnOutcomeMessage(attackStatusReport, isPlayerTurn: false);
+        await Task.Delay(OutcomeMessageDisplayTime);
+
+        PlayerCanClick = true;
+        _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.PlayerTurn);
+    }
+
+    /// <summary>
     /// Processes a turn using the <see cref="AttackStatusReport"/>. Ensures that the grids and any 
     /// animations or messages are appropriately updated for both player and computer turns.
     /// </summary>
-    internal async Task ProcessAttackStatusReport(AttackStatusReport attackStatusReport, bool computerOpeningMove = false)
+    internal async Task ProcessAttackStatusReport(AttackStatusReport attackStatusReport)
     {
         int listLength = attackStatusReport.Reports.Count;
 
@@ -939,11 +961,13 @@ public class PlayGameViewModel : ViewModelBase
         }
     }
 
-    private void UpdateGrid(AttackStatusReport attackStatusReport, bool isPlayerTurn)
+    private void UpdateGrid(AttackStatusReport attackStatusReport, bool isPlayerTurn, bool isComputerOpeningTurn = false)
     {
         int listLength = attackStatusReport.Reports.Count;
         List<int> sunkPositions = [];
 
+        // First report is always player shot unless it is the computer opening turn.
+        // Handle the first report separately for player turn.
         if (isPlayerTurn)
         {
             UpdateCellState(attackStatusReport.Reports[0].PositionsHit.ToList(), GridCellState.Hit);
@@ -965,7 +989,8 @@ public class PlayGameViewModel : ViewModelBase
         }
         else
         {
-            for (int i = 1; i < listLength; i++)
+            // Include the first report if it is the computer opening turn.
+            for (int i = isComputerOpeningTurn ? 0 : 1; i < listLength; i++)
             {
                 UpdateCellState(attackStatusReport.Reports[i].PositionsHit.ToList(), GridCellState.Hit, true);
                 UpdateCellState(attackStatusReport.Reports[i].PositionsMissed.ToList(), GridCellState.Miss, true);
@@ -1232,30 +1257,7 @@ public class PlayGameViewModel : ViewModelBase
         BomberImage = _bomberImageArray[_bomberIndex];
     }
 
-    /// <summary>
-    /// Updates the <see cref="GameStatusMessage"/> and clears it after a delay to inform the player 
-    /// what is happening. Uses CancellationTokens to manage multiple messages before previous message 
-    /// is cleared.
-    /// </summary>
-    private async Task UpdateStatusMessage(string message)
-    {
-        // Cancel any previous message update
-        _statusMessageCts?.Cancel();
-        _statusMessageCts = new CancellationTokenSource();
 
-        var token = _statusMessageCts.Token;
-        GameStatusMessage = message;
-
-        try
-        {
-            await Task.Delay(MessageDisplayTime, token);
-            GameStatusMessage = string.Empty;
-        }
-        catch (TaskCanceledException)
-        {
-            // Task cancellation expected
-        }
-    }
     private void OnGameOver(bool playerWins)
     {
         GameOverText = GameOverProvider.GetGameOverMessage(playerWins);
@@ -1265,26 +1267,6 @@ public class PlayGameViewModel : ViewModelBase
     }
 
     #endregion //Message and Animation Methods
-
-    #region Event Handler Methods
-    /// <summary>
-    /// Processes the computer opening move if required and updates the grid.
-    /// </summary>
-    private void OnComputerOpeningMoveCompleted(object? sender, AttackStatusReport e)
-    {
-        AttackStatusReport attackStatusReport = e;
-        int listLength = attackStatusReport.Reports.Count;
-
-        for (int i = 0; i < listLength; i++)
-        {
-            UpdateCellState(attackStatusReport.Reports[i].PositionsHit.ToList(), GridCellState.Hit, true);
-            UpdateCellState(attackStatusReport.Reports[i].PositionsMissed.ToList(), GridCellState.Miss, true);
-        }
-
-        PlayerCanClick = true;
-    }
-
-    #endregion //Event Handler Methods
 
     #region Display Methods
     private void UpdateCellHighlighting(bool isHighlighted)
