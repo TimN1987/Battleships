@@ -72,10 +72,8 @@ public class CaptainService : ICaptainService
             _talkingCaptainTwo
             ];
         _computerMissImages = [
-            _victoryCaptainOne,
-            _victoryCaptainTwo,
             _talkingCaptainOne,
-            _talkingCaptainTwo,
+            _talkingCaptainTwo
             ];
 
         _captainImages = new()
