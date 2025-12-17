@@ -44,10 +44,10 @@ public class PlayGameViewModel : ViewModelBase
     private const int BombardmentBottomLimit = 8;
 
     private const int AnimationRunTimeDelay = 2000;
-    private const int MessageDisplayTime = 3000;
+    private const int MessageDisplayTime = 3500;
+    private const int GameRhythmDelay = 1000;
     private const int LoadingDelayTime = 300;
     private const int ComputerShotTime = 3000;
-    private const int OutcomeMessageDisplayTime = 3000;
 
     private const string LoadingText0 = "Loading...";
     private const string LoadingText1 = "Initializing grid...";
@@ -76,7 +76,7 @@ public class PlayGameViewModel : ViewModelBase
     #endregion //Theme Resources
 
     #region Image Fields
-    private ImageSource _captainImage;
+    private readonly ImageSource _captainImage;
     private ImageSource _captainGif;
     private Uri _bomberImage;
     private readonly Uri[] _bomberImageArray;
@@ -535,14 +535,14 @@ public class PlayGameViewModel : ViewModelBase
 
         await Autosave();
 
-        if (!gameSetUpInformation.PlayerStarts)
-            await _currentGame.PlayComputerOpeningMove();
-
         LoadingValue = 4;
         await Task.Delay(LoadingDelayTime);
         LoadingScreenVisible = Visibility.Collapsed;
 
         _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.GameStart);
+
+        if (!gameSetUpInformation.PlayerStarts)
+            await _currentGame.PlayComputerOpeningMove();
     }
 
     /// <summary>
@@ -890,10 +890,14 @@ public class PlayGameViewModel : ViewModelBase
 
         _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.ComputerTurn);
         await Task.Delay(ComputerShotTime);
+        CaptainGif = _captainImage;
+        await Task.Delay(GameRhythmDelay);
 
         UpdateGrid(attackStatusReport, isPlayerTurn: false, isComputerOpeningTurn: true);
         DisplayTurnOutcomeMessage(attackStatusReport, isPlayerTurn: false);
-        await Task.Delay(OutcomeMessageDisplayTime);
+        await Task.Delay(MessageDisplayTime);
+        CaptainGif = _captainImage;
+        await Task.Delay(GameRhythmDelay);
 
         PlayerCanClick = true;
         _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.PlayerTurn);
@@ -917,8 +921,9 @@ public class PlayGameViewModel : ViewModelBase
         ResetSpecialShotIfUsed();
         UpdateSpecialShots(attackStatusReport);
         DisplayTurnOutcomeMessage(attackStatusReport, isPlayerTurn: true);
-        await Task.Delay(OutcomeMessageDisplayTime);
+        await Task.Delay(MessageDisplayTime);
         CaptainGif = _captainImage;
+        await Task.Delay(GameRhythmDelay);
 
         _setFocusedCellOnMouseMove = true;
 
@@ -944,11 +949,13 @@ public class PlayGameViewModel : ViewModelBase
         _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.ComputerTurn);
         await Task.Delay(ComputerShotTime);
         CaptainGif = _captainImage;
+        await Task.Delay(GameRhythmDelay);
 
         UpdateGrid(attackStatusReport, isPlayerTurn: false);
         DisplayTurnOutcomeMessage(attackStatusReport, isPlayerTurn: false);
-        await Task.Delay(OutcomeMessageDisplayTime);
+        await Task.Delay(MessageDisplayTime);
         CaptainGif = _captainImage;
+        await Task.Delay(GameRhythmDelay);
 
         if (attackStatusReport.IsGameOver)
         {
