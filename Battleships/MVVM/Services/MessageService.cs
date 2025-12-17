@@ -8,12 +8,14 @@ public interface IMessageService
     void RequestMessage(GameEvent message);
     void GetGameStartMessage();
     void GetGameLoadedMessage();
-    void GetGameOverMessage();
     void GetPlayerTurnMessage();
     void GetComputerTurnMessage();
-    void GetShotMissedMessage();
-    void GetShotHitMessage();
-    void GetShipSunkMessage();
+    void GetPlayerSunkShipMessage();
+    void GetComputerSunkShipMessage();
+    void GetPlayerHitShipMessage();
+    void GetComputerHitShipMessage();
+    void GetPlayerMissedMessage();
+    void GetComputerMissedMessage();
 }
 
 public class MessageService : IMessageService
@@ -35,6 +37,30 @@ public class MessageService : IMessageService
     private const string ComputerTurnMessageTwo = "Your turn's over. Prepare for an enemy attack";
     private const string ComputerTurnMessageThree = "Attack incoming! Look out, sailor!";
 
+    private const string PlayerSunkShipMessageOne = "You've sunk an enemy ship! Well done, sailor.";
+    private const string PlayerSunkShipMessageTwo = "Direct hit! Another enemy ship has been sunk.";
+    private const string PlayerSunkShipMessageThree = "Excellent shooting, sailor! You've sunk an enemy ship.";
+
+    private const string ComputerSunkShipMessageOne = "An enemy has sunk one of your ships. Stay strong, sailor.";
+    private const string ComputerSunkShipMessageTwo = "Your ship has been hit and sunk. Don't lose hope, sailor.";
+    private const string ComputerSunkShipMessageThree = "Tough luck, sailor. An enemy has sunk one of your ships.";
+
+    private const string PlayerHitShipMessageOne = "Direct hit on the enemy ship! Keep it up, sailor.";
+    private const string PlayerHitShipMessageTwo = "Nice shot! You've hit an enemy ship.";
+    private const string PlayerHitShipMessageThree = "Good aim, sailor! You've struck an enemy ship.";
+
+    private const string ComputerHitShipMessageOne = "The enemy has hit one of your ships. Stay alert, sailor.";
+    private const string ComputerHitShipMessageTwo = "Your ship has been hit by the enemy. Keep your wits about you, sailor.";
+    private const string ComputerHitShipMessageThree = "Watch out, sailor! The enemy has struck one of your ships.";
+
+    private const string PlayerMissedMessageOne = "You missed the enemy ship. Try again, sailor.";
+    private const string PlayerMissedMessageTwo = "No hit this time, sailor. Adjust your aim and fire again.";
+    private const string PlayerMissedMessageThree = "The enemy ship remains unscathed. Take another shot, sailor.";
+
+    private const string ComputerMissedMessageOne = "The enemy missed your ship. Stay focused, sailor.";
+    private const string ComputerMissedMessageTwo = "Your ship remains safe for now. Keep your guard up, sailor.";
+    private const string ComputerMissedMessageThree = "The enemy's shot went wide. Don't let your guard down, sailor.";
+
 
     // Audio Uris
     private readonly Uri _gameStartsAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/gamestartaudioone.wav", UriKind.Absolute);
@@ -53,26 +79,53 @@ public class MessageService : IMessageService
     private readonly Uri _computerTurnAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudiotwo.wav", UriKind.Absolute);
     private readonly Uri _computerTurnAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudiothree.wav", UriKind.Absolute);
 
+    private readonly Uri _playerSunkShipAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _playerSunkShipAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _playerSunkShipAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+
+    private readonly Uri _computerSunkShipAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _computerSunkShipAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _computerSunkShipAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+
+    private readonly Uri _playerHitShipAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _playerHitShipAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _playerHitShipAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+
+    private readonly Uri _computerHitShipAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _computerHitShipAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _computerHitShipAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+
+    private readonly Uri _playerMissedAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _playerMissedAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _playerMissedAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+
+    private readonly Uri _computerMissedAudioOne = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _computerMissedAudioTwo = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+    private readonly Uri _computerMissedAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
+
     // Message Arrays
     private string[] _gameStartMessages;
     private string[] _gameLoadedMessages;
-    private string[] _gameOverMessages;
     private string[] _playerTurnMessages;
     private string[] _computerTurnMessages;
-    private string[] _shotMissedMessages;
-    private string[] _shotHitMessages;
-    private string[] _shipSunkMessages;
+    private string[] _playerSunkShipMessages;
+    private string[] _computerSunkShipMessages;
+    private string[] _playerHitShipMessages;
+    private string[] _computerHitShipMessages;
+    private string[] _playerMissedMessages;
+    private string[] _computerMissedMessages;
 
     // Audio Arrays
     private Uri[] _gameStartAudio;
     private Uri[] _gameLoadedAudio;
-    private Uri[] _gameOverAudio;
     private Uri[] _playerTurnAudio;
     private Uri[] _computerTurnAudio;
-    private Uri[] _shotMissedAudio;
-    private Uri[] _shotHitAudio;
-    private Uri[] _shipSunkAudio;
-
+    private Uri[] _playerSunkShipAudio;
+    private Uri[] _computerSunkShipAudio;
+    private Uri[] _playerHitShipAudio;
+    private Uri[] _computerHitShipAudio;
+    private Uri[] _playerMissedAudio;
+    private Uri[] _computerMissedAudio;
 
     // Fields
     private IEventAggregator _eventAggregator;
@@ -90,26 +143,52 @@ public class MessageService : IMessageService
             GameStartMessageOne,
             GameStartMessageTwo,
             GameStartMessageThree
-        ];
+            ];
         _gameLoadedMessages = [
             GameLoadedMessageOne,
             GameLoadedMessageTwo,
             GameLoadedMessageThree
             ];
-        _gameOverMessages = [];
         _playerTurnMessages = [
             PlayerTurnMessageOne,
             PlayerTurnMessageTwo,
             PlayerTurnMessageThree
-        ];
+            ];
         _computerTurnMessages = [
             ComputerTurnMessageOne,
             ComputerTurnMessageTwo,
             ComputerTurnMessageThree
-        ];
-        _shotMissedMessages = [];
-        _shotHitMessages = [];
-        _shipSunkMessages = [];
+            ];
+        _playerSunkShipMessages = [
+            PlayerSunkShipMessageOne,
+            PlayerSunkShipMessageTwo,
+            PlayerSunkShipMessageThree
+            ];
+        _computerSunkShipMessages = [
+            ComputerSunkShipMessageOne,
+            ComputerSunkShipMessageTwo,
+            ComputerSunkShipMessageThree
+            ];
+        _playerHitShipMessages = [
+            PlayerHitShipMessageOne,
+            PlayerHitShipMessageTwo,
+            PlayerHitShipMessageThree
+            ];
+        _computerHitShipMessages = [
+            ComputerHitShipMessageOne,
+            ComputerHitShipMessageTwo,
+            ComputerHitShipMessageThree
+            ];
+        _playerMissedMessages = [
+            PlayerMissedMessageOne,
+            PlayerMissedMessageTwo,
+            PlayerMissedMessageThree
+            ];
+        _computerMissedMessages = [
+            ComputerMissedMessageOne,
+            ComputerMissedMessageTwo,
+            ComputerMissedMessageThree
+            ];
 
         _gameStartAudio = [
             _gameStartsAudioOne,
@@ -117,11 +196,10 @@ public class MessageService : IMessageService
             _gameStartsAudioThree
             ];
         _gameLoadedAudio = [
-            _gameStartsAudioOne,
-            _gameStartsAudioTwo,
-            _gameStartsAudioThree
+            _gameLoadedAudioOne,
+            _gameLoadedAudioTwo,
+            _gameLoadedAudioThree
             ];
-        _gameOverAudio = [];
         _playerTurnAudio = [
             _playerTurnAudioOne,
             _playerTurnAudioTwo,
@@ -132,9 +210,36 @@ public class MessageService : IMessageService
             _computerTurnAudioTwo,
             _computerTurnAudioThree
             ];
-        _shotMissedAudio = [];
-        _shotHitAudio = [];
-        _shipSunkAudio = [];
+        _playerSunkShipAudio = [
+            _playerSunkShipAudioOne,
+            _playerSunkShipAudioTwo,
+            _playerSunkShipAudioThree
+            ];
+        _computerSunkShipAudio = [
+            _computerSunkShipAudioOne,
+            _computerSunkShipAudioTwo,
+            _computerSunkShipAudioThree
+            ];
+        _playerHitShipAudio = [
+            _playerHitShipAudioOne,
+            _playerHitShipAudioTwo,
+            _playerHitShipAudioThree
+            ];
+        _computerHitShipAudio = [
+            _computerHitShipAudioOne,
+            _computerHitShipAudioTwo,
+            _computerHitShipAudioThree
+            ];
+        _playerMissedAudio = [
+            _playerMissedAudioOne,
+            _playerMissedAudioTwo,
+            _playerMissedAudioThree
+            ];
+        _computerMissedAudio = [
+            _computerMissedAudioOne,
+            _computerMissedAudioTwo,
+            _computerMissedAudioThree
+            ];
     }
 
     // Get Message Methods
@@ -153,6 +258,24 @@ public class MessageService : IMessageService
                 break;
             case GameEvent.ComputerTurn:
                 GetComputerTurnMessage();
+                break;
+            case GameEvent.PlayerSunkShip:
+                GetPlayerSunkShipMessage();
+                break;
+            case GameEvent.ComputerSunkShip:
+                GetComputerSunkShipMessage();
+                break;
+            case GameEvent.PlayerHitShip:
+                GetPlayerHitShipMessage();
+                break;
+            case GameEvent.ComputerHitShip:
+                GetComputerHitShipMessage();
+                break;
+            case GameEvent.PlayerMissed:
+                GetPlayerMissedMessage();
+                break;
+            case GameEvent.ComputerMissed:
+                GetComputerMissedMessage();
                 break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(message));
@@ -183,18 +306,6 @@ public class MessageService : IMessageService
             .GetEvent<LoadSpeechEvent>()
             .Publish(_gameLoadedAudio[index]);
     }
-    public void GetGameOverMessage()
-    {
-        int messageTotal = _gameOverMessages.Length;
-        int index = RandomProvider.Instance.Next(messageTotal);
-
-        _eventAggregator
-            .GetEvent<UserMessageEvent>()
-            .Publish(_gameOverMessages[index]);
-        _eventAggregator
-            .GetEvent<LoadSpeechEvent>()
-            .Publish(_gameOverAudio[index]);
-    }
     public void GetPlayerTurnMessage()
     {
         int messageTotal = _playerTurnMessages.Length;
@@ -219,40 +330,70 @@ public class MessageService : IMessageService
             .GetEvent<LoadSpeechEvent>()
             .Publish(_computerTurnAudio[index]);
     }
-    public void GetShotMissedMessage()
+    public void GetPlayerSunkShipMessage()
     {
-        int messageTotal = _shotMissedMessages.Length;
+        int messageTotal = _playerSunkShipMessages.Length;
         int index = RandomProvider.Instance.Next(messageTotal);
-
         _eventAggregator
             .GetEvent<UserMessageEvent>()
-            .Publish(_shotMissedMessages[index]);
+            .Publish(_playerSunkShipMessages[index]);
         _eventAggregator
             .GetEvent<LoadSpeechEvent>()
-            .Publish(_shotMissedAudio[index]);
+            .Publish(_playerSunkShipAudio[index]);
     }
-    public void GetShotHitMessage()
+    public void GetComputerSunkShipMessage()
     {
-        int messageTotal = _shotHitMessages.Length;
+        int messageTotal = _computerSunkShipMessages.Length;
         int index = RandomProvider.Instance.Next(messageTotal);
-
         _eventAggregator
             .GetEvent<UserMessageEvent>()
-            .Publish(_shotHitMessages[index]);
+            .Publish(_computerSunkShipMessages[index]);
         _eventAggregator
             .GetEvent<LoadSpeechEvent>()
-            .Publish(_shotHitAudio[index]);
+            .Publish(_computerSunkShipAudio[index]);
     }
-    public void GetShipSunkMessage()
+    public void GetPlayerHitShipMessage()
     {
-        int meesageTotal = _shipSunkMessages.Length;
-        int index = RandomProvider.Instance.Next(meesageTotal);
-
+        int messageTotal = _playerHitShipMessages.Length;
+        int index = RandomProvider.Instance.Next(messageTotal);
         _eventAggregator
             .GetEvent<UserMessageEvent>()
-            .Publish(_shipSunkMessages[index]);
+            .Publish(_playerHitShipMessages[index]);
         _eventAggregator
             .GetEvent<LoadSpeechEvent>()
-            .Publish(_shipSunkAudio[index]);
+            .Publish(_playerHitShipAudio[index]);
+    }
+    public void GetComputerHitShipMessage()
+    {
+        int messageTotal = _computerHitShipMessages.Length;
+        int index = RandomProvider.Instance.Next(messageTotal);
+        _eventAggregator
+            .GetEvent<UserMessageEvent>()
+            .Publish(_computerHitShipMessages[index]);
+        _eventAggregator
+            .GetEvent<LoadSpeechEvent>()
+            .Publish(_computerHitShipAudio[index]);
+    }
+    public void GetPlayerMissedMessage()
+    {
+        int messageTotal = _playerMissedMessages.Length;
+        int index = RandomProvider.Instance.Next(messageTotal);
+        _eventAggregator
+            .GetEvent<UserMessageEvent>()
+            .Publish(_playerMissedMessages[index]);
+        _eventAggregator
+            .GetEvent<LoadSpeechEvent>()
+            .Publish(_playerMissedAudio[index]);
+    }
+    public void GetComputerMissedMessage()
+    {
+        int messageTotal = _computerMissedMessages.Length;
+        int index = RandomProvider.Instance.Next(messageTotal);
+        _eventAggregator
+            .GetEvent<UserMessageEvent>()
+            .Publish(_computerMissedMessages[index]);
+        _eventAggregator
+            .GetEvent<LoadSpeechEvent>()
+            .Publish(_computerMissedAudio[index]);
     }
 }
