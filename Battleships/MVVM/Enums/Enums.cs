@@ -156,7 +156,8 @@ namespace Battleships.MVVM.Enums
         PlayerTurn,
         ComputerTurn,
         GameOver,
-        EventFinished
+        EventFinished,
+        BomberAnimationStart
     }
 
     /// <summary>

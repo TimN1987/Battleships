@@ -276,6 +276,8 @@ public class MessageService : IMessageService
             case GameEvent.ComputerMissed:
                 GetComputerMissedMessage();
                 break;
+            case GameEvent.BomberAnimationStart:
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(message));
         }

@@ -13,6 +13,8 @@
     <None Remove="MVVM\Resources\BackgroundMusic\backingone.wav" />
     <None Remove="MVVM\Resources\BackgroundMusic\backingthree.wav" />
     <None Remove="MVVM\Resources\BackgroundMusic\backingtwo.wav" />
+    <None Remove="MVVM\Resources\ForegroundSounds\bomber.wav" />
+    <None Remove="MVVM\Resources\ForegroundSounds\radar.wav" />
     <None Remove="MVVM\Resources\Images\Captains\captaintalkingone.gif" />
     <None Remove="MVVM\Resources\Images\Captains\captaintalkingtwo.gif" />
     <None Remove="MVVM\Resources\Images\Captains\defeatcaptainone.gif" />
@@ -136,6 +138,12 @@
   <ItemGroup>
     <Content Include="battleshipsIcon.ico" />
     <Content Include="MVVM\Resources\BackgroundMusic\backingthree.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\ForegroundSounds\bomber.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MVVM\Resources\ForegroundSounds\radar.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="MVVM\Resources\Speech\computerhitshipaudioone.wav">
@@ -337,10 +345,6 @@
     <Resource Include="MVVM\Styles\DarkTheme.xaml" />
     <Resource Include="MVVM\Styles\Styles.xaml" />
     <Resource Include="MVVM\Styles\LightTheme.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MVVM\Resources\ForegroundSounds\" />
   </ItemGroup>
 
 </Project>

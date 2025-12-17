@@ -78,10 +78,13 @@ public class SoundService : ISoundService
         _backgroundMusicListSize = _backgroundMusicList.Count;
         _backgroundMusicIndex = RandomProvider.Instance.Next(_backgroundMusicListSize);
         _foregroundSounds = new() {
-            { GameEvent.GameStart, [] },
-            { GameEvent.PlayerTurn, [] },
-            { GameEvent.ComputerTurn, [] }
-        }; //add the sounds here when stored in resources
+            { GameEvent.ComputerTurn, [
+                new(@"pack://siteoforigin:,,,/MVVM/Resources/ForegroundSounds/radar.wav", UriKind.Absolute),
+                ] },
+            { GameEvent.BomberAnimationStart, [
+                new(@"pack://siteoforigin:,,,/MVVM/Resources/ForegroundSounds/bomber.wav", UriKind.Absolute),
+                ] }
+        };
     }
 
     /// <summary>

@@ -1276,6 +1276,7 @@ public class PlayGameViewModel : ViewModelBase
 
         _bomberIndex = newIndex;
         BomberImage = _bomberImageArray[_bomberIndex];
+        _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.BomberAnimationStart);
     }
 
     private void OnGameOver(bool playerWins)
