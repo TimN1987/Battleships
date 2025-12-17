@@ -45,6 +45,7 @@ public class PlayGameViewModel : ViewModelBase
     private const int MessageDisplayTime = 2000;
     private const int LoadingDelayTime = 300;
     private const int ComputerShotTime = 3000;
+    private const int OutcomeMessageDisplayTime = 3000;
 
     private const string LoadingText0 = "Loading...";
     private const string LoadingText1 = "Initializing grid...";
@@ -78,7 +79,6 @@ public class PlayGameViewModel : ViewModelBase
     private Uri _bomberImage;
     private Uri[] _bomberImageArray;
     private Uri _gameOverImage;
-    private Uri[] _gameOverImageArray;
     private int _bomberIndex;
     private Uri _explosionImage;
 
@@ -119,6 +119,7 @@ public class PlayGameViewModel : ViewModelBase
     private bool _bombardmentAllowed;
     private bool _bombardmentAvailable;
     private int _bombardmentHitCount;
+    private Visibility _specialShotTitleVisible;
 
     private bool _shipsCanTouch; //if true set adjacent cells on sinking
     private bool _hideSunkShips; //if true, don't set any cells on sinking
@@ -226,6 +227,12 @@ public class PlayGameViewModel : ViewModelBase
         set => SetProperty(ref _gameStatusMessage, value);
     }
 
+    public Visibility SpecialShotTitleVisible
+    {
+        get => _specialShotTitleVisible;
+        set => SetProperty(ref _specialShotTitleVisible, value);
+    }
+
     public bool AirstrikeAllowed
     {
         get => _airstrikeAllowed;
@@ -308,19 +315,8 @@ public class PlayGameViewModel : ViewModelBase
     #endregion //Properties
 
     #region Commands
-    public ICommand SelectGridCellCommand
-    {
-        get
-        {
-            _selectGridCellCommand ??= new RelayCommand(async param => await SelectCell());
-            return _selectGridCellCommand;
-        }
-    }
-    public ICommand MoveFocusCommand
-    {
-        get
-        {
-            _moveFocusCommand ??= new RelayCommand(param =>
+    public ICommand SelectGridCellCommand => _selectGridCellCommand ??= new RelayCommand(async param => await SelectCell());
+    public ICommand MoveFocusCommand => _moveFocusCommand ??= new RelayCommand(param =>
             {
                 if (param is KeyboardDirection direction)
                     MoveFocusCell(direction);
@@ -331,34 +327,16 @@ public class PlayGameViewModel : ViewModelBase
                     return CanMoveFocusCell(direction);
                 return false;
             });
-            return _moveFocusCommand;
-        }
-    }
-    public ICommand MouseEnterCommand
-    {
-        get
-        {
-            _mouseEnterCommand ??= new RelayCommand(param =>
+    public ICommand MouseEnterCommand => _mouseEnterCommand ??= new RelayCommand(param =>
             {
                 if (param is int gridPosition)
                     OnMouseEnterCell(gridPosition);
             });
-            return _mouseEnterCommand;
-        }
-    }
-    public ICommand MouseMoveCommand
-    {
-        get
-        {
-            _mouseMoveCommand ??= new RelayCommand(param =>
+    public ICommand MouseMoveCommand => _mouseMoveCommand ??= new RelayCommand(param =>
             {
                 if (param is int gridPosition)
                     OnMouseOverGridCell(gridPosition);
             });
-            return _mouseMoveCommand;
-        }
-    }
-
     public ICommand ReturnHomeCommand => _returnHomeCommand
         ??= new RelayCommand(param => _eventAggregator
             .GetEvent<NavigationEvent>()
@@ -410,9 +388,6 @@ public class PlayGameViewModel : ViewModelBase
             new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bombersix.png", UriKind.Absolute)
             ];
         _gameOverImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/neonmiss.png", UriKind.Absolute);
-        _gameOverImageArray = [
-            new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/neonmiss.png", UriKind.Absolute)
-            ];
         _explosionImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/explosion.png", UriKind.Absolute);
         _bomberVisible = Visibility.Collapsed;
         _gameOverVisible = Visibility.Collapsed;
@@ -519,6 +494,9 @@ public class PlayGameViewModel : ViewModelBase
         BombardmentAllowed = _gameSetUpInformation.BombardmentAllowed;
         _shipsCanTouch = _gameSetUpInformation.ShipsCanTouch;
         _hideSunkShips = _gameSetUpInformation.HideSunkShips;
+        SpecialShotTitleVisible = AirstrikeAllowed || BombardmentAllowed
+            ? Visibility.Visible
+            : Visibility.Collapsed;
 
         ComputerGrid = [];
         PlayerGrid = [];
@@ -609,6 +587,9 @@ public class PlayGameViewModel : ViewModelBase
         BombardmentHitCount = gameDTO.BombardmentHitCount;
         _hideSunkShips = gameDTO.HideSunkShips;
         _shipsCanTouch = gameDTO.ShipsCanTouch;
+        SpecialShotTitleVisible = AirstrikeAllowed || BombardmentAllowed
+            ? Visibility.Visible
+            : Visibility.Collapsed;
 
         LoadingValue = 2;
         await Task.Delay(LoadingDelayTime);
@@ -897,6 +878,172 @@ public class PlayGameViewModel : ViewModelBase
     }
     #endregion //Grid Navigation Methods
 
+    #region Shot Processing Methods
+
+    /// <summary>
+    /// Processes a turn using the <see cref="AttackStatusReport"/>. Ensures that the grids and any 
+    /// animations or messages are appropriately updated for both player and computer turns.
+    /// </summary>
+    internal async Task ProcessAttackStatusReport(AttackStatusReport attackStatusReport, bool computerOpeningMove = false)
+    {
+        int listLength = attackStatusReport.Reports.Count;
+
+        // Player turn
+
+        SetBomberImage();
+        await Task.Delay(AnimationRunTimeDelay);
+
+        // Update computer grid (first report is always player shot)
+        UpdateGrid(attackStatusReport, isPlayerTurn: true);
+        ResetSpecialShotIfUsed();
+        UpdateSpecialShots(attackStatusReport);
+        DisplayTurnOutcomeMessage(attackStatusReport, isPlayerTurn: true);
+        await Task.Delay(OutcomeMessageDisplayTime);
+
+        _setFocusedCellOnMouseMove = true;
+
+        // Do not attempt to handle computer moves if none exist.
+        if (listLength == 1)
+        {
+            if (attackStatusReport.IsGameOver)
+            {
+                PlayerCanClick = false;
+                OnGameOver(playerWins: true);
+            }
+            else
+            {
+                PlayerCanClick = true;
+                _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.PlayerTurn);
+            }
+            await Task.Delay(MessageDisplayTime);
+            return;
+        }
+
+        // Computer turn
+        _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.ComputerTurn);
+        await Task.Delay(ComputerShotTime);
+
+        UpdateGrid(attackStatusReport, isPlayerTurn: false);
+        DisplayTurnOutcomeMessage(attackStatusReport, isPlayerTurn: false);
+        await Task.Delay(OutcomeMessageDisplayTime);
+
+        if (attackStatusReport.IsGameOver)
+        {
+            PlayerCanClick = false;
+            OnGameOver(playerWins: false);
+        }
+        else
+        {
+            PlayerCanClick = true;
+            _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.PlayerTurn);
+        }
+    }
+
+    private void UpdateGrid(AttackStatusReport attackStatusReport, bool isPlayerTurn)
+    {
+        int listLength = attackStatusReport.Reports.Count;
+        List<int> sunkPositions = [];
+
+        if (isPlayerTurn)
+        {
+            UpdateCellState(attackStatusReport.Reports[0].PositionsHit.ToList(), GridCellState.Hit);
+            UpdateCellState(attackStatusReport.Reports[0].PositionsMissed.ToList(), GridCellState.Miss);
+
+            sunkPositions = _hideSunkShips
+            ? []
+            : attackStatusReport.Reports[0].ShipsSunk
+                .SelectMany(t =>
+                {
+                    (int position, bool isHorizontal, ShipType shipType) = t;
+                    return GetAllShipCells(position, isHorizontal, shipType);
+                })
+                .ToList();
+            UpdateCellState(sunkPositions, GridCellState.Sunk);
+
+            if (!_shipsCanTouch && !_hideSunkShips)
+                MarkSunkAdjacentCellsAsMissed(sunkPositions);
+        }
+        else
+        {
+            for (int i = 1; i < listLength; i++)
+            {
+                UpdateCellState(attackStatusReport.Reports[i].PositionsHit.ToList(), GridCellState.Hit, true);
+                UpdateCellState(attackStatusReport.Reports[i].PositionsMissed.ToList(), GridCellState.Miss, true);
+
+                // Set the sunk ships positions to 'sunk' if they should not be hidden. If hidden, keep them as 'hit'.
+                sunkPositions = _hideSunkShips
+                    ? []
+                    : attackStatusReport.Reports[i].ShipsSunk
+                        .SelectMany(((int position, bool direction, ShipType shipType) t) => GetAllShipCells(t.position, t.direction, t.shipType))
+                        .ToList();
+
+                UpdateCellState(sunkPositions, GridCellState.Sunk, true);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Updates the special shot counter with any player hits from the given <see cref="AttackStatusReport"/>.
+    /// </summary>
+    private void UpdateSpecialShots(AttackStatusReport attackStatusReport)
+    {
+        int totalHits = attackStatusReport.Reports[0].PositionsHit.Count;
+        if (_airstrikeAllowed)
+            AirstrikeHitCount += totalHits;
+        if (_bombardmentAllowed)
+            BombardmentHitCount += totalHits;
+    }
+
+    /// <summary>
+    /// Resets the special shot counter if a special shot was used. Ensures that multiple special 
+    /// shots cannot be used in a row.
+    /// </summary>
+    private void ResetSpecialShotIfUsed()
+    {
+        if (SelectedShotType == ShotType.AirstrikeUpRight || SelectedShotType == ShotType.AirstrikeDownRight)
+        {
+            AirstrikeHitCount = 0;
+            OnPropertyChanged(nameof(AirstrikeAvailable));
+            SelectedShotType = ShotType.Single; // Reset shot type as button will be disabled.
+        }
+        if (SelectedShotType == ShotType.Bombardment)
+        {
+            BombardmentHitCount = 0;
+            OnPropertyChanged(nameof(BombardmentAvailable));
+            SelectedShotType = ShotType.Single; // Reset shot type as button will be disabled.
+        }
+    }
+
+    /// <summary>
+    /// Published a <see cref="GameEventEvent"/> to display the appropriate message for the outcome 
+    /// of the previous shot(s). Results in updates captain image, speech and messages.
+    /// </summary>
+    private void DisplayTurnOutcomeMessage(AttackStatusReport attackStatusReport, bool isPlayerTurn)
+    {
+        if (isPlayerTurn)
+        {
+            // Only first report is relevant for player turn.
+            if (attackStatusReport.Reports[0].ShipsSunk.Count > 0)
+                _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.PlayerSunkShip);
+            else if (attackStatusReport.Reports[0].PositionsHit.Count > 0)
+                _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.PlayerHitShip);
+            else
+                _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.PlayerMissed);
+        }
+        else
+        {
+            // Skip first report as that is the player shot.
+            if (attackStatusReport.Reports.Skip(1).Any(report => report.ShipsSunk.Count > 0))
+                _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.ComputerSunkShip);
+            else if (attackStatusReport.Reports.Skip(1).Any(report => report.PositionsHit.Count > 0))
+                _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.ComputerHitShip);
+            else
+                _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.ComputerMissed);
+        }
+    }
+
+    #endregion // Shot Processing Methods
+
     #region Shot Selection Methods
     private async Task OnGridCellClick(int gridPosition)
     {
@@ -929,102 +1076,6 @@ public class PlayGameViewModel : ViewModelBase
         if (!CanExecuteGridCellClick(index))
             return;
         await OnGridCellClick(index);
-    }
-
-    internal async Task ProcessAttackStatusReport(AttackStatusReport attackStatusReport, bool computerOpeningMove = false)
-    {
-        int listLength = attackStatusReport.Reports.Count;
-
-        SetBomberImage();
-        await Task.Delay(AnimationRunTimeDelay);
-
-        if (SelectedShotType == ShotType.AirstrikeUpRight || SelectedShotType == ShotType.AirstrikeDownRight)
-        {
-            AirstrikeHitCount = 0;
-            OnPropertyChanged(nameof(AirstrikeAvailable));
-            SelectedShotType = ShotType.Single; // Reset shot type as button will be disabled.
-        }
-        if (SelectedShotType == ShotType.Bombardment)
-        {
-            BombardmentHitCount = 0;
-            OnPropertyChanged(nameof(BombardmentAvailable));
-            SelectedShotType = ShotType.Single; // Reset shot type as button will be disabled.
-        }
-
-        // Update computer grid (first report is always player shot)
-        UpdateCellState(attackStatusReport.Reports[0].PositionsHit.ToList(), GridCellState.Hit);
-        UpdateCellState(attackStatusReport.Reports[0].PositionsMissed.ToList(), GridCellState.Miss);
-
-        List<int> sunkPositions = _hideSunkShips
-            ? []
-            : attackStatusReport.Reports[0].ShipsSunk
-                .SelectMany(t =>
-                {
-                    (int position, bool isHorizontal, ShipType shipType) = t;
-                    return GetAllShipCells(position, isHorizontal, shipType);
-                })
-                .ToList();
-        UpdateCellState(sunkPositions, GridCellState.Sunk);
-
-        if (!_shipsCanTouch && !_hideSunkShips)
-            MarkSunkAdjacentCellsAsMissed(sunkPositions);
-
-
-        _setFocusedCellOnMouseMove = true;
-
-        // Add the player hits to the appropriate special attack hit count if active
-        int totalHits = attackStatusReport.Reports[0].PositionsHit.Count;
-        if (_airstrikeAllowed)
-            AirstrikeHitCount += totalHits;
-        if (_bombardmentAllowed)
-            BombardmentHitCount += totalHits;
-
-        // Do not attempt to handle computer moves if none exist.
-        if (listLength == 1)
-        {
-            if (attackStatusReport.IsGameOver)
-            {
-                PlayerCanClick = false;
-                OnGameOver(playerWins: true);
-            }
-            else
-            {
-                PlayerCanClick = true;
-                _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.PlayerTurn);
-            }
-
-            return;
-        }
-
-        _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.ComputerTurn);
-        await Task.Delay(ComputerShotTime);
-
-        // Update player grid (subsequent reports are always computer shots)
-        for (int i = 1; i < listLength; i++)
-        {
-            UpdateCellState(attackStatusReport.Reports[i].PositionsHit.ToList(), GridCellState.Hit, true);
-            UpdateCellState(attackStatusReport.Reports[i].PositionsMissed.ToList(), GridCellState.Miss, true);
-
-            // Set the sunk ships positions to 'sunk' if they should not be hidden. If hidden, keep them as 'hit'.
-            sunkPositions = _hideSunkShips
-                ? []
-                : attackStatusReport.Reports[i].ShipsSunk
-                    .SelectMany(((int position, bool direction, ShipType shipType) t) => GetAllShipCells(t.position, t.direction, t.shipType))
-                    .ToList();
-
-            UpdateCellState(sunkPositions, GridCellState.Sunk, true);
-        }
-
-        if (attackStatusReport.IsGameOver)
-        {
-            PlayerCanClick = false;
-            OnGameOver(playerWins: false);
-        }
-        else
-        {
-            PlayerCanClick = true;
-            _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.PlayerTurn);
-        }
     }
 
     private void UpdateCellState(List<int> indexes, GridCellState state, bool playerGrid = false)
