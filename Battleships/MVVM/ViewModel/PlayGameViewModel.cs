@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using Battleships.MVVM.Enums;
 using Battleships.MVVM.Factories;
 using Battleships.MVVM.Model;
@@ -74,8 +76,8 @@ public class PlayGameViewModel : ViewModelBase
     #endregion //Theme Resources
 
     #region Image Fields
-    private Uri _captainImage;
-    private Uri? _captainGif;
+    private ImageSource _captainImage;
+    private ImageSource _captainGif;
     private Uri _bomberImage;
     private readonly Uri[] _bomberImageArray;
     private Uri _gameOverImage;
@@ -144,12 +146,7 @@ public class PlayGameViewModel : ViewModelBase
     #endregion //Fields
 
     #region Properties
-    public Uri CaptainImage
-    {
-        get => _captainImage;
-        set => SetProperty(ref _captainImage, value);
-    }
-    public Uri? CaptainGif
+    public ImageSource CaptainGif
     {
         get => _captainGif;
         set => SetProperty(ref _captainGif, value);
@@ -372,11 +369,13 @@ public class PlayGameViewModel : ViewModelBase
         _eventAggregator.GetEvent<UserMessageEvent>().Subscribe(param => GameStatusMessage = param);
         _eventAggregator.GetEvent<LoadCaptainEvent>().Subscribe(param => CaptainGif = param);
 
-        // Ensure player cannot click until game full initialized
-        PlayerCanClick = false;
+
+        PlayerCanClick = false; // Ensure player cannot click until game full initialized.
 
         _gameStatusMessage = string.Empty;
-        _captainImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/captain.png", UriKind.Absolute);
+        _captainImage = new BitmapImage(
+            new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/captain.png", UriKind.Absolute));
+        _captainGif = _captainImage;
         _bomberImage = new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bomberone.png", UriKind.Absolute);
         _bomberImageArray = [
             new(@"pack://application:,,,/MVVM/Resources/Images/PlayGameView/bomberone.png", UriKind.Absolute),
@@ -513,7 +512,7 @@ public class PlayGameViewModel : ViewModelBase
         BombardmentHitCount = 0;
 
         // Ensure default image settings
-        CaptainImage = _captainImage;
+        CaptainGif = _captainImage;
 
         LoadingValue = 2;
         await Task.Delay(LoadingDelayTime);
@@ -919,6 +918,7 @@ public class PlayGameViewModel : ViewModelBase
         UpdateSpecialShots(attackStatusReport);
         DisplayTurnOutcomeMessage(attackStatusReport, isPlayerTurn: true);
         await Task.Delay(OutcomeMessageDisplayTime);
+        CaptainGif = _captainImage;
 
         _setFocusedCellOnMouseMove = true;
 
@@ -936,16 +936,19 @@ public class PlayGameViewModel : ViewModelBase
                 _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.PlayerTurn);
             }
             await Task.Delay(MessageDisplayTime);
+            CaptainGif = _captainImage;
             return;
         }
 
         // Computer turn
         _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.ComputerTurn);
         await Task.Delay(ComputerShotTime);
+        CaptainGif = _captainImage;
 
         UpdateGrid(attackStatusReport, isPlayerTurn: false);
         DisplayTurnOutcomeMessage(attackStatusReport, isPlayerTurn: false);
         await Task.Delay(OutcomeMessageDisplayTime);
+        CaptainGif = _captainImage;
 
         if (attackStatusReport.IsGameOver)
         {
@@ -954,8 +957,10 @@ public class PlayGameViewModel : ViewModelBase
         }
         else
         {
-            PlayerCanClick = true;
             _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.PlayerTurn);
+            await Task.Delay(MessageDisplayTime);
+            CaptainGif = _captainImage;
+            PlayerCanClick = true;
         }
     }
 
@@ -1233,7 +1238,7 @@ public class PlayGameViewModel : ViewModelBase
     }
     #endregion //Shot Selection Methods
 
-    #region Message and Animation Methods
+    #region Display Methods
 
     private void SetBomberImage()
     {
@@ -1255,7 +1260,6 @@ public class PlayGameViewModel : ViewModelBase
         BomberImage = _bomberImageArray[_bomberIndex];
     }
 
-
     private void OnGameOver(bool playerWins)
     {
         GameOverText = GameOverProvider.GetGameOverMessage(playerWins);
@@ -1264,9 +1268,6 @@ public class PlayGameViewModel : ViewModelBase
         Reset();
     }
 
-    #endregion //Message and Animation Methods
-
-    #region Display Methods
     private void UpdateCellHighlighting(bool isHighlighted)
     {
         var shotDeltas = _shotTypeDeltas[SelectedShotType];

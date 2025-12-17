@@ -1,4 +1,5 @@
-﻿using Battleships.MVVM.Enums;
+﻿using System.Windows.Media.Imaging;
+using Battleships.MVVM.Enums;
 using Battleships.MVVM.Model;
 using Battleships.MVVM.Model.DataTransferObjects;
 using Battleships.MVVM.Structs;
@@ -153,7 +154,7 @@ public class LoadSpeechEvent : PubSubEvent<Uri>
 /// Publishes the Uri for the captain image to be displayed in the <see cref="PlayGameView"/> based on the 
 /// latest <see cref="GameEvent"/>.
 /// </summary>
-public class LoadCaptainEvent : PubSubEvent<Uri>
+public class LoadCaptainEvent : PubSubEvent<BitmapImage>
 {
 }
 

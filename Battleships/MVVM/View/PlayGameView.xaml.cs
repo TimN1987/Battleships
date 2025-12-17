@@ -53,16 +53,4 @@ public partial class PlayGameView : UserControl
     {
         FocusGrid();
     }
-
-    private void CaptainGif_Loaded(object sender, RoutedEventArgs e)
-    {
-        CaptainGif.Visibility = Visibility.Visible;
-        CaptainImage.Visibility = Visibility.Collapsed;
-    }
-
-    private void CaptainGif_AnimationCompleted(object sender, RoutedEventArgs e)
-    {
-        CaptainGif.Visibility = Visibility.Collapsed;
-        CaptainImage.Visibility = Visibility.Visible;
-    }
 }

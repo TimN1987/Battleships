@@ -295,6 +295,7 @@
                             Orientation="Vertical">
                     <TextBlock Text="Special shots"
                                Style="{DynamicResource SubtitleText}"
+                               Visibility="{Binding SpecialShotTitleVisible}"
                                Margin="0"/>
                     <controls:SpecialShotBar SpecialShotName="Airstrike"
                                              HitCount="{Binding AirstrikeHitCount}"
@@ -336,21 +337,13 @@
                 <StackPanel Grid.Row="5"
                             Grid.Column="1"
                             Orientation="Horizontal">
-                    <Image x:Name="CaptainImage"
-                           Source="{Binding CaptainImage}"
-                           Width="100"
-                           Height="200"
-                           Visibility="Visible"/>
                     <Image x:Name="CaptainGif"
                            gif:ImageBehavior.AnimatedSource="{Binding CaptainGif, UpdateSourceTrigger=PropertyChanged}"
                            gif:ImageBehavior.AutoStart="True"
                            gif:ImageBehavior.RepeatBehavior="1x"
                            gif:ImageBehavior.AnimationSpeedRatio="1.0"
                            Width="100"
-                           Height="200"
-                           Visibility="Collapsed"
-                           Loaded="CaptainGif_Loaded"
-                           gif:ImageBehavior.AnimationCompleted="CaptainGif_AnimationCompleted"/>
+                           Height="200"/>
                     <Canvas Grid.Row="5"
                             Grid.Column="1"
                             Width="350"

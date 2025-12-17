@@ -1,4 +1,5 @@
-﻿using Battleships.MVVM.Enums;
+﻿using System.Windows.Media.Imaging;
+using Battleships.MVVM.Enums;
 using Battleships.MVVM.Utilities;
 
 namespace Battleships.MVVM.Services;
@@ -14,7 +15,7 @@ public class CaptainService : ICaptainService
     private readonly Uri _talkingCaptainOne = new(@"pack://application:,,,/MVVM/Resources/Images/Captains/captaintalkingone.gif", UriKind.Absolute);
     private readonly Uri _talkingCaptainTwo = new(@"pack://application:,,,/MVVM/Resources/Images/Captains/captaintalkingtwo.gif", UriKind.Absolute);
     private readonly Uri _victoryCaptainOne = new(@"pack://application:,,,/MVVM/Resources/Images/Captains/victorycaptainone.gif", UriKind.Absolute);
-    private readonly Uri _victoryCaptainTwo = new(@"pack://application:,,,/MVVM/Resources/Images/Captains/victorycaptainTwo.gif", UriKind.Absolute);
+    private readonly Uri _victoryCaptainTwo = new(@"pack://application:,,,/MVVM/Resources/Images/Captains/victorycaptaintwo.gif", UriKind.Absolute);
     private readonly Uri _defeatCaptainOne = new(@"pack://application:,,,/MVVM/Resources/Images/Captains/defeatcaptainone.gif", UriKind.Absolute);
     private readonly Uri _defeatCaptainTwo = new(@"pack://application:,,,/MVVM/Resources/Images/Captains/defeatcaptaintwo.gif", UriKind.Absolute);
 
@@ -101,6 +102,18 @@ public class CaptainService : ICaptainService
 
         _eventAggregator
             .GetEvent<LoadCaptainEvent>()
-            .Publish(images[index]);
+            .Publish(CreateAnimatedImage(images[index]));
+    }
+
+    private static BitmapImage CreateAnimatedImage(Uri uri)
+    {
+        var bitmap = new BitmapImage();
+        bitmap.BeginInit();
+        bitmap.UriSource = uri;
+        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+        bitmap.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+        bitmap.EndInit();
+        bitmap.Freeze();
+        return bitmap;
     }
 }
