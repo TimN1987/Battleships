@@ -77,7 +77,7 @@ public class PlayGameViewModel : ViewModelBase
     private Uri _captainImage;
     private Uri? _captainGif;
     private Uri _bomberImage;
-    private Uri[] _bomberImageArray;
+    private readonly Uri[] _bomberImageArray;
     private Uri _gameOverImage;
     private int _bomberIndex;
     private Uri _explosionImage;
@@ -87,7 +87,7 @@ public class PlayGameViewModel : ViewModelBase
     private Visibility _loadingScreenVisible;
     private int _loadingValue;
     private string _loadingText;
-    private string[] _loadingTextArray;
+    private readonly string[] _loadingTextArray;
     private string _gameOverText;
 
     private readonly Uri _airstrikeUpRightImage;

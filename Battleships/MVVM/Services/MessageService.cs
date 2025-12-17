@@ -104,31 +104,31 @@ public class MessageService : IMessageService
     private readonly Uri _computerMissedAudioThree = new(@"pack://siteoforigin:,,,/MVVM/Resources/Speech/computerturnaudioone.wav", UriKind.Absolute);
 
     // Message Arrays
-    private string[] _gameStartMessages;
-    private string[] _gameLoadedMessages;
-    private string[] _playerTurnMessages;
-    private string[] _computerTurnMessages;
-    private string[] _playerSunkShipMessages;
-    private string[] _computerSunkShipMessages;
-    private string[] _playerHitShipMessages;
-    private string[] _computerHitShipMessages;
-    private string[] _playerMissedMessages;
-    private string[] _computerMissedMessages;
+    private readonly string[] _gameStartMessages;
+    private readonly string[] _gameLoadedMessages;
+    private readonly string[] _playerTurnMessages;
+    private readonly string[] _computerTurnMessages;
+    private readonly string[] _playerSunkShipMessages;
+    private readonly string[] _computerSunkShipMessages;
+    private readonly string[] _playerHitShipMessages;
+    private readonly string[] _computerHitShipMessages;
+    private readonly string[] _playerMissedMessages;
+    private readonly string[] _computerMissedMessages;
 
     // Audio Arrays
-    private Uri[] _gameStartAudio;
-    private Uri[] _gameLoadedAudio;
-    private Uri[] _playerTurnAudio;
-    private Uri[] _computerTurnAudio;
-    private Uri[] _playerSunkShipAudio;
-    private Uri[] _computerSunkShipAudio;
-    private Uri[] _playerHitShipAudio;
-    private Uri[] _computerHitShipAudio;
-    private Uri[] _playerMissedAudio;
-    private Uri[] _computerMissedAudio;
+    private readonly Uri[] _gameStartAudio;
+    private readonly Uri[] _gameLoadedAudio;
+    private readonly Uri[] _playerTurnAudio;
+    private readonly Uri[] _computerTurnAudio;
+    private readonly Uri[] _playerSunkShipAudio;
+    private readonly Uri[] _computerSunkShipAudio;
+    private readonly Uri[] _playerHitShipAudio;
+    private readonly Uri[] _computerHitShipAudio;
+    private readonly Uri[] _playerMissedAudio;
+    private readonly Uri[] _computerMissedAudio;
 
     // Fields
-    private IEventAggregator _eventAggregator;
+    private readonly IEventAggregator _eventAggregator;
 
     public MessageService(IEventAggregator eventAggregator)
     {
