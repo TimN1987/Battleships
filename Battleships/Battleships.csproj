@@ -25,6 +25,7 @@
     <None Remove="MVVM\Resources\Images\GameOver\computerwinsgif1.gif" />
     <None Remove="MVVM\Resources\Images\GameOver\computerwinsgif2.gif" />
     <None Remove="MVVM\Resources\Images\GameOver\computerwinsgif3.gif" />
+    <None Remove="MVVM\Resources\Images\GameOver\computerwinsgif4.gif" />
     <None Remove="MVVM\Resources\Images\GameOver\playerwinsgif1.gif" />
     <None Remove="MVVM\Resources\Images\GameOver\playerwinsgif2.gif" />
     <None Remove="MVVM\Resources\Images\GameOver\playerwinsgif3.gif" />
@@ -159,6 +160,7 @@
     <Resource Include="MVVM\Resources\Images\GameOver\computerwinsgif1.gif" />
     <Resource Include="MVVM\Resources\Images\GameOver\computerwinsgif2.gif" />
     <Resource Include="MVVM\Resources\Images\GameOver\computerwinsgif3.gif" />
+    <Resource Include="MVVM\Resources\Images\GameOver\computerwinsgif4.gif" />
     <Resource Include="MVVM\Resources\Images\GameOver\playerwinsgif1.gif" />
     <Resource Include="MVVM\Resources\Images\GameOver\playerwinsgif2.gif" />
     <Resource Include="MVVM\Resources\Images\GameOver\playerwinsgif3.gif" />
