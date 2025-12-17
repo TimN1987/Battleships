@@ -42,7 +42,7 @@ public class PlayGameViewModel : ViewModelBase
     private const int BombardmentBottomLimit = 8;
 
     private const int AnimationRunTimeDelay = 2000;
-    private const int MessageDisplayTime = 2000;
+    private const int MessageDisplayTime = 3000;
     private const int LoadingDelayTime = 300;
     private const int ComputerShotTime = 3000;
     private const int OutcomeMessageDisplayTime = 3000;
