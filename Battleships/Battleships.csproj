@@ -14,6 +14,11 @@
     <None Remove="MVVM\Resources\BackgroundMusic\backingthree.wav" />
     <None Remove="MVVM\Resources\BackgroundMusic\backingtwo.wav" />
     <None Remove="MVVM\Resources\Images\Captains\captaintalkingone.gif" />
+    <None Remove="MVVM\Resources\Images\Captains\captaintalkingtwo.gif" />
+    <None Remove="MVVM\Resources\Images\Captains\defeatcaptainone.gif" />
+    <None Remove="MVVM\Resources\Images\Captains\defeatcaptaintwo.gif" />
+    <None Remove="MVVM\Resources\Images\Captains\victorycaptainone.gif" />
+    <None Remove="MVVM\Resources\Images\Captains\victorycaptaintwo.gif" />
     <None Remove="MVVM\Resources\Images\ClassicRulesView\classicruleshelp.jpg" />
     <None Remove="MVVM\Resources\Images\ClassicRulesView\generalruleshelp.jpg" />
     <None Remove="MVVM\Resources\Images\ClassicRulesView\salvoruleshelp.jpg" />
@@ -145,7 +150,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="MVVM\Resources\Images\Captains\captaintalkingone.gif" />
+    <Resource Include="MVVM\Resources\Images\Captains\captaintalkingtwo.gif" />
+    <Resource Include="MVVM\Resources\Images\Captains\defeatcaptainone.gif" />
+    <Resource Include="MVVM\Resources\Images\Captains\defeatcaptaintwo.gif" />
     <Resource Include="MVVM\Resources\Images\Captains\staticcaptainone.png" />
+    <Resource Include="MVVM\Resources\Images\Captains\victorycaptainone.gif" />
+    <Resource Include="MVVM\Resources\Images\Captains\victorycaptaintwo.gif" />
     <Resource Include="MVVM\Resources\Images\GameOver\computerwinsgif1.gif" />
     <Resource Include="MVVM\Resources\Images\GameOver\computerwinsgif2.gif" />
     <Resource Include="MVVM\Resources\Images\GameOver\computerwinsgif3.gif" />

@@ -11,9 +11,12 @@ public interface ICaptainService
 public class CaptainService : ICaptainService
 {
     // Images
-    private readonly Uri _staticCaptainOne = new(@"pack://application:,,,/MVVM/Resources/Images/Captains/staticcaptainone.png", UriKind.Absolute);
-
     private readonly Uri _talkingCaptainOne = new(@"pack://application:,,,/MVVM/Resources/Images/Captains/captaintalkingone.gif", UriKind.Absolute);
+    private readonly Uri _talkingCaptainTwo = new(@"pack://application:,,,/MVVM/Resources/Images/Captains/captaintalkingtwo.gif", UriKind.Absolute);
+    private readonly Uri _victoryCaptainOne = new(@"pack://application:,,,/MVVM/Resources/Images/Captains/victorycaptainone.gif", UriKind.Absolute);
+    private readonly Uri _victoryCaptainTwo = new(@"pack://application:,,,/MVVM/Resources/Images/Captains/victorycaptainTwo.gif", UriKind.Absolute);
+    private readonly Uri _defeatCaptainOne = new(@"pack://application:,,,/MVVM/Resources/Images/Captains/defeatcaptainone.gif", UriKind.Absolute);
+    private readonly Uri _defeatCaptainTwo = new(@"pack://application:,,,/MVVM/Resources/Images/Captains/defeatcaptaintwo.gif", UriKind.Absolute);
 
     // Fields
     private IEventAggregator _eventAggregator;
@@ -40,14 +43,39 @@ public class CaptainService : ICaptainService
             });
 
         _talkingImages = [
-            _talkingCaptainOne
+            _talkingCaptainOne,
+            _talkingCaptainTwo
             ];
-        _playerSunkImages = [];
-        _computerSunkImages = [];
-        _playerHitImages = [];
-        _computerHitImages = [];
-        _playerMissImages = [];
-        _computerMissImages = [];
+        _playerSunkImages = [
+            _victoryCaptainOne,
+            _victoryCaptainTwo
+            ];
+        _computerSunkImages = [
+            _defeatCaptainOne,
+            _defeatCaptainTwo
+            ];
+        _playerHitImages = [
+            _talkingCaptainOne,
+            _talkingCaptainTwo,
+            _victoryCaptainOne,
+            _victoryCaptainTwo
+            ];
+        _computerHitImages = [
+            _talkingCaptainOne,
+            _talkingCaptainTwo,
+            _defeatCaptainOne,
+            _defeatCaptainTwo
+            ];
+        _playerMissImages = [
+            _talkingCaptainOne,
+            _talkingCaptainTwo
+            ];
+        _computerMissImages = [
+            _victoryCaptainOne,
+            _victoryCaptainTwo,
+            _talkingCaptainOne,
+            _talkingCaptainTwo,
+            ];
 
         _captainImages = new()
         {
