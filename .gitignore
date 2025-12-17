@@ -361,3 +361,33 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# =========================
+# Python
+# =========================
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Python tooling
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+
+# =========================
+# ML artifacts
+# =========================
+
+# Trained models / serialized objects
+*.pkl
+*.joblib
+
+# Training data
+data/
+training_data/

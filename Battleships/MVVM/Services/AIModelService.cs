@@ -3,48 +3,47 @@ using Battleships.MVVM.Enums;
 using Battleships.MVVM.Model.DataTransferObjects;
 using Newtonsoft.Json;
 
-namespace Battleships.MVVM.Services
+namespace Battleships.MVVM.Services;
+
+public interface IAIModelService
 {
-    public interface IAIModelService
+    int SelectNextSHot(GameStateDTO gameStateDTO, out ShotType shotType);
+}
+
+public class AIModelService : IAIModelService
+{
+    private readonly HttpClient _httpClient = new HttpClient();
+
+    public int SelectNextSHot(GameStateDTO gameStateDTO, out ShotType shotType)
     {
-        int SelectNextSHot(GameStateDTO gameStateDTO, out ShotType shotType);
+        shotType = ShotType.Single;
+        return 0;
     }
 
-    public class AIModelService : IAIModelService
+    internal int RequestShotInformation(in GameStateDTO gameStateDTO, out ShotType shotType)
     {
-        private readonly HttpClient _httpClient = new HttpClient();
+        shotType = ShotType.Single;
 
-        public int SelectNextSHot(GameStateDTO gameStateDTO, out ShotType shotType)
+        var featureDataJson = JsonConvert.SerializeObject(gameStateDTO, Formatting.None);
+        var httpContent = new StringContent(featureDataJson, System.Text.Encoding.UTF8, "application/json");
+
+        var response = _httpClient.PostAsync("/get_move", httpContent).Result;
+        if (!response.IsSuccessStatusCode)
         {
-            shotType = ShotType.Single;
-            return 0;
+            Console.WriteLine("AI server error: " + response.StatusCode);
+            return -1;
         }
 
-        internal int RequestShotInformation(in GameStateDTO gameStateDTO, out ShotType shotType)
-        {
-            shotType = ShotType.Single;
+        var responseJson = response.Content.ReadAsStringAsync().Result;
+        var moveResult = JsonConvert.DeserializeObject<MoveResponseDTO>(responseJson);
 
-            var featureDataJson = JsonConvert.SerializeObject(gameStateDTO, Formatting.None);
-            var httpContent = new StringContent(featureDataJson, System.Text.Encoding.UTF8, "application/json");
+        if (moveResult is null)
+            return -1;
 
-            var response = _httpClient.PostAsync("/get_move", httpContent).Result;
-            if (!response.IsSuccessStatusCode)
-            {
-                Console.WriteLine("AI server error: " + response.StatusCode);
-                return -1;
-            }
+        shotType = Enum.IsDefined(typeof(ShotType), moveResult.ShotType)
+            ? (ShotType)moveResult.ShotType
+            : ShotType.Single;
 
-            var responseJson = response.Content.ReadAsStringAsync().Result;
-            var moveResult = JsonConvert.DeserializeObject<MoveResponseDTO>(responseJson);
-
-            if (moveResult is null)
-                return -1;
-
-            shotType = Enum.IsDefined(typeof(ShotType), moveResult.ShotType)
-                ? (ShotType)moveResult.ShotType
-                : ShotType.Single;
-
-            return moveResult.Position;
-        }
+        return moveResult.Position;
     }
 }
