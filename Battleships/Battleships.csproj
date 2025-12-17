@@ -75,6 +75,7 @@
     <None Remove="MVVM\Resources\Images\PlayGameView\explosionneon.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\neonmiss.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\neutralmiss.png" />
+    <None Remove="MVVM\Resources\Images\PlayGameView\radar.gif" />
     <None Remove="MVVM\Resources\Images\PlayGameView\skull.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\skullneon.png" />
     <None Remove="MVVM\Resources\Images\PlayGameView\skullwhite.png" />
@@ -267,6 +268,7 @@
     <Resource Include="MVVM\Resources\battleshipsIcon.ico" />
     <Resource Include="MVVM\Resources\Images\ClassicRulesView\classicruleshelp.jpg" />
     <Resource Include="MVVM\Resources\Images\GeneralRulesView\generalruleshelp.jpg" />
+    <Resource Include="MVVM\Resources\Images\PlayGameView\radar.gif" />
     <Resource Include="MVVM\Resources\Images\PlayGameView\skull.png" />
     <Resource Include="MVVM\Resources\Images\PlayGameView\skullneon.png" />
     <Resource Include="MVVM\Resources\Images\PlayGameView\skullwhite.png" />

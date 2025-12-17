@@ -87,6 +87,7 @@ public class PlayGameViewModel : ViewModelBase
     private Visibility _bomberVisible;
     private Visibility _gameOverVisible;
     private Visibility _loadingScreenVisible;
+    private Visibility _radarVisibility;
     private int _loadingValue;
     private string _loadingText;
     private readonly string[] _loadingTextArray;
@@ -180,6 +181,11 @@ public class PlayGameViewModel : ViewModelBase
     {
         get => _loadingScreenVisible;
         set => SetProperty(ref _loadingScreenVisible, value);
+    }
+    public Visibility RadarVisibility
+    {
+        get => _radarVisibility;
+        set => SetProperty(ref _radarVisibility, value);
     }
     public int LoadingValue
     {
@@ -390,6 +396,7 @@ public class PlayGameViewModel : ViewModelBase
         _bomberVisible = Visibility.Collapsed;
         _gameOverVisible = Visibility.Collapsed;
         _loadingScreenVisible = Visibility.Visible;
+        _radarVisibility = Visibility.Collapsed;
         _loadingValue = 0;
         _loadingText = LoadingText0;
         _loadingTextArray = [
@@ -889,12 +896,14 @@ public class PlayGameViewModel : ViewModelBase
         AttackStatusReport attackStatusReport = e;
 
         _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.ComputerTurn);
+        RadarVisibility = Visibility.Visible;
         await Task.Delay(ComputerShotTime);
         CaptainGif = _captainImage;
         await Task.Delay(GameRhythmDelay);
 
         UpdateGrid(attackStatusReport, isPlayerTurn: false, isComputerOpeningTurn: true);
         DisplayTurnOutcomeMessage(attackStatusReport, isPlayerTurn: false);
+        RadarVisibility = Visibility.Collapsed;
         await Task.Delay(MessageDisplayTime);
         CaptainGif = _captainImage;
         await Task.Delay(GameRhythmDelay);
@@ -947,12 +956,14 @@ public class PlayGameViewModel : ViewModelBase
 
         // Computer turn
         _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.ComputerTurn);
+        RadarVisibility = Visibility.Visible;
         await Task.Delay(ComputerShotTime);
         CaptainGif = _captainImage;
         await Task.Delay(GameRhythmDelay);
 
         UpdateGrid(attackStatusReport, isPlayerTurn: false);
         DisplayTurnOutcomeMessage(attackStatusReport, isPlayerTurn: false);
+        RadarVisibility = Visibility.Collapsed;
         await Task.Delay(MessageDisplayTime);
         CaptainGif = _captainImage;
         await Task.Delay(GameRhythmDelay);

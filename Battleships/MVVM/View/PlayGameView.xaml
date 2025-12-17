@@ -157,8 +157,7 @@
                              Height="50"/>
             </Grid>
         </Viewbox>
-        
-        
+             
         <!-- Game Over animation canvas -->
         <Viewbox Panel.ZIndex="2">
             <StackPanel Width="800" Height="450"
@@ -236,7 +235,7 @@
                        Focusable="False"/>
             </Canvas>
         </Viewbox>
-        
+
         <!-- Main game grid -->
         <Viewbox Stretch="Uniform"
                  Panel.ZIndex="0">
@@ -363,6 +362,16 @@
                                    Foreground="Black"/>
                     </Canvas>
                 </StackPanel>
+                <Image Panel.ZIndex="1"
+                       Stretch="Fill"
+                       IsHitTestVisible="False"
+                       Focusable="False"
+                       Grid.Row="5"
+                       Grid.Column="3"
+                       gif:ImageBehavior.AnimatedSource="/MVVM/Resources/Images/PlayGameView/radar.gif"
+                       gif:ImageBehavior.AutoStart="True"
+                       gif:ImageBehavior.RepeatBehavior="Forever"
+                       Visibility="{Binding RadarVisibility}"/>
                 <ItemsControl Grid.Row="5"
                               Grid.Column="3"
                               ItemsSource="{Binding PlayerGrid}">
