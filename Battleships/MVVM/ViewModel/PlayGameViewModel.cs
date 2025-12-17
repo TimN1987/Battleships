@@ -888,7 +888,6 @@ public class PlayGameViewModel : ViewModelBase
         await Task.Delay(MessageDisplayTime);
 
         AttackStatusReport attackStatusReport = e;
-        int listLength = attackStatusReport.Reports.Count;
 
         _eventAggregator.GetEvent<GameEventEvent>().Publish(GameEvent.ComputerTurn);
         await Task.Delay(ComputerShotTime);
