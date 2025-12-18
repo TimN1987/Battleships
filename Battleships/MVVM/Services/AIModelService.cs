@@ -10,10 +10,9 @@ public interface IAIModelService
     int SelectNextShot(GameStateDTO gameStateDTO, out ShotType shotType);
 }
 
-public sealed class AIModelService(HttpClient httpClient) : IAIModelService
+public sealed class AIModelService() : IAIModelService
 {
-    private readonly HttpClient _httpClient = httpClient
-        ?? throw new ArgumentNullException(nameof(httpClient));
+    private readonly HttpClient _httpClient = new();
 
     public int SelectNextShot(GameStateDTO gameStateDTO, out ShotType shotType)
     {

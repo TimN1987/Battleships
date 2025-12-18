@@ -71,7 +71,7 @@ public class ComputerPlayer : IComputerPlayer
     public ComputerPlayer(GameSetUpInformation information)
     {
         _randomShotPicker = new RandomShotPicker();
-        _aiModelService = new AIModelService();
+        _aiModelService = AIModelService();
         _gameDifficulty = information.Difficulty;
         _shipsCanTouch = information.ShipsCanTouch;
         _airstrikeAllowed = information.AirstrikeAllowed;
