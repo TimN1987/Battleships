@@ -71,7 +71,7 @@ public class ComputerPlayer : IComputerPlayer
     public ComputerPlayer(GameSetUpInformation information)
     {
         _randomShotPicker = new RandomShotPicker();
-        _aiModelService = AIModelService();
+        _aiModelService = new AIModelService();
         _gameDifficulty = information.Difficulty;
         _shipsCanTouch = information.ShipsCanTouch;
         _airstrikeAllowed = information.AirstrikeAllowed;
@@ -250,7 +250,21 @@ public class ComputerPlayer : IComputerPlayer
             BombardmentAvailable = BombardmentActivated
         };
 
-        return _aiModelService.SelectNextShot(gameStateDTO, out shotType);
+        int shotPosition = 0;
+        shotType = ShotType.Single;
+
+        try
+        {
+            shotPosition = _aiModelService.SelectNextShot(gameStateDTO, out shotType);
+        }
+        catch (Exception)
+        {
+            int count = _availablePositions.Count;
+            int index = RandomProvider.Instance.Next(count);
+            shotPosition = _availablePositions[index];
+        }
+
+        return shotPosition;
     }
 
     #endregion //Shot Selection Methods
