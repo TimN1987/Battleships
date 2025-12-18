@@ -250,7 +250,7 @@ public class ComputerPlayer : IComputerPlayer
             BombardmentAvailable = BombardmentActivated
         };
 
-        return _aiModelService.SelectNextSHot(gameStateDTO, out shotType);
+        return _aiModelService.SelectNextShot(gameStateDTO, out shotType);
     }
 
     #endregion //Shot Selection Methods
