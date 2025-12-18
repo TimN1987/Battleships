@@ -126,6 +126,12 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<ISoundService, SoundService>();
         services.AddSingleton<IMessageService, MessageService>();
         services.AddSingleton<ICaptainService, CaptainService>();
+
+        services.AddHttpClient<IAIModelService, AIModelService>(client =>
+        {
+            client.BaseAddress = new Uri("http://localhost:8000/");
+            client.Timeout = TimeSpan.FromSeconds(2);
+        });
     }
 
 }
