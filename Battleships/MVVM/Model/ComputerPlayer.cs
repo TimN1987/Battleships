@@ -257,7 +257,7 @@ public class ComputerPlayer : IComputerPlayer
         {
             shotPosition = _aiModelService.SelectNextShot(gameStateDTO, out shotType);
         }
-        catch (Exception)
+        catch
         {
             int count = _availablePositions.Count;
             int index = RandomProvider.Instance.Next(count);
